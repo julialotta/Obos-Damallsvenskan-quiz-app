@@ -7,7 +7,8 @@ export interface IStylingProps {
   color?: string;
   height?: string;
   width?: string;
-  maxWidth?: string;
+  minWidth?: string;
+  minHeight?: string;
   margin?: string;
   padding?: string;
   font?: string;
@@ -17,4 +18,7 @@ export interface IStylingProps {
   hover?: string;
   hoverColor?: string;
   hoverBackground?: string;
+  objectFit?: string;
+  z?: string;
+  position?: string;
 }
