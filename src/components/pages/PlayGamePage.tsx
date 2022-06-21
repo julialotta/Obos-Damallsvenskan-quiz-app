@@ -1,15 +1,18 @@
-import { Link, Navigate } from "react-router-dom";
 import { StyledButton } from "../StyledComponents/StyledButton";
 import { StyledImage } from "../StyledComponents/StyledImage";
 import {
   StyledHeadingh3,
   StyledP,
+  StyledTopHeading,
 } from "../StyledComponents/StyledTextElements";
-import { BubbleDiv, FlexDiv } from "../StyledComponents/Wrappers";
+import { FlexDiv } from "../StyledComponents/Wrappers";
 import placeholder from "../../assets/background-placeholder.jpeg";
 import Logoplaceholder from "../../assets/logo-placeholder.png";
 import { useState } from "react";
-import { QuestionsAndAnswers } from "../../data/data";
+import { QuestionsAndAnswers } from "../../data/quiz";
+import { colors } from "../StyledComponents/Styling/Mixins";
+import { Curve } from "../partials/curve";
+import { Link } from "react-router-dom";
 
 export const PlayGamePage = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -23,64 +26,91 @@ export const PlayGamePage = () => {
   };
 
   return (
-    <>
+    <FlexDiv
+      background={colors.DarkBlue}
+      width={"100%"}
+      dir={"column"}
+      minHeight='100vh'
+      justify='start'
+      position={"relative"}
+    >
       <FlexDiv
-        dir='column'
-        width='100%'
-        align='center'
-        position='relative'
-        height='300px'
-        minHeight='400px'
-        background='darkblue'
-        z='0'
+        dir={"column"}
+        justify={"start"}
+        background={colors.White}
+        position={"relative"}
+        borderRad={"5px"}
+        bottom='15px'
+        width={"390px"}
+        minHeight='100vh'
+        shadow={
+          "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
+        }
       >
         <FlexDiv
-          position='absolute'
           dir='column'
-          gap='10px'
-          z='100'
-          justify='start'
-          margin='50px 0 0 0'
+          width='390px'
+          position='relative'
+          height='350px'
+          background={colors.DarkBlue}
+          z='0'
         >
-          <StyledImage margin='0' src={Logoplaceholder}></StyledImage>
-          <StyledButton
-            background='white'
-            height='min-content'
-            width='340px'
-            hoverColor='none'
-            hoverBackground='none'
-            hover='default'
-            padding='5px'
-          >
-            <StyledHeadingh3>
-              {QuestionsAndAnswers[currentQuestion].question}
-            </StyledHeadingh3>
-          </StyledButton>
+          <FlexDiv position='absolute' z='100' dir='column'>
+            <StyledImage
+              width='70px'
+              height='70px'
+              margin='0'
+              src={Logoplaceholder}
+            ></StyledImage>
+            <StyledButton
+              background={colors.White}
+              height='min-content'
+              width='340px'
+              hoverColor='none'
+              hoverBackground='none'
+              hover='default'
+              padding='5px'
+            >
+              <StyledHeadingh3>
+                {QuestionsAndAnswers[currentQuestion].question}
+              </StyledHeadingh3>
+            </StyledButton>
+          </FlexDiv>
+          <StyledImage
+            width='100%'
+            height='100%'
+            src={placeholder}
+            alt='Blue Pattern'
+          />
         </FlexDiv>
-        <StyledImage
-          width='100vh'
-          height='100%'
-          src={placeholder}
-          alt='Blue Pattern'
-        />
+        <Curve />
+        <FlexDiv
+          dir='column'
+          position='relative'
+          background={colors.White}
+          width='390px'
+          bottom='55px'
+        >
+          <FlexDiv dir='column' width='60%' gap='22px'>
+            <FlexDiv
+              dir='column'
+              justify='start'
+              position='relative'
+              height='200px'
+              background={colors.White}
+            >
+              {QuestionsAndAnswers[currentQuestion].answers.map((x) => {
+                return (
+                  <StyledButton onClick={handleClick}>{x.answer}</StyledButton>
+                );
+              })}
+              <StyledP>
+                Fråga {currentQuestion + 1} av {QuestionsAndAnswers.length}
+              </StyledP>
+            </FlexDiv>
+          </FlexDiv>
+        </FlexDiv>
       </FlexDiv>
-      <BubbleDiv />
-      <FlexDiv
-        dir='column'
-        align='center'
-        justify='start'
-        position='relative'
-        height='200px'
-        minHeight='400px'
-        background='white'
-      >
-        {QuestionsAndAnswers[currentQuestion].answers.map((x) => {
-          return <StyledButton onClick={handleClick}>{x.answer}</StyledButton>;
-        })}
-        <StyledP>
-          Fråga {currentQuestion + 1} av {QuestionsAndAnswers.length}
-        </StyledP>
-      </FlexDiv>
-    </>
+    </FlexDiv>
   );
 };

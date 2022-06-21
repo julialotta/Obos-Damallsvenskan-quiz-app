@@ -8,6 +8,7 @@ export const StyledTopHeading = styled.h1`
   text-decoration: none;
   text-align: center;
   font-size: 44px;
+  margin: ${(props: IStylingProps) => props.margin || "0px"};
 `;
 
 export const StyledHeadingh3 = styled.h3`
