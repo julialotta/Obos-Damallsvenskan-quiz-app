@@ -8,7 +8,7 @@ import { colors } from "../StyledComponents/Styling/Mixins";
 import { Curve } from "../partials/curve";
 import { TeamsAndGames } from "../../data/teams";
 import { useEffect, useState } from "react";
-import { ITeams } from "../../models/ITeams";
+import { ITeams, IOpponent } from "../../models/ITeams";
 import { imageOnErrorHandler } from "../../services/Helpers";
 
 export const StartGamePage = () => {
@@ -19,21 +19,26 @@ export const StartGamePage = () => {
     image: "",
     games: [],
   });
+  const [opponent, setOpponent] = useState<IOpponent>({
+    team: "",
+    image: "",
+  });
   const params = useParams();
 
   useEffect(() => {
     for (let i = 0; i < TeamsAndGames.length; i++) {
       if (TeamsAndGames[i].id.toString() === params.id) {
         setGame(TeamsAndGames[i]);
+        setOpponent({ team: TeamsAndGames[i].games[0].opponent, image: "" });
         setIsLoading(false);
 
-        let d = game.games[0].datestamp;
+        /*  let d = game.games[0].datestamp;
         let day = d.getDate();
         let month = d.getMonth() + 1;
         let time = d.toLocaleTimeString();
         console.log("====================================");
         console.log(day + "/" + month + " " + time.slice(0, -3));
-        console.log("====================================");
+        console.log("===================================="); */
       }
     }
   }, []);
@@ -97,12 +102,13 @@ export const StartGamePage = () => {
                       alt={game.team}
                     />
                     <StyledImage
-                      src={Logoplaceholder}
                       onError={imageOnErrorHandler}
-                    ></StyledImage>
+                      alt={opponent.team}
+                      src={opponent.image}
+                    />
                   </FlexDiv>
                   <StyledButton>
-                    <Link to={"/spela"}>Starta matchen</Link>
+                    <Link to={`/spela/${game.id}`}>Starta matchen</Link>
                   </StyledButton>
                 </FlexDiv>
               </FlexDiv>

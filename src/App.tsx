@@ -15,7 +15,7 @@ function App() {
           <Route index element={<StartPage />}></Route>
           <Route path='valj-klubb' element={<ChooseTeamPage />}></Route>
           <Route path='starta-matchen/:id' element={<StartGamePage />}></Route>
-          <Route path='spela' element={<PlayGamePage />}></Route>
+          <Route path='spela/:id' element={<PlayGamePage />}></Route>
           <Route path='resultat' element={<ResultsPage />}></Route>
           <Route path='*' element={<NotFound />}></Route>
         </Route>

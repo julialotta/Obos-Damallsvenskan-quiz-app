@@ -5,7 +5,12 @@ export interface ITeams {
   games: IGames[];
 }
 
-export interface IGames {
+export interface IOpponent {
+  team: string;
+  image: string;
+}
+
+interface IGames {
   round: number;
   opponent: string;
   datestamp: Date;
