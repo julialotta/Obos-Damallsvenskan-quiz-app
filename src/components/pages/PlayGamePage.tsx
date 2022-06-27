@@ -13,6 +13,7 @@ import { QuestionsAndAnswers } from "../../data/quiz";
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { Curve } from "../partials/curve";
 import { Link } from "react-router-dom";
+import { imageOnErrorHandler } from "../../services/Helpers";
 
 export const PlayGamePage = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -61,6 +62,7 @@ export const PlayGamePage = () => {
               height='70px'
               margin='0'
               src={Logoplaceholder}
+              onError={imageOnErrorHandler}
             ></StyledImage>
             <StyledButton
               background={colors.White}

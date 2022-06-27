@@ -9,6 +9,8 @@ import { StyledHeadingh3 } from "../StyledComponents/StyledTextElements";
 import { Curve } from "../partials/curve";
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { FaShieldAlt } from "react-icons/fa";
+import { TeamsAndGames } from "../../data/teams";
+import { imageOnErrorHandler } from "../../services/Helpers";
 export const ChooseTeamPage = () => {
   return (
     <FlexDiv
@@ -72,7 +74,11 @@ export const ChooseTeamPage = () => {
           bottom='55px'
         >
           <FlexDiv dir='column' width='100%' margin='0 0 10px 0'>
-            <StyledImage width='70px' src={logoph}></StyledImage>
+            <StyledImage
+              width='70px'
+              src={logoph}
+              onError={imageOnErrorHandler}
+            ></StyledImage>
             <FlexDiv
               align='start'
               width='100%'
@@ -80,60 +86,25 @@ export const ChooseTeamPage = () => {
               wrap='wrap'
               margin='50px 0 100px 0'
             >
+              {TeamsAndGames?.map((x) => {
+                return (
+                  <Link to={`/starta-matchen/${x.id}`}>
+                    <StyledImage
+                      width='70px'
+                      transform='scale(1.1)'
+                      src={x.image}
+                      onError={imageOnErrorHandler}
+                    ></StyledImage>
+                  </Link>
+                );
+              })}
+
               <Link to={"/starta-matchen"}>
                 <StyledImage
                   width='70px'
                   transform='scale(1.1)'
                   src={logoplaceholder}
-                ></StyledImage>
-              </Link>
-              <Link to={"/starta-matchen"}>
-                <StyledImage
-                  width='70px'
-                  transform='scale(1.1)'
-                  src={logoplaceholder}
-                ></StyledImage>
-              </Link>
-              <Link to={"/starta-matchen"}>
-                <StyledImage
-                  width='70px'
-                  transform='scale(1.1)'
-                  src={logoplaceholder}
-                ></StyledImage>
-              </Link>
-              <Link to={"/starta-matchen"}>
-                <StyledImage
-                  width='70px'
-                  transform='scale(1.1)'
-                  src={logoplaceholder}
-                ></StyledImage>
-              </Link>
-              <Link to={"/starta-matchen"}>
-                <StyledImage
-                  width='70px'
-                  transform='scale(1.1)'
-                  src={logoplaceholder}
-                ></StyledImage>
-              </Link>
-              <Link to={"/starta-matchen"}>
-                <StyledImage
-                  width='70px'
-                  transform='scale(1.1)'
-                  src={logoplaceholder}
-                ></StyledImage>
-              </Link>
-              <Link to={"/starta-matchen"}>
-                <StyledImage
-                  width='70px'
-                  transform='scale(1.1)'
-                  src={logoplaceholder}
-                ></StyledImage>
-              </Link>
-              <Link to={"/starta-matchen"}>
-                <StyledImage
-                  width='70px'
-                  transform='scale(1.1)'
-                  src={logoplaceholder}
+                  onError={imageOnErrorHandler}
                 ></StyledImage>
               </Link>
             </FlexDiv>

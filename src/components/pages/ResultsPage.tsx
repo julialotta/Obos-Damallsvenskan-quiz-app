@@ -12,6 +12,7 @@ import { IoMdFootball } from "react-icons/io";
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { Curve } from "../partials/curve";
 import logoplaceholder from "../../assets/logo-placeholder.png";
+import { imageOnErrorHandler } from "../../services/Helpers";
 
 export const ResultsPage = () => {
   return (
@@ -98,11 +99,14 @@ export const ResultsPage = () => {
                 width='70px'
                 transform='scale(1.1)'
                 src={logoplaceholder}
+                onError={imageOnErrorHandler}
               />
+
               <StyledImage
                 width='70px'
                 transform='scale(1.1)'
                 src={logoplaceholder}
+                onError={imageOnErrorHandler}
               />
             </FlexDiv>
             <StyledButton margin='5px' padding='22px'>
