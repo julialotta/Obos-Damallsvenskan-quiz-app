@@ -2,8 +2,7 @@ import { Link } from "react-router-dom";
 import { StyledButton } from "../StyledComponents/StyledButton";
 import { StyledImage } from "../StyledComponents/StyledImage";
 import { FlexDiv } from "../StyledComponents/Wrappers";
-import placeholder from "../../assets/background-placeholder.jpeg";
-import logoplaceholder from "../../assets/logo-placeholder.png";
+import background from "../../assets/DA_startbakgrund@2x.png";
 import logoph from "../../assets/logoph.png";
 import { StyledHeadingh3 } from "../StyledComponents/StyledTextElements";
 import { Curve } from "../partials/curve";
@@ -61,7 +60,7 @@ export const ChooseTeamPage = () => {
           <StyledImage
             width='100%'
             height='100%'
-            src={placeholder}
+            src={background}
             alt='Blue Pattern'
           />
         </FlexDiv>
@@ -98,15 +97,6 @@ export const ChooseTeamPage = () => {
                   </Link>
                 );
               })}
-
-              <Link to={"/starta-matchen"}>
-                <StyledImage
-                  width='70px'
-                  transform='scale(1.1)'
-                  src={logoplaceholder}
-                  onError={imageOnErrorHandler}
-                ></StyledImage>
-              </Link>
             </FlexDiv>
           </FlexDiv>
         </FlexDiv>

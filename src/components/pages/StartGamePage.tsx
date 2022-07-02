@@ -2,8 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { StyledButton } from "../StyledComponents/StyledButton";
 import { StyledImage } from "../StyledComponents/StyledImage";
 import { FlexDiv } from "../StyledComponents/Wrappers";
-import placeholder from "../../assets/background-placeholder.jpeg";
-import Logoplaceholder from "../../assets/logo-placeholder.png";
+import background from "../../assets/DA_startbakgrund@2x.png";
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { Curve } from "../partials/curve";
 import { TeamsAndGames } from "../../data/teams";
@@ -81,7 +80,7 @@ export const StartGamePage = () => {
               <StyledImage
                 width='100%'
                 height='100%'
-                src={placeholder}
+                src={background}
                 alt='Blue Pattern'
               />
             </FlexDiv>

@@ -5,8 +5,8 @@ import {
   StyledP,
 } from "../StyledComponents/StyledTextElements";
 import { FlexDiv } from "../StyledComponents/Wrappers";
-import placeholder from "../../assets/background-placeholder.jpeg";
-import Logoplaceholder from "../../assets/logo-placeholder.png";
+import background from "../../assets/DA_startbakgrund@2x.png";
+import Logoplaceholder from "../../assets/logoph.png";
 import { useEffect, useState } from "react";
 import { QuestionsAndAnswers } from "../../data/quiz";
 import { colors } from "../StyledComponents/Styling/Mixins";
@@ -114,7 +114,7 @@ export const PlayGamePage = () => {
               <StyledImage
                 width='100%'
                 height='100%'
-                src={placeholder}
+                src={background}
                 alt='Blue Pattern'
               />
             </FlexDiv>

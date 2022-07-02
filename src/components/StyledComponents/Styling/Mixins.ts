@@ -1,7 +1,9 @@
 export const colors = {
-  DarkBlue: "#182c44",
-  Blue: "#1b0e58",
-  White: "#f9f9f8",
+  DarkBlue: "#13253A",
+  TextBlue: "#161246",
+  AlomstWhite: "#F7F7F7",
+  White: "#FFFFFF",
+  LightGrey: "#e6e6e6",
 };
 
 export const fonts = {

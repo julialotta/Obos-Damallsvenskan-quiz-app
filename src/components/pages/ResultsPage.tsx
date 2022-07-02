@@ -7,11 +7,11 @@ import {
   StyledHeadingh5,
 } from "../StyledComponents/StyledTextElements";
 import { Link } from "react-router-dom";
-import placeholder from "../../assets/background-placeholder.jpeg";
+import background from "../../assets/DA_startbakgrund@2x.png";
 import { IoMdFootball } from "react-icons/io";
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { Curve } from "../partials/curve";
-import logoplaceholder from "../../assets/logo-placeholder.png";
+import logoplaceholder from "../../assets/logoph.png";
 import { imageOnErrorHandler } from "../../services/Helpers";
 
 export const ResultsPage = () => {
@@ -74,7 +74,7 @@ export const ResultsPage = () => {
           <StyledImage
             width='100%'
             height='100%'
-            src={placeholder}
+            src={background}
             alt='Blue Pattern'
           />
         </FlexDiv>
