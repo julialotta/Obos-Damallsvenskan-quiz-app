@@ -13,9 +13,10 @@ import { colors } from "../StyledComponents/Styling/Mixins";
 import { Curve } from "../partials/curve";
 import { imageOnErrorHandler } from "../../services/Helpers";
 import { ITeams } from "../../models/ITeams";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { TeamsAndGames } from "../../data/teams";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
+import { FaShieldAlt } from "react-icons/fa";
 
 export const PlayGamePage = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -93,6 +94,24 @@ export const PlayGamePage = () => {
               background={colors.DarkBlue}
               z='0'
             >
+              <FlexDiv
+                position='relative'
+                z='200'
+                width='390px'
+                height='380px'
+                background={colors.DarkBlue}
+              >
+                <FlexDiv
+                  top={"40px"}
+                  left={"-160px"}
+                  position='absolute'
+                  z='200'
+                >
+                  <Link to='/'>
+                    <FaShieldAlt color='white' size={"30px"} />
+                  </Link>
+                </FlexDiv>
+              </FlexDiv>
               <FlexDiv position='absolute' z='100' dir='column'>
                 <StyledImage
                   width='70px'
@@ -110,7 +129,7 @@ export const PlayGamePage = () => {
                   hover='default'
                   padding='5px'
                 >
-                  <StyledHeadingh3>
+                  <StyledHeadingh3 color={colors.DarkBlue}>
                     {QuestionsAndAnswers[currentQuestion].question}
                   </StyledHeadingh3>
                 </StyledButton>
@@ -145,7 +164,7 @@ export const PlayGamePage = () => {
                       </StyledButton>
                     );
                   })}
-                  <StyledP>
+                  <StyledP color={colors.DarkBlue}>
                     Fråga {currentQuestion + 1} av {QuestionsAndAnswers.length}
                   </StyledP>
                 </FlexDiv>

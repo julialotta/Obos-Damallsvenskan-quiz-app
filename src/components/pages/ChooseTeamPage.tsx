@@ -106,7 +106,7 @@ export const ChooseTeamPage = () => {
               >
                 {TeamsAndGames?.map((x) => {
                   return (
-                    <Link to={`/starta-matchen/${x.id}`}>
+                    <Link to={`/starta-matchen/${x.id}`} key={x.id}>
                       <StyledImage
                         width='x'
                         height='58px'

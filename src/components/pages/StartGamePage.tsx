@@ -10,9 +10,15 @@ import { ITeams, IOpponent } from "../../models/ITeams";
 import { imageOnErrorHandler } from "../../services/Helpers";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 import { FaShieldAlt } from "react-icons/fa";
+import {
+  StyledHeadingh3,
+  StyledHeadingh5,
+  StyledP,
+} from "../StyledComponents/StyledTextElements";
 
 export const StartGamePage = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [date, setDate] = useState("");
   const [game, setGame] = useState<ITeams>({
     id: 0,
     team: "",
@@ -22,27 +28,73 @@ export const StartGamePage = () => {
     games: [],
   });
   const [opponent, setOpponent] = useState<IOpponent>({
-    team: "",
+    opponent: "",
     image: "",
+    arena: "",
+    datestamp: new Date("August 21, 2022 13:00:00"),
+    link: "",
+    round: 0,
   });
   const params = useParams();
 
   useEffect(() => {
+    let gamesList: IOpponent[] = [];
+
+    // hittar valt lag.
     for (let i = 0; i < TeamsAndGames.length; i++) {
       if (TeamsAndGames[i].id.toString() === params.id) {
         setGame(TeamsAndGames[i]);
-        setOpponent({ team: TeamsAndGames[i].games[0].opponent, image: "" });
-        setIsLoading(false);
+      }
 
-        /*  let d = game.games[0].datestamp;
-        let day = d.getDate();
-        let month = d.getMonth() + 1;
-        let time = d.toLocaleTimeString();
-        console.log("====================================");
-        console.log(day + "/" + month + " " + time.slice(0, -3));
-        console.log("===================================="); */
+      ////////////////
+      /// DET BORDE FINNAS 12 matcher i listan för AIK
+      ///////////////
+      //sparar alla hemmamatcher i en lista
+      for (let i = 0; i < game.games.length; i++) {
+        console.log(game.games);
+
+        gamesList.push({
+          opponent: game.games[i].opponent,
+          image: game.games[i].image,
+          arena: game.games[i].arena,
+          datestamp: game.games[i].datestamp,
+          link: game.games[i].link,
+          round: game.games[i].round,
+        });
+      }
+      //kollar om valda laget finns som opponent någonannastans
+      console.log("team: " + game.team);
+      for (let i = 0; i < TeamsAndGames.length; i++) {
+        for (let y = 0; y < TeamsAndGames[i].games.length; y++) {
+          if (TeamsAndGames[i].games[y].opponent === game.team) {
+            gamesList.push({
+              opponent: TeamsAndGames[i].team,
+              image: TeamsAndGames[i].image,
+              arena: game.games[y].arena,
+              datestamp: game.games[y].datestamp,
+              link: game.games[y].link,
+              round: game.games[y].round,
+            });
+          }
+        }
       }
     }
+    if (gamesList.length > 0) {
+      console.log(gamesList.length);
+      setOpponent(gamesList[0]);
+    }
+  }, [game]);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [opponent, date]);
+
+  useEffect(() => {
+    let d = opponent.datestamp;
+    let day = d.getDate();
+    let month = d.getMonth() + 1;
+    let time = d.toLocaleTimeString();
+    setDate(day + "/" + month + " " + time.slice(0, -3));
   }, []);
 
   return (
@@ -127,24 +179,38 @@ export const StartGamePage = () => {
               width='390px'
               bottom='55px'
             >
-              <FlexDiv dir='column' width='50%' gap='20px' margin='0 0 140px 0'>
-                <FlexDiv dir='column' width='50%'>
-                  <FlexDiv gap='20px'>
-                    <StyledImage
-                      onError={imageOnErrorHandler}
-                      src={game.image}
-                      alt={game.team}
-                    />
-                    <StyledImage
-                      onError={imageOnErrorHandler}
-                      alt={opponent.team}
-                      src={opponent.image}
-                    />
+              <FlexDiv dir='column' width='100%'>
+                <FlexDiv dir='column' width='50%' gap='20px'>
+                  <FlexDiv dir='column' width='50%' margin={"0 0 30px 0"}>
+                    <FlexDiv gap='20px'>
+                      <StyledImage
+                        onError={imageOnErrorHandler}
+                        src={game.image}
+                        alt={game.team}
+                      />
+                      <StyledImage
+                        onError={imageOnErrorHandler}
+                        alt={opponent.opponent}
+                        src={opponent.image}
+                      />
+                    </FlexDiv>
                   </FlexDiv>
-                  <StyledButton>
-                    <Link to={`/spela/${game.id}`}>Starta matchen</Link>
-                  </StyledButton>
                 </FlexDiv>
+                <FlexDiv width='95%'>
+                  <StyledHeadingh3
+                    textTransform='uppercase'
+                    color={colors.DarkBlue}
+                    fontSize='10px'
+                  >
+                    {game.team} - {opponent.opponent}
+                  </StyledHeadingh3>
+                </FlexDiv>
+                <StyledP color={colors.DarkBlue}>
+                  {opponent.arena} {date}
+                </StyledP>
+                <StyledButton>
+                  <Link to={`/spela/${game.id}`}>Starta matchen</Link>
+                </StyledButton>
               </FlexDiv>
             </FlexDiv>
           </FlexDiv>

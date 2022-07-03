@@ -15,11 +15,11 @@ export const StyledHeadingh3 = styled.h3`
   color: ${(props: IStylingProps) => props.color || colors.White};
   font-size: 18px;
   text-align: center;
+  text-transform: ${(props: IStylingProps) => props.textTransform || "none"};
   text-shadow: ${(props: IStylingProps) => props.shadow || 0};
 `;
 export const StyledHeadingh5 = styled.h5`
   color: ${(props: IStylingProps) => props.color || colors.White};
-  font-size: 20px;
   text-align: center;
   text-shadow: ${(props: IStylingProps) => props.shadow || 0};
 `;

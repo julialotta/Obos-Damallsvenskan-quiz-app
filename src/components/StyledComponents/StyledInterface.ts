@@ -28,4 +28,5 @@ export interface IStylingProps {
   minHeight?: string;
   transform?: string;
   image?: string;
+  textTransform?: string;
 }
