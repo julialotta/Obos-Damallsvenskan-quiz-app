@@ -6,7 +6,7 @@ import {
 } from "../StyledComponents/StyledTextElements";
 import { FlexDiv } from "../StyledComponents/Wrappers";
 import background from "../../assets/DA_startbakgrund@2x.png";
-import Logoplaceholder from "../../assets/logoph.png";
+import LogoDA from "../../assets/Liga-sponsor/DA_logo@3x.png";
 import { useEffect, useState } from "react";
 import { QuestionsAndAnswers } from "../../data/quiz";
 import { colors } from "../StyledComponents/Styling/Mixins";
@@ -15,6 +15,7 @@ import { imageOnErrorHandler } from "../../services/Helpers";
 import { ITeams } from "../../models/ITeams";
 import { useParams } from "react-router-dom";
 import { TeamsAndGames } from "../../data/teams";
+import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 
 export const PlayGamePage = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -23,6 +24,8 @@ export const PlayGamePage = () => {
     id: 0,
     team: "",
     image: "",
+    AOMemblem: "",
+    background: "",
     games: [],
   });
 
@@ -55,6 +58,7 @@ export const PlayGamePage = () => {
 
   return (
     <>
+      <GlobalStyle />
       {isLoading ? (
         <FlexDiv height='50vh' align={"start"}>
           <p>Laddar...</p>
@@ -94,7 +98,7 @@ export const PlayGamePage = () => {
                   width='70px'
                   height='70px'
                   margin='0'
-                  src={Logoplaceholder}
+                  src={LogoDA}
                   onError={imageOnErrorHandler}
                 ></StyledImage>
                 <StyledButton

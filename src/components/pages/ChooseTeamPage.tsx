@@ -3,104 +3,126 @@ import { StyledButton } from "../StyledComponents/StyledButton";
 import { StyledImage } from "../StyledComponents/StyledImage";
 import { FlexDiv } from "../StyledComponents/Wrappers";
 import background from "../../assets/DA_startbakgrund@2x.png";
-import logoph from "../../assets/logoph.png";
+import logoDA from "../../assets/Liga-sponsor/DA_logo@3x.png";
 import { StyledHeadingh3 } from "../StyledComponents/StyledTextElements";
 import { Curve } from "../partials/curve";
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { FaShieldAlt } from "react-icons/fa";
 import { TeamsAndGames } from "../../data/teams";
 import { imageOnErrorHandler } from "../../services/Helpers";
+import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 export const ChooseTeamPage = () => {
   return (
-    <FlexDiv
-      background={colors.DarkBlue}
-      width={"100%"}
-      dir={"column"}
-      minHeight='100vh'
-      justify='start'
-      position={"relative"}
-    >
+    <>
+      <GlobalStyle />
+
       <FlexDiv
+        background={colors.DarkBlue}
+        width={"100%"}
         dir={"column"}
-        justify={"start"}
-        background={colors.White}
-        position={"relative"}
-        borderRad={"5px"}
-        bottom='15px'
-        width={"390px"}
         minHeight='100vh'
-        shadow={
-          "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
-        }
+        justify='start'
+        position={"relative"}
       >
         <FlexDiv
-          dir='column'
-          width='390px'
-          position='relative'
-          height='250px'
-          background={colors.DarkBlue}
-          z='0'
-        >
-          <FlexDiv position='absolute' z='100'>
-            <FlexDiv z='100'>
-              <FaShieldAlt />
-            </FlexDiv>
-            <StyledButton
-              background={colors.White}
-              height='50px'
-              width='200px'
-              hoverColor='none'
-              hoverBackground='none'
-              hover='default'
-              transform='0'
-            >
-              <StyledHeadingh3>Välj klubb 👇</StyledHeadingh3>
-            </StyledButton>
-          </FlexDiv>
-          <StyledImage
-            width='100%'
-            height='100%'
-            src={background}
-            alt='Blue Pattern'
-          />
-        </FlexDiv>
-        <Curve />
-        <FlexDiv
-          dir='column'
-          position='relative'
+          dir={"column"}
+          justify={"start"}
           background={colors.White}
-          width='390px'
-          bottom='55px'
+          position={"relative"}
+          borderRad={"5px"}
+          bottom='15px'
+          width={"390px"}
+          minHeight='100vh'
+          shadow={
+            "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
+          }
         >
-          <FlexDiv dir='column' width='100%' margin='0 0 10px 0'>
-            <StyledImage
-              width='70px'
-              src={logoph}
-              onError={imageOnErrorHandler}
-            ></StyledImage>
+          <FlexDiv
+            dir='column'
+            width='390px'
+            position='relative'
+            height='250px'
+            background={colors.DarkBlue}
+            z='0'
+          >
             <FlexDiv
-              align='start'
-              width='100%'
-              gap='15px'
-              wrap='wrap'
-              margin='50px 0 100px 0'
+              position='relative'
+              z='100'
+              width='390px'
+              height='250px'
+              background={colors.DarkBlue}
             >
-              {TeamsAndGames?.map((x) => {
-                return (
-                  <Link to={`/starta-matchen/${x.id}`}>
-                    <StyledImage
-                      width='70px'
-                      transform='scale(1.1)'
-                      src={x.image}
-                      onError={imageOnErrorHandler}
-                    ></StyledImage>
-                  </Link>
-                );
-              })}
+              <FlexDiv top={"40px"} left={"-160px"} position='absolute'>
+                <Link to='/'>
+                  <FaShieldAlt color='white' size={"30px"} />
+                </Link>
+              </FlexDiv>
+              <FlexDiv top={"110px"} left={"0"} right={"0"} position='absolute'>
+                <StyledButton
+                  background={colors.White}
+                  height='50px'
+                  width='309px'
+                  hoverColor='none'
+                  hoverBackground='none'
+                  hover='default'
+                  transform='0'
+                >
+                  <StyledHeadingh3 fontSize='30px' color={colors.ButtonBlue}>
+                    Välj klubb 👇
+                  </StyledHeadingh3>
+                </StyledButton>
+              </FlexDiv>
+            </FlexDiv>
+            <StyledImage
+              width='100%'
+              height='100%'
+              src={background}
+              alt='Blue Pattern'
+            />
+          </FlexDiv>
+          <Curve />
+          <FlexDiv
+            dir='column'
+            position='relative'
+            background={colors.White}
+            width='390px'
+            bottom='55px'
+            margin='-60px 0 0 0'
+          >
+            <FlexDiv dir='column' width='100%' margin='0 0 10px 0'>
+              <StyledImage
+                width='100px'
+                height='x'
+                src={logoDA}
+                shadow={"#00000027 1px 1px 2px"}
+                onError={imageOnErrorHandler}
+              ></StyledImage>
+              <FlexDiv
+                align='start'
+                width='90%'
+                gap='30px'
+                wrap='wrap'
+                margin='50px 0 90px 0'
+              >
+                {TeamsAndGames?.map((x) => {
+                  return (
+                    <Link to={`/starta-matchen/${x.id}`}>
+                      <StyledImage
+                        width='x'
+                        height='58px'
+                        transform='scale(1.1)'
+                        src={x.image}
+                        shadow={"#15314029 0px 3px 6px"}
+                        onError={imageOnErrorHandler}
+                      ></StyledImage>
+                    </Link>
+                  );
+                })}
+              </FlexDiv>
             </FlexDiv>
           </FlexDiv>
         </FlexDiv>
       </FlexDiv>
-    </FlexDiv>
+    </>
   );
 };

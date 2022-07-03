@@ -2,6 +2,8 @@ export interface ITeams {
   id: number;
   team: string;
   image: string;
+  AOMemblem: string;
+  background: string;
   games: IGames[];
 }
 
@@ -14,5 +16,6 @@ interface IGames {
   round: number;
   opponent: string;
   datestamp: Date;
+  link: string;
   arena: string;
 }

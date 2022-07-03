@@ -2,13 +2,14 @@ import { Link, useParams } from "react-router-dom";
 import { StyledButton } from "../StyledComponents/StyledButton";
 import { StyledImage } from "../StyledComponents/StyledImage";
 import { FlexDiv } from "../StyledComponents/Wrappers";
-import background from "../../assets/DA_startbakgrund@2x.png";
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { Curve } from "../partials/curve";
 import { TeamsAndGames } from "../../data/teams";
 import { useEffect, useState } from "react";
 import { ITeams, IOpponent } from "../../models/ITeams";
 import { imageOnErrorHandler } from "../../services/Helpers";
+import { GlobalStyle } from "../StyledComponents/Styling/fonts";
+import { FaShieldAlt } from "react-icons/fa";
 
 export const StartGamePage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,6 +17,8 @@ export const StartGamePage = () => {
     id: 0,
     team: "",
     image: "",
+    AOMemblem: "",
+    background: "",
     games: [],
   });
   const [opponent, setOpponent] = useState<IOpponent>({
@@ -44,6 +47,7 @@ export const StartGamePage = () => {
 
   return (
     <>
+      <GlobalStyle />
       {isLoading ? (
         <FlexDiv height='50vh' align={"start"}>
           <p>Laddar...</p>
@@ -73,15 +77,46 @@ export const StartGamePage = () => {
               dir='column'
               width='390px'
               position='relative'
-              height='250px'
+              height='420px'
               background={colors.DarkBlue}
               z='0'
             >
+              <FlexDiv
+                position='relative'
+                z='100'
+                width='390px'
+                height='380px'
+                background={colors.DarkBlue}
+              >
+                <FlexDiv
+                  top={"40px"}
+                  left={"-160px"}
+                  position='absolute'
+                  z='200'
+                >
+                  <Link to='/'>
+                    <FaShieldAlt color='white' size={"30px"} />
+                  </Link>
+                </FlexDiv>
+                <FlexDiv
+                  top={"180px"}
+                  left={"0"}
+                  right={"0"}
+                  position='absolute'
+                >
+                  <StyledImage
+                    width='340px'
+                    height='x'
+                    src={game.AOMemblem}
+                    alt='Allt för laget'
+                  />
+                </FlexDiv>
+              </FlexDiv>
               <StyledImage
                 width='100%'
                 height='100%'
-                src={background}
-                alt='Blue Pattern'
+                src={game.background}
+                alt='Pattern in team colors'
               />
             </FlexDiv>
             <Curve />

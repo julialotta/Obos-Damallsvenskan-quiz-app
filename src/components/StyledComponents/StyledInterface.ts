@@ -14,13 +14,18 @@ export interface IStylingProps {
   fontSize?: string;
   gap?: string;
   borderRad?: string;
+  border?: string;
   hover?: string;
   hoverColor?: string;
   hoverBackground?: string;
   objectFit?: string;
   z?: string;
+  top?: string;
   bottom?: string;
+  left?: string;
+  right?: string;
   shadow?: string;
   minHeight?: string;
   transform?: string;
+  image?: string;
 }

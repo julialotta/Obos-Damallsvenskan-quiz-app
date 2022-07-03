@@ -1,14 +1,10 @@
 export const colors = {
   DarkBlue: "#13253A",
+  ButtonBlue: "#122A42",
   TextBlue: "#161246",
   AlomstWhite: "#F7F7F7",
   White: "#FFFFFF",
   LightGrey: "#e6e6e6",
-};
-
-export const fonts = {
-  thin: "Arial, Helvetica, sans-serif",
-  thick: "Arial, Helvetica, sans-serif",
 };
 
 const size = {
