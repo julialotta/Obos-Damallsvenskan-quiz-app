@@ -31,6 +31,9 @@ export const PlayGamePage = () => {
   });
 
   const params = useParams();
+  console.log("====================================");
+  console.log(game);
+  console.log("====================================");
 
   useEffect(() => {
     for (let i = 0; i < TeamsAndGames.length; i++) {

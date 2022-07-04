@@ -12,7 +12,6 @@ import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 import { FaShieldAlt } from "react-icons/fa";
 import {
   StyledHeadingh3,
-  StyledHeadingh5,
   StyledP,
 } from "../StyledComponents/StyledTextElements";
 
@@ -45,28 +44,36 @@ export const StartGamePage = () => {
       if (TeamsAndGames[i].id.toString() === params.id) {
         setGame(TeamsAndGames[i]);
       }
+    }
 
-      ////////////////
-      /// DET BORDE FINNAS 12 matcher i listan för AIK
-      ///////////////
-      //sparar alla hemmamatcher i en lista
-      for (let i = 0; i < game.games.length; i++) {
-        console.log(game.games);
-
-        gamesList.push({
-          opponent: game.games[i].opponent,
-          image: game.games[i].image,
-          arena: game.games[i].arena,
-          datestamp: game.games[i].datestamp,
-          link: game.games[i].link,
-          round: game.games[i].round,
-        });
-      }
-      //kollar om valda laget finns som opponent någonannastans
-      console.log("team: " + game.team);
-      for (let i = 0; i < TeamsAndGames.length; i++) {
-        for (let y = 0; y < TeamsAndGames[i].games.length; y++) {
-          if (TeamsAndGames[i].games[y].opponent === game.team) {
+    ////////////////
+    /// DET BORDE FINNAS 12 matcher i listan för AIK
+    ///////////////
+    //sparar alla hemmamatcher i en lista
+    for (let i = 0; i < game.games.length; i++) {
+      gamesList.push({
+        opponent: game.games[i].opponent,
+        image: game.games[i].image,
+        arena: game.games[i].arena,
+        datestamp: game.games[i].datestamp,
+        link: game.games[i].link,
+        round: game.games[i].round,
+      });
+    }
+    //kollar om valda laget finns som opponent någonannastans
+    for (let i = 0; i < TeamsAndGames.length; i++) {
+      for (let y = 0; y < TeamsAndGames[i].games.length; y++) {
+        if (TeamsAndGames[i].games[y].opponent === game.team) {
+          if (
+            !gamesList.includes({
+              opponent: TeamsAndGames[i].team,
+              image: TeamsAndGames[i].image,
+              arena: game.games[y].arena,
+              datestamp: game.games[y].datestamp,
+              link: game.games[y].link,
+              round: game.games[y].round,
+            })
+          ) {
             gamesList.push({
               opponent: TeamsAndGames[i].team,
               image: TeamsAndGames[i].image,
@@ -79,11 +86,24 @@ export const StartGamePage = () => {
         }
       }
     }
-    if (gamesList.length > 0) {
-      console.log(gamesList.length);
-      setOpponent(gamesList[0]);
+
+    // kolla först vilka datum som är i framtiden.
+    // Sortera listan efter datum och ta nr 1.
+    gamesList.sort(function (a, b) {
+      // Turn your strings into dates, and then subtract them
+      // to get a value that is either negative, positive, or zero.
+      return b.datestamp.getMilliseconds() - a.datestamp.getMilliseconds();
+    });
+    function getNextGame() {
+      for (let i = 0; i < gamesList.length; i++) {
+        let now = Date.now;
+        if (gamesList[i].datestamp.getTime >= now) {
+          setOpponent(gamesList[i]);
+        }
+      }
     }
-  }, [game]);
+    getNextGame();
+  }, [game, opponent]);
 
   useEffect(() => {
     setIsLoading(false);
@@ -186,7 +206,7 @@ export const StartGamePage = () => {
                       <StyledImage
                         onError={imageOnErrorHandler}
                         src={game.image}
-                        alt={game.team}
+                        alt={"Emblem"}
                       />
                       <StyledImage
                         onError={imageOnErrorHandler}
@@ -206,8 +226,10 @@ export const StartGamePage = () => {
                   </StyledHeadingh3>
                 </FlexDiv>
                 <StyledP color={colors.DarkBlue}>
-                  {opponent.arena} {date}
+                  Omgång {opponent.round}
                 </StyledP>
+                <StyledP color={colors.DarkBlue}>{opponent.arena}</StyledP>
+                <StyledP color={colors.DarkBlue}>{date}</StyledP>
                 <StyledButton>
                   <Link to={`/spela/${game.id}`}>Starta matchen</Link>
                 </StyledButton>
