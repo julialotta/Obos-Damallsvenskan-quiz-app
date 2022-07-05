@@ -11,6 +11,7 @@ import { FaShieldAlt } from "react-icons/fa";
 import { TeamsAndGames } from "../../data/teams";
 import { imageOnErrorHandler } from "../../services/Helpers";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
+
 export const ChooseTeamPage = () => {
   return (
     <>

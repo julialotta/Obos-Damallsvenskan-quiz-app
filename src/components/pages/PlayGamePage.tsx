@@ -40,14 +40,6 @@ export const PlayGamePage = () => {
       if (TeamsAndGames[i].id.toString() === params.id) {
         setGame(TeamsAndGames[i]);
         setIsLoading(false);
-
-        /*  let d = game.games[0].datestamp;
-        let day = d.getDate();
-        let month = d.getMonth() + 1;
-        let time = d.toLocaleTimeString();
-        console.log("====================================");
-        console.log(day + "/" + month + " " + time.slice(0, -3));
-        console.log("===================================="); */
       }
     }
   }, []);

@@ -39,28 +39,37 @@ export const StartGamePage = () => {
   useEffect(() => {
     let gamesList: IOpponent[] = [];
 
-    // hittar valt lag.
+    // finding chosen team
     for (let i = 0; i < TeamsAndGames.length; i++) {
       if (TeamsAndGames[i].id.toString() === params.id) {
         setGame(TeamsAndGames[i]);
       }
     }
 
-    ////////////////
-    /// DET BORDE FINNAS 12 matcher i listan för AIK
-    ///////////////
-    //sparar alla hemmamatcher i en lista
+    //all home games to new temporary list
     for (let i = 0; i < game.games.length; i++) {
-      gamesList.push({
-        opponent: game.games[i].opponent,
-        image: game.games[i].image,
-        arena: game.games[i].arena,
-        datestamp: game.games[i].datestamp,
-        link: game.games[i].link,
-        round: game.games[i].round,
-      });
+      if (
+        !gamesList.includes({
+          opponent: game.games[i].opponent,
+          image: game.games[i].image,
+          arena: game.games[i].arena,
+          datestamp: game.games[i].datestamp,
+          link: game.games[i].link,
+          round: game.games[i].round,
+        })
+      ) {
+        gamesList.push({
+          opponent: game.games[i].opponent,
+          image: game.games[i].image,
+          arena: game.games[i].arena,
+          datestamp: game.games[i].datestamp,
+          link: game.games[i].link,
+          round: game.games[i].round,
+        });
+      }
     }
-    //kollar om valda laget finns som opponent någonannastans
+
+    //checking away games and adding to temporary list
     for (let i = 0; i < TeamsAndGames.length; i++) {
       for (let y = 0; y < TeamsAndGames[i].games.length; y++) {
         if (TeamsAndGames[i].games[y].opponent === game.team) {
@@ -68,46 +77,47 @@ export const StartGamePage = () => {
             !gamesList.includes({
               opponent: TeamsAndGames[i].team,
               image: TeamsAndGames[i].image,
-              arena: game.games[y].arena,
-              datestamp: game.games[y].datestamp,
-              link: game.games[y].link,
-              round: game.games[y].round,
+              arena: TeamsAndGames[i].games[y].arena,
+              datestamp: TeamsAndGames[i].games[y].datestamp,
+              link: TeamsAndGames[i].games[y].link,
+              round: TeamsAndGames[i].games[y].round,
             })
           ) {
             gamesList.push({
               opponent: TeamsAndGames[i].team,
               image: TeamsAndGames[i].image,
-              arena: game.games[y].arena,
-              datestamp: game.games[y].datestamp,
-              link: game.games[y].link,
-              round: game.games[y].round,
+              arena: TeamsAndGames[i].games[y].arena,
+              datestamp: TeamsAndGames[i].games[y].datestamp,
+              link: TeamsAndGames[i].games[y].link,
+              round: TeamsAndGames[i].games[y].round,
             });
           }
         }
       }
     }
 
-    // kolla först vilka datum som är i framtiden.
-    // Sortera listan efter datum och ta nr 1.
-    gamesList.sort(function (a, b) {
-      // Turn your strings into dates, and then subtract them
-      // to get a value that is either negative, positive, or zero.
-      return b.datestamp.getMilliseconds() - a.datestamp.getMilliseconds();
-    });
+    //sorting temp. list in time order
+    //checking and setting game w next date in the future
+
     function getNextGame() {
+      gamesList.sort(function (a, b) {
+        return a.datestamp.valueOf() - b.datestamp.valueOf();
+      });
+      let now = Date.now();
+      let d = new Date(now);
       for (let i = 0; i < gamesList.length; i++) {
-        let now = Date.now;
-        if (gamesList[i].datestamp.getTime >= now) {
+        if (gamesList[i].datestamp >= d) {
           setOpponent(gamesList[i]);
+          return;
         }
       }
     }
     getNextGame();
-  }, [game, opponent]);
+  }, [game]);
 
   useEffect(() => {
     setIsLoading(false);
-  }, [opponent, date]);
+  }, [opponent]);
 
   useEffect(() => {
     let d = opponent.datestamp;
@@ -115,7 +125,7 @@ export const StartGamePage = () => {
     let month = d.getMonth() + 1;
     let time = d.toLocaleTimeString();
     setDate(day + "/" + month + " " + time.slice(0, -3));
-  }, []);
+  }, [opponent]);
 
   return (
     <>
