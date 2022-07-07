@@ -5,10 +5,8 @@ import {
   StyledP,
 } from "../StyledComponents/StyledTextElements";
 import { FlexDiv } from "../StyledComponents/Wrappers";
-import background from "../../assets/DA_startbakgrund@2x.png";
-import LogoDA from "../../assets/Liga-sponsor/DA_logo@3x.png";
 import { useEffect, useState } from "react";
-import { QuestionsAndAnswers } from "../../data/quiz";
+import { QuizByTeam } from "../../data/quiz";
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { Curve } from "../partials/curve";
 import { imageOnErrorHandler } from "../../services/Helpers";
@@ -30,10 +28,14 @@ export const PlayGamePage = () => {
     games: [],
   });
 
+  /* tankar
+ dela upp quizet för varje lag och välj samma id som lagen har.
+ ta id från params och slumpa 5 frågor från det quizet med det id:t.
+ använd också id för att sätta bakgrundsbild.
+ 
+ */
+
   const params = useParams();
-  console.log("====================================");
-  console.log(game);
-  console.log("====================================");
 
   useEffect(() => {
     for (let i = 0; i < TeamsAndGames.length; i++) {
@@ -45,10 +47,10 @@ export const PlayGamePage = () => {
   }, []);
 
   const handleClick = () => {
-    if (currentQuestion + 1 < QuestionsAndAnswers.length) {
+    if (currentQuestion + 1 < QuizByTeam[game.id].questionsAndAnswers.length) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
-      alert("no more questions");
+      alert(":)");
     }
   };
 
@@ -112,7 +114,7 @@ export const PlayGamePage = () => {
                   width='70px'
                   height='70px'
                   margin='0'
-                  src={LogoDA}
+                  src={game.AOMemblem}
                   onError={imageOnErrorHandler}
                 ></StyledImage>
                 <StyledButton
@@ -125,14 +127,17 @@ export const PlayGamePage = () => {
                   padding='5px'
                 >
                   <StyledHeadingh3 color={colors.DarkBlue}>
-                    {QuestionsAndAnswers[currentQuestion].question}
+                    {
+                      QuizByTeam[game.id].questionsAndAnswers[currentQuestion]
+                        .question
+                    }
                   </StyledHeadingh3>
                 </StyledButton>
               </FlexDiv>
               <StyledImage
                 width='100%'
                 height='100%'
-                src={background}
+                src={game.background}
                 alt='Blue Pattern'
               />
             </FlexDiv>
@@ -152,7 +157,9 @@ export const PlayGamePage = () => {
                   height='200px'
                   background={colors.White}
                 >
-                  {QuestionsAndAnswers[currentQuestion].answers.map((x) => {
+                  {QuizByTeam[game.id].questionsAndAnswers[
+                    currentQuestion
+                  ].answers.map((x) => {
                     return (
                       <StyledButton onClick={handleClick}>
                         {x.answer}
@@ -160,7 +167,8 @@ export const PlayGamePage = () => {
                     );
                   })}
                   <StyledP color={colors.DarkBlue}>
-                    Fråga {currentQuestion + 1} av {QuestionsAndAnswers.length}
+                    Fråga {currentQuestion + 1} av{" "}
+                    {QuizByTeam[game.id].questionsAndAnswers.length}
                   </StyledP>
                 </FlexDiv>
               </FlexDiv>

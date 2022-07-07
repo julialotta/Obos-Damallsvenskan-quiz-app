@@ -1,10 +1,16 @@
-export interface IQuestions {
+export interface IQuiz {
   id: number;
   team: string;
+  questionsAndAnswers: IGameQuestions[];
+}
+
+interface IGameQuestions {
+  id: number;
   question: string;
-  answers: [
-    { answer: string; isCorrect: boolean },
-    { answer: string; isCorrect: boolean },
-    { answer: string; isCorrect: boolean }
-  ];
+  answers: IAnswers[];
+}
+
+interface IAnswers {
+  answer: string;
+  isCorrect: boolean;
 }

@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { StyledButton } from "../StyledComponents/StyledButton";
 import { FlexDiv, ImageDiv } from "../StyledComponents/Wrappers";
 import background from "../../assets/Startbild.jpeg";
@@ -7,6 +6,7 @@ import PartnerLogo from "../../assets/Liga-sponsor/DA_partnerlogo.png";
 import {
   StyledP,
   StyledTopHeading,
+  StyledLink,
 } from "../StyledComponents/StyledTextElements";
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
@@ -46,24 +46,26 @@ export const StartPage = () => {
             </StyledTopHeading>
             <StyledP color='white'>
               Matchen pågår även på läktaren, eller hur? Nu har ni chans att
-              visa vilka supportarar som kan mest. <br />
+              visa vilka supportrar som kan mest. <br />
               <br />
               Varje omgång får ni supportrar chans att via ett quiz visa vilka
               supportrar som kan mest om fotboll.
             </StyledP>
-            <StyledButton
-              margin='5px'
-              padding='22px'
-              width='181px'
-              color={colors.ButtonBlue}
-              hoverColor={colors.ButtonBlue}
-              background={colors.White}
-              hoverBackground={colors.White}
-              border='#707070 1pt solid'
-              shadow='#00000038 0px 3px 5px'
-            >
-              <Link to={"/valj-klubb"}>STARTA MATCHEN</Link>
-            </StyledButton>
+            <StyledLink to={"/valj-klubb"}>
+              <StyledButton
+                margin='5px'
+                padding='22px'
+                width='181px'
+                color={colors.ButtonBlue}
+                hoverColor={colors.ButtonBlue}
+                background={colors.White}
+                hoverBackground={colors.White}
+                border='#707070 1pt solid'
+                shadow='#00000038 0px 3px 5px'
+              >
+                STARTA MATCHEN
+              </StyledButton>
+            </StyledLink>
             <StyledImage
               height='x'
               width='240px'

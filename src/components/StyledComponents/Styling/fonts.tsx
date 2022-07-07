@@ -39,7 +39,7 @@ export const GlobalStyle = createGlobalStyle`
 p {
     font-family: 'GothamLight';
   }
-  a {
+a, button {
     font-family: 'GothamBlackRegular';
   }
 `;
