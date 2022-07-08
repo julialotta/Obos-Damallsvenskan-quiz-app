@@ -15,6 +15,8 @@ import { Link, useParams } from "react-router-dom";
 import { TeamsAndGames } from "../../data/teams";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 import { FaShieldAlt } from "react-icons/fa";
+import { IGameQuestions } from "../../models/IQuestions";
+import { isTemplateExpression } from "typescript";
 
 export const PlayGamePage = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -28,13 +30,6 @@ export const PlayGamePage = () => {
     games: [],
   });
 
-  /* tankar
- dela upp quizet för varje lag och välj samma id som lagen har.
- ta id från params och slumpa 5 frågor från det quizet med det id:t.
- använd också id för att sätta bakgrundsbild.
- 
- */
-
   const params = useParams();
 
   useEffect(() => {
@@ -44,10 +39,32 @@ export const PlayGamePage = () => {
         setIsLoading(false);
       }
     }
+    function shuffle(array: IGameQuestions[]) {
+      let currentIndex = array.length,
+        randomIndex;
+
+      // While there remain elements to shuffle.
+      while (currentIndex != 0) {
+        // Pick a remaining element.
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+          array[randomIndex],
+          array[currentIndex],
+        ];
+      }
+
+      return array;
+    }
+    shuffle(QuizByTeam[game.id].questionsAndAnswers);
   }, []);
 
+  useEffect(() => {}, [game]);
+
   const handleClick = () => {
-    if (currentQuestion + 1 < QuizByTeam[game.id].questionsAndAnswers.length) {
+    if (currentQuestion + 1 < 5) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
       alert(":)");
@@ -167,8 +184,7 @@ export const PlayGamePage = () => {
                     );
                   })}
                   <StyledP color={colors.DarkBlue}>
-                    Fråga {currentQuestion + 1} av{" "}
-                    {QuizByTeam[game.id].questionsAndAnswers.length}
+                    Fråga {currentQuestion + 1} av 5
                   </StyledP>
                 </FlexDiv>
               </FlexDiv>

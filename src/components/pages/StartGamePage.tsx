@@ -240,9 +240,9 @@ export const StartGamePage = () => {
                 </StyledP>
                 <StyledP color={colors.DarkBlue}>{opponent.arena}</StyledP>
                 <StyledP color={colors.DarkBlue}>{date}</StyledP>
-                <StyledButton>
-                  <Link to={`/spela/${game.id}`}>Starta matchen</Link>
-                </StyledButton>
+                <Link to={`/spela/${game.id}`}>
+                  <StyledButton>Starta matchen</StyledButton>
+                </Link>
               </FlexDiv>
             </FlexDiv>
           </FlexDiv>

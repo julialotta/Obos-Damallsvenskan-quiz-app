@@ -4,7 +4,7 @@ export interface IQuiz {
   questionsAndAnswers: IGameQuestions[];
 }
 
-interface IGameQuestions {
+export interface IGameQuestions {
   id: number;
   question: string;
   answers: IAnswers[];
