@@ -16,6 +16,7 @@ import { TeamsAndGames } from "../../data/teams";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 import { FaShieldAlt } from "react-icons/fa";
 import { IGameQuestions } from "../../models/IQuestions";
+import { IoMdFootball } from "react-icons/io";
 
 export const PlayGamePage = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -189,8 +190,14 @@ export const PlayGamePage = () => {
                       </StyledButton>
                     );
                   })}
+
                   <StyledP color={colors.TextBlue}>
                     Fråga {currentQuestion + 1} av 5
+                    <IoMdFootball color={colors.Darkgrey} size={"23px"} />
+                    <IoMdFootball color={colors.Darkgrey} size={"23px"} />
+                    <IoMdFootball color={colors.Darkgrey} size={"23px"} />
+                    <IoMdFootball color={colors.Darkgrey} size={"23px"} />
+                    <IoMdFootball color={colors.Darkgrey} size={"23px"} />
                   </StyledP>
                 </FlexDiv>
               </FlexDiv>

@@ -11,6 +11,9 @@ import {
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 import { StyledImage } from "../StyledComponents/StyledImage";
+import { QuizByTeam } from "../../data/quiz";
+import { save } from "../../services/StorageService";
+import { useEffect } from "react";
 
 export const StartPage = () => {
   return (
@@ -42,7 +45,7 @@ export const StartPage = () => {
               color={colors.White}
               shadow='#0000005A 2pt 2pt 2pt'
             >
-              Allt för matchen
+              Allt för klubben
             </StyledTopHeading>
             <StyledP color='white'>
               Matchen pågår även på läktaren, eller hur? Nu har ni chans att

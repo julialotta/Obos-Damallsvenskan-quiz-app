@@ -235,11 +235,15 @@ export const StartGamePage = () => {
                     {game.team} - {opponent.opponent}
                   </StyledHeadingh3>
                 </FlexDiv>
-                <StyledP color={colors.TextBlue}>
+                <StyledP margin='0' color={colors.TextBlue}>
                   Omgång {opponent.round}
                 </StyledP>
-                <StyledP color={colors.TextBlue}>{opponent.arena}</StyledP>
-                <StyledP color={colors.TextBlue}>{date}</StyledP>
+                <StyledP margin='0' color={colors.TextBlue}>
+                  {opponent.arena}
+                </StyledP>
+                <StyledP margin='0' color={colors.TextBlue}>
+                  {date}
+                </StyledP>
                 <Link to={`/spela/${game.id}`}>
                   <StyledButton>Starta matchen</StyledButton>
                 </Link>
