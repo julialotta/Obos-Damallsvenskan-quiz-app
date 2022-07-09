@@ -18,7 +18,7 @@ export const ChooseTeamPage = () => {
       <GlobalStyle />
 
       <FlexDiv
-        background={colors.DarkBlue}
+        background={colors.BackgroundBlue}
         width={"100%"}
         dir={"column"}
         minHeight='100vh'
@@ -43,7 +43,7 @@ export const ChooseTeamPage = () => {
             width='390px'
             position='relative'
             height='250px'
-            background={colors.DarkBlue}
+            background={colors.BackgroundBlue}
             z='0'
           >
             <FlexDiv
@@ -51,7 +51,7 @@ export const ChooseTeamPage = () => {
               z='100'
               width='390px'
               height='250px'
-              background={colors.DarkBlue}
+              background={colors.BackgroundBlue}
             >
               <FlexDiv top={"40px"} left={"-160px"} position='absolute'>
                 <Link to='/'>

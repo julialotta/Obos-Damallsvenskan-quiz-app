@@ -8,7 +8,7 @@ export const StyledButton = styled.button`
   justify-content: center;
   color: ${(props: IStylingProps) => props.color || colors.White};
   background-color: ${(props: IStylingProps) =>
-    props.background || colors.DarkBlue};
+    props.background || colors.BackgroundBlue};
   margin: ${(props: IStylingProps) => props.margin || "10px"};
   width: ${(props: IStylingProps) => props.width || "150px"};
   height: ${(props: IStylingProps) => props.height || "40px"};
@@ -20,7 +20,7 @@ export const StyledButton = styled.button`
 
   :hover {
     background-color: ${(props: IStylingProps) =>
-      props.hoverBackground || colors.DarkBlue};
+      props.hoverBackground || colors.BackgroundBlue};
 
     cursor: ${(props: IStylingProps) => props.hover || "pointer"};
     transform: ${(props: IStylingProps) => props.transform || "scale(1.05)"};
