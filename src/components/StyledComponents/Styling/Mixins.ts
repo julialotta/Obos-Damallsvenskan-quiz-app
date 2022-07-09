@@ -1,10 +1,11 @@
 export const colors = {
-  DarkBlue: "#13253A",
-  ButtonBlue: "#122A42",
+  BackgroundBlue: "#172542",
+  ButtonBlue: "#13253A",
   TextBlue: "#161246",
   AlomstWhite: "#F7F7F7",
   White: "#FFFFFF",
   LightGrey: "#e6e6e6",
+  Darkgrey: "#404040",
 };
 
 const size = {

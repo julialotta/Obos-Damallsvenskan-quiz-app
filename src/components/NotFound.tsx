@@ -15,7 +15,7 @@ export const NotFound = () => {
       <GlobalStyle />
 
       <FlexDiv
-        background={colors.DarkBlue}
+        background={colors.BackgroundBlue}
         width={"100%"}
         dir={"column"}
         minHeight='100vh'
@@ -40,7 +40,7 @@ export const NotFound = () => {
             width='390px'
             position='relative'
             height='250px'
-            background={colors.DarkBlue}
+            background={colors.BackgroundBlue}
             z='0'
           >
             <FlexDiv
@@ -48,7 +48,7 @@ export const NotFound = () => {
               z='100'
               width='390px'
               height='250px'
-              background={colors.DarkBlue}
+              background={colors.BackgroundBlue}
             >
               <FlexDiv top={"40px"} left={"-160px"} position='absolute'>
                 <Link to='/'>
@@ -72,7 +72,7 @@ export const NotFound = () => {
             bottom='55px'
             margin='-60px 0 0 0'
           >
-            <StyledHeadingh3 color={colors.DarkBlue}>
+            <StyledHeadingh3 color={colors.TextBlue}>
               Hoppsan! Nu blev det fel
             </StyledHeadingh3>
             <StyledButton>

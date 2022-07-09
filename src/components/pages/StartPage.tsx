@@ -17,7 +17,7 @@ export const StartPage = () => {
     <>
       <GlobalStyle />
 
-      <FlexDiv background={colors.DarkBlue} width={"100%"} height='100%'>
+      <FlexDiv background={colors.BackgroundBlue} width={"100%"} height='100%'>
         <ImageDiv
           dir='column'
           image={background}

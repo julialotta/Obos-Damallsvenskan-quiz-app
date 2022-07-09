@@ -16,7 +16,6 @@ import { TeamsAndGames } from "../../data/teams";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 import { FaShieldAlt } from "react-icons/fa";
 import { IGameQuestions } from "../../models/IQuestions";
-import { isTemplateExpression } from "typescript";
 
 export const PlayGamePage = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -61,8 +60,6 @@ export const PlayGamePage = () => {
     shuffle(QuizByTeam[game.id].questionsAndAnswers);
   }, []);
 
-  useEffect(() => {}, [game]);
-
   const handleClick = () => {
     if (currentQuestion + 1 < 5) {
       setCurrentQuestion(currentQuestion + 1);
@@ -80,7 +77,7 @@ export const PlayGamePage = () => {
         </FlexDiv>
       ) : (
         <FlexDiv
-          background={colors.DarkBlue}
+          background={colors.BackgroundBlue}
           width={"100%"}
           dir={"column"}
           minHeight='100vh'
@@ -105,7 +102,7 @@ export const PlayGamePage = () => {
               width='390px'
               position='relative'
               height='350px'
-              background={colors.DarkBlue}
+              background={colors.BackgroundBlue}
               z='0'
             >
               <FlexDiv
@@ -113,10 +110,10 @@ export const PlayGamePage = () => {
                 z='200'
                 width='390px'
                 height='380px'
-                background={colors.DarkBlue}
+                background={colors.BackgroundBlue}
               >
                 <FlexDiv
-                  top={"40px"}
+                  top={"45px"}
                   left={"-160px"}
                   position='absolute'
                   z='200'
@@ -125,15 +122,17 @@ export const PlayGamePage = () => {
                     <FaShieldAlt color='white' size={"30px"} />
                   </Link>
                 </FlexDiv>
+                <FlexDiv top={"85px"} position='absolute' z='200'>
+                  <StyledImage
+                    position='absolute'
+                    width='120px'
+                    height='120px'
+                    src={game.AOMemblem}
+                    onError={imageOnErrorHandler}
+                  ></StyledImage>
+                </FlexDiv>
               </FlexDiv>
               <FlexDiv position='absolute' z='100' dir='column'>
-                <StyledImage
-                  width='70px'
-                  height='70px'
-                  margin='0'
-                  src={game.AOMemblem}
-                  onError={imageOnErrorHandler}
-                ></StyledImage>
                 <StyledButton
                   background={colors.White}
                   height='min-content'
@@ -141,9 +140,12 @@ export const PlayGamePage = () => {
                   hoverColor='none'
                   hoverBackground='none'
                   hover='default'
-                  padding='5px'
+                  transform='none'
+                  padding={"1px"}
+                  margin='100px 0 0 0'
+                  border='#707070 1px solid'
                 >
-                  <StyledHeadingh3 color={colors.DarkBlue}>
+                  <StyledHeadingh3 color={colors.TextBlue} margin={"0"}>
                     {
                       QuizByTeam[game.id].questionsAndAnswers[currentQuestion]
                         .question
@@ -178,12 +180,16 @@ export const PlayGamePage = () => {
                     currentQuestion
                   ].answers.map((x) => {
                     return (
-                      <StyledButton onClick={handleClick}>
+                      <StyledButton
+                        background={colors.ButtonBlue}
+                        onClick={handleClick}
+                        width={"40vh"}
+                      >
                         {x.answer}
                       </StyledButton>
                     );
                   })}
-                  <StyledP color={colors.DarkBlue}>
+                  <StyledP color={colors.TextBlue}>
                     Fråga {currentQuestion + 1} av 5
                   </StyledP>
                 </FlexDiv>

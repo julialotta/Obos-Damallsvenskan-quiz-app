@@ -20,7 +20,7 @@ export const ResultsPage = () => {
     <>
       <GlobalStyle />
       <FlexDiv
-        background={colors.DarkBlue}
+        background={colors.BackgroundBlue}
         width={"100%"}
         height='100%'
         dir={"column"}
@@ -44,7 +44,7 @@ export const ResultsPage = () => {
             width='390px'
             position='relative'
             height='250px'
-            background={colors.DarkBlue}
+            background={colors.BackgroundBlue}
             z='0'
           >
             <FlexDiv dir='column' position='absolute' z='100'>

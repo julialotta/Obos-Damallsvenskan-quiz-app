@@ -34,7 +34,7 @@ export const ImageDiv = styled(FlexDiv)`
 `;
 
 export const AppWrapper = styled.div`
-  background-color: ${colors.DarkBlue};
+  background-color: ${colors.BackgroundBlue};
   min-height: 100vh;
   padding: 0;
   overflow-x: hidden;

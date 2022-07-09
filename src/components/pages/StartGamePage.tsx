@@ -136,7 +136,7 @@ export const StartGamePage = () => {
         </FlexDiv>
       ) : (
         <FlexDiv
-          background={colors.DarkBlue}
+          background={colors.BackgroundBlue}
           width={"100%"}
           height='100%'
           dir={"column"}
@@ -160,7 +160,7 @@ export const StartGamePage = () => {
               width='390px'
               position='relative'
               height='420px'
-              background={colors.DarkBlue}
+              background={colors.BackgroundBlue}
               z='0'
             >
               <FlexDiv
@@ -168,7 +168,7 @@ export const StartGamePage = () => {
                 z='100'
                 width='390px'
                 height='380px'
-                background={colors.DarkBlue}
+                background={colors.BackgroundBlue}
               >
                 <FlexDiv
                   top={"40px"}
@@ -229,17 +229,17 @@ export const StartGamePage = () => {
                 <FlexDiv width='95%'>
                   <StyledHeadingh3
                     textTransform='uppercase'
-                    color={colors.DarkBlue}
+                    color={colors.TextBlue}
                     fontSize='10px'
                   >
                     {game.team} - {opponent.opponent}
                   </StyledHeadingh3>
                 </FlexDiv>
-                <StyledP color={colors.DarkBlue}>
+                <StyledP color={colors.TextBlue}>
                   Omgång {opponent.round}
                 </StyledP>
-                <StyledP color={colors.DarkBlue}>{opponent.arena}</StyledP>
-                <StyledP color={colors.DarkBlue}>{date}</StyledP>
+                <StyledP color={colors.TextBlue}>{opponent.arena}</StyledP>
+                <StyledP color={colors.TextBlue}>{date}</StyledP>
                 <Link to={`/spela/${game.id}`}>
                   <StyledButton>Starta matchen</StyledButton>
                 </Link>
