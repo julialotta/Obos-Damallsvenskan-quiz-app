@@ -11,16 +11,19 @@ import { colors } from "../StyledComponents/Styling/Mixins";
 import { Curve } from "../partials/curve";
 import { imageOnErrorHandler } from "../../services/Helpers";
 import { ITeams } from "../../models/ITeams";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { TeamsAndGames } from "../../data/teams";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 import { FaShieldAlt } from "react-icons/fa";
-import { IGameQuestions } from "../../models/IQuestions";
+import { IAnswers, IGameQuestions, IResult } from "../../models/IQuestions";
 import { IoMdFootball } from "react-icons/io";
+import { saveQuiz } from "../../services/StorageService";
 
 export const PlayGamePage = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [haveAnswered, setHaveAnswered] = useState(false);
+  const [result, setResult] = useState<IResult[]>([]);
   const [game, setGame] = useState<ITeams>({
     id: 0,
     team: "",
@@ -31,6 +34,7 @@ export const PlayGamePage = () => {
   });
 
   const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     for (let i = 0; i < TeamsAndGames.length; i++) {
@@ -42,7 +46,6 @@ export const PlayGamePage = () => {
     function shuffle(array: IGameQuestions[]) {
       let currentIndex = array.length,
         randomIndex;
-
       // While there remain elements to shuffle.
       while (currentIndex != 0) {
         // Pick a remaining element.
@@ -59,14 +62,39 @@ export const PlayGamePage = () => {
       return array;
     }
     shuffle(QuizByTeam[game.id].questionsAndAnswers);
-  }, []);
+  }, [result]);
 
-  const handleClick = () => {
-    if (currentQuestion + 1 < 5) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else {
-      alert(":)");
+  useEffect(() => {
+    saveQuiz(result);
+  }, [result]);
+
+  const handleClick = (x: IAnswers) => {
+    setHaveAnswered(true);
+    if (x.isCorrect) {
+      setResult([...result, { answer: x.answer, isCorrect: x.isCorrect }]);
+    } else if (x.isCorrect === false) {
+      setResult([...result, { answer: x.answer, isCorrect: x.isCorrect }]);
     }
+    setTimeout(() => {
+      setHaveAnswered(false);
+      if (currentQuestion + 1 < 5) {
+        setCurrentQuestion(currentQuestion + 1);
+      } else {
+        navigate("/resultat");
+      }
+    }, 2000);
+  };
+
+  const Footballs = () => {
+    return (
+      <>
+        {result.map((x: IAnswers) => {
+          return (
+            <IoMdFootball color={x.isCorrect ? "green" : "red"} size={"23px"} />
+          );
+        })}
+      </>
+    );
   };
 
   return (
@@ -179,25 +207,28 @@ export const PlayGamePage = () => {
                 >
                   {QuizByTeam[game.id].questionsAndAnswers[
                     currentQuestion
-                  ].answers.map((x) => {
+                  ].answers.map((x: IAnswers, i) => {
                     return (
                       <StyledButton
-                        background={colors.ButtonBlue}
-                        onClick={handleClick}
+                        transform={"none"}
+                        hoverBackground={"none"}
+                        background={
+                          haveAnswered
+                            ? x.isCorrect
+                              ? "green"
+                              : colors.ButtonBlue
+                            : colors.ButtonBlue
+                        }
+                        onClick={() => handleClick(x)}
                         width={"40vh"}
+                        key={x.answer}
                       >
                         {x.answer}
                       </StyledButton>
                     );
                   })}
-
                   <StyledP color={colors.TextBlue}>
-                    Fråga {currentQuestion + 1} av 5
-                    <IoMdFootball color={colors.Darkgrey} size={"23px"} />
-                    <IoMdFootball color={colors.Darkgrey} size={"23px"} />
-                    <IoMdFootball color={colors.Darkgrey} size={"23px"} />
-                    <IoMdFootball color={colors.Darkgrey} size={"23px"} />
-                    <IoMdFootball color={colors.Darkgrey} size={"23px"} />
+                    <Footballs />
                   </StyledP>
                 </FlexDiv>
               </FlexDiv>

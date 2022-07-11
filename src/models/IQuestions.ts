@@ -10,7 +10,11 @@ export interface IGameQuestions {
   answers: IAnswers[];
 }
 
-interface IAnswers {
+export interface IAnswers {
+  answer: string;
+  isCorrect: boolean;
+}
+export interface IResult {
   answer: string;
   isCorrect: boolean;
 }

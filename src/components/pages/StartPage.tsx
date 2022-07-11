@@ -11,9 +11,6 @@ import {
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 import { StyledImage } from "../StyledComponents/StyledImage";
-import { QuizByTeam } from "../../data/quiz";
-import { save } from "../../services/StorageService";
-import { useEffect } from "react";
 
 export const StartPage = () => {
   return (

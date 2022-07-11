@@ -23,3 +23,13 @@ export interface IOpponent {
   link: string;
   arena: string;
 }
+
+export interface IGame {
+  team: string;
+  teamImg: string;
+  link: string;
+  opponent: string;
+  opponentImg: string;
+  arena: string;
+  date: string;
+}

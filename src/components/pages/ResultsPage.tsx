@@ -5,120 +5,178 @@ import { StyledButton } from "../StyledComponents/StyledButton";
 import {
   StyledHeadingh3,
   StyledHeadingh5,
+  StyledP,
 } from "../StyledComponents/StyledTextElements";
-import { Link } from "react-router-dom";
 import background from "../../assets/DA_startbakgrund@2x.png";
 import { IoMdFootball } from "react-icons/io";
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { Curve } from "../partials/curve";
-import logoDA from "../../assets/Liga-sponsor/DA_logo@3x.png";
 import { imageOnErrorHandler } from "../../services/Helpers";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
+import { getGame, getQuiz } from "../../services/StorageService";
+import { useEffect, useState } from "react";
+import { IGame } from "../../models/ITeams";
+import { Link } from "react-router-dom";
+import { FaShieldAlt } from "react-icons/fa";
+import { IResult } from "../../models/IQuestions";
 
 export const ResultsPage = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [result, setResult] = useState<IResult[]>([]);
+
+  const [game, setGame] = useState<IGame>({
+    team: "",
+    teamImg: "",
+    link: "",
+    opponent: "",
+    opponentImg: "",
+    arena: "",
+    date: "",
+  });
+
+  useEffect(() => {
+    setGame(getGame<IGame>());
+    setResult(getQuiz);
+  }, []);
+
+  useEffect(() => {
+    if (game != undefined) {
+      setIsLoading(false);
+    }
+  }, [game]);
+
   return (
     <>
       <GlobalStyle />
-      <FlexDiv
-        background={colors.BackgroundBlue}
-        width={"100%"}
-        height='100%'
-        dir={"column"}
-        position={"relative"}
-      >
+      {isLoading ? (
+        <FlexDiv height='50vh' align={"start"}>
+          <p>Laddar...</p>
+        </FlexDiv>
+      ) : (
         <FlexDiv
+          background={colors.BackgroundBlue}
+          width={"100%"}
+          height='100%'
           dir={"column"}
-          justify={"start"}
-          background={colors.White}
           position={"relative"}
-          borderRad={"5px"}
-          bottom='15px'
-          width={"390px"}
-          minHeight='100vh'
-          shadow={
-            "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
-          }
         >
           <FlexDiv
-            dir='column'
-            width='390px'
-            position='relative'
-            height='250px'
-            background={colors.BackgroundBlue}
-            z='0'
-          >
-            <FlexDiv dir='column' position='absolute' z='100'>
-              <StyledHeadingh5>Ställningen</StyledHeadingh5>
-              <FlexDiv dir='row' z='100' align='start' margin='10px 0 0 0'>
-                <StyledButton
-                  transform='0'
-                  background={colors.White}
-                  height='50px'
-                  width='200px'
-                  hoverColor='none'
-                  hoverBackground='none'
-                  hover='default'
-                >
-                  <StyledHeadingh3>X</StyledHeadingh3>
-                </StyledButton>
-                <StyledButton
-                  transform='0'
-                  background={colors.White}
-                  height='50px'
-                  width='200px'
-                  hoverColor='none'
-                  hoverBackground='none'
-                  hover='default'
-                >
-                  <StyledHeadingh3>X</StyledHeadingh3>
-                </StyledButton>
-              </FlexDiv>
-            </FlexDiv>
-            <StyledImage
-              width='100%'
-              height='100%'
-              src={background}
-              alt='Blue Pattern'
-            />
-          </FlexDiv>
-          <Curve />
-          <FlexDiv
-            dir='column'
-            position='relative'
+            dir={"column"}
+            justify={"start"}
             background={colors.White}
-            width='390px'
-            bottom='55px'
+            position={"relative"}
+            borderRad={"5px"}
+            bottom='15px'
+            width={"390px"}
+            minHeight='100vh'
+            shadow={
+              "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
+            }
           >
-            <FlexDiv dir='column' width='60%' gap='22px'>
-              <FlexDiv margin='0 0 20px 0'>
-                <IoMdFootball size={"30px"} />
-                <IoMdFootball size={"30px"} />
-                <IoMdFootball size={"30px"} />
-                <IoMdFootball size={"30px"} />
-                <IoMdFootball size={"30px"} />
+            <FlexDiv
+              dir='column'
+              width='390px'
+              position='relative'
+              height='250px'
+              background={colors.BackgroundBlue}
+              z='0'
+            >
+              <FlexDiv dir='column' position='absolute' z='100'>
+                <FlexDiv
+                  top={"40px"}
+                  left={"-160px"}
+                  position='absolute'
+                  z='200'
+                >
+                  <Link to='/'>
+                    <FaShieldAlt color='white' size={"30px"} />
+                  </Link>
+                </FlexDiv>
+                <StyledHeadingh5>Ställningen</StyledHeadingh5>
+                <FlexDiv dir='row' z='100' align='start' margin='10px 0 0 0'>
+                  <StyledButton
+                    transform='0'
+                    background={colors.White}
+                    height='50px'
+                    width='200px'
+                    hoverColor='none'
+                    hoverBackground='none'
+                    hover='default'
+                  >
+                    <StyledHeadingh3>X</StyledHeadingh3>
+                  </StyledButton>
+                  <StyledButton
+                    transform='0'
+                    background={colors.White}
+                    height='50px'
+                    width='200px'
+                    hoverColor='none'
+                    hoverBackground='none'
+                    hover='default'
+                  >
+                    <StyledHeadingh3>X</StyledHeadingh3>
+                  </StyledButton>
+                </FlexDiv>
               </FlexDiv>
-              <FlexDiv gap='15px'>
-                <StyledImage
-                  width='70px'
-                  transform='scale(1.1)'
-                  src={logoDA}
-                  onError={imageOnErrorHandler}
-                />
+              <StyledImage
+                width='100%'
+                height='100%'
+                src={background}
+                alt='Blue Pattern'
+              />
+            </FlexDiv>
+            <Curve />
+            <FlexDiv
+              dir='column'
+              position='relative'
+              background={colors.White}
+              width='390px'
+              bottom='55px'
+            >
+              <FlexDiv dir='column' width='60%' gap='22px'>
+                <FlexDiv margin='0 0 20px 0'>
+                  {result.map((x: IResult) => {
+                    return (
+                      <IoMdFootball
+                        key={x.answer}
+                        color={x.isCorrect ? "green" : "red"}
+                        size={"30px"}
+                      />
+                    );
+                  })}
+                </FlexDiv>
+                <FlexDiv gap='15px'>
+                  <StyledImage
+                    width='70px'
+                    src={game.teamImg}
+                    onError={imageOnErrorHandler}
+                  />
 
-                <StyledImage
-                  width='70px'
-                  transform='scale(1.1)'
-                  src={logoDA}
-                  onError={imageOnErrorHandler}
-                />
+                  <StyledImage
+                    width='70px'
+                    src={game.opponentImg}
+                    onError={imageOnErrorHandler}
+                  />
+                </FlexDiv>
+                <StyledP margin='0' color={colors.TextBlue}>
+                  {game.team} - {game.opponent}
+                </StyledP>
+                <StyledP margin='0' color={colors.TextBlue}>
+                  {game.arena}
+                </StyledP>
+                <StyledP margin='0' color={colors.TextBlue}>
+                  {game.date}
+                </StyledP>
+                <a href={game.link}>
+                  <StyledButton margin='5px' padding='22px'>
+                    Köp biljetter!
+                  </StyledButton>
+                </a>
               </FlexDiv>
-              <StyledButton margin='5px' padding='22px'>
-                <Link to={"/"}>Köp biljetter!</Link>
-              </StyledButton>
             </FlexDiv>
           </FlexDiv>
         </FlexDiv>
-      </FlexDiv>
+      )}
     </>
   );
 };

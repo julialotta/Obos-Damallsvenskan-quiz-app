@@ -14,6 +14,7 @@ import {
   StyledHeadingh3,
   StyledP,
 } from "../StyledComponents/StyledTextElements";
+import { saveGame } from "../../services/StorageService";
 
 export const StartGamePage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,7 +31,7 @@ export const StartGamePage = () => {
     opponent: "",
     image: "",
     arena: "",
-    datestamp: new Date("August 21, 2022 13:00:00"),
+    datestamp: new Date(),
     link: "",
     round: 0,
   });
@@ -114,6 +115,18 @@ export const StartGamePage = () => {
     }
     getNextGame();
   }, [game]);
+
+  useEffect(() => {
+    saveGame({
+      team: game.team,
+      teamImg: game.AOMemblem,
+      link: opponent.link,
+      opponent: opponent.opponent,
+      opponentImg: opponent.image,
+      arena: opponent.arena,
+      date: date,
+    });
+  }, [opponent, game, date]);
 
   useEffect(() => {
     setIsLoading(false);
