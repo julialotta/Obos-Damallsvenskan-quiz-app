@@ -27,9 +27,9 @@ export const IMAGES: Iimages = {
     background: require("./Hammarby/hammarby_Bakgrund@2x.png"),
   },
   5: {
-    logo: require("./Häcken/hackenlogo.png"),
-    emblem: require("./Häcken/Hacken_emblem.png"),
-    background: require("./Häcken/Häcken_Bakgrund@2x.png"),
+    logo: require("./Hacken/hackenlogo.png"),
+    emblem: require("./Hacken/Hacken_emblem.png"),
+    background: require("./Hacken/Hacken_Bakgrund@2x.png"),
   },
   6: {
     logo: require("./Kalmar/Kalmar@2x.png"),
@@ -57,18 +57,18 @@ export const IMAGES: Iimages = {
     background: require("./Rosengard/Rosengard_Bakgrund@2x.png"),
   },
   11: {
-    logo: require("./Umeå/Umeå@2x.png"),
-    emblem: require("./Umeå/Umea_emblem.png"),
-    background: require("./Umeå/Umeå_Bakgrund@2x.png"),
+    logo: require("./Umea/Umea@2x.png"),
+    emblem: require("./Umea/Umea_emblem.png"),
+    background: require("./Umea/Umea_Bakgrund@2x.png"),
   },
   12: {
-    logo: require("./Vittsjö/Vittsjö@2x.png"),
-    emblem: require("./Vittsjö/Vittsjo_emblem.png"),
-    background: require("./Vittsjö/Vittjö_Bakgrund@2x.png"),
+    logo: require("./Vittsjo/Vittsjo@2x.png"),
+    emblem: require("./Vittsjo/Vittsjo_emblem.png"),
+    background: require("./Vittsjo/Vittsjo_Bakgrund@2x.png"),
   },
   13: {
-    logo: require("./Örebro/Orebrologo.png"),
-    emblem: require("./Örebro/Orebro_emblem.png"),
-    background: require("./Örebro/Örebro_Bakgrund@2x.png"),
+    logo: require("./Orebro/Orebrologo.png"),
+    emblem: require("./Orebro/Orebro_emblem.png"),
+    background: require("./Orebro/Orebro_Bakgrund@2x.png"),
   },
 };

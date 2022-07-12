@@ -10,7 +10,7 @@ import { QuizByTeam } from "../../data/quiz";
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { Curve } from "../partials/curve";
 import { imageOnErrorHandler } from "../../services/Helpers";
-import { ITeams } from "../../models/ITeams";
+import { IGame, IOpponent, ITeams } from "../../models/ITeams";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { TeamsAndGames } from "../../data/teams";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
@@ -22,7 +22,7 @@ import {
   IResult,
 } from "../../models/IQuestions";
 import { IoMdFootball } from "react-icons/io";
-import { saveQuiz } from "../../services/StorageService";
+import { getGame, saveQuiz } from "../../services/StorageService";
 import { IMAGES } from "../../assets/images";
 import { Iimages } from "../../models/IImages";
 
@@ -31,22 +31,29 @@ export const PlayGamePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [haveAnswered, setHaveAnswered] = useState(false);
   const [result, setResult] = useState<IResult[]>([]);
-  const [game, setGame] = useState<ITeams>({
+  const [game, setGame] = useState<IGame>({
     id: 0,
     team: "",
-    games: [],
+    link: "",
+    opponent: "",
+    opponentid: 0,
+    arena: "",
+    date: "",
   });
 
-  const params = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    for (let i = 0; i < TeamsAndGames.length; i++) {
-      if (TeamsAndGames[i].id.toString() === params.id) {
-        setGame(TeamsAndGames[i]);
-        setIsLoading(false);
-      }
+    setGame(getGame<IGame>());
+  }, []);
+
+  useEffect(() => {
+    if (game != undefined) {
+      setIsLoading(false);
     }
+  }, [game]);
+
+  useEffect(() => {
     function shuffle(array: IGameQuestions[]) {
       let currentIndex = array.length,
         randomIndex;
@@ -113,17 +120,19 @@ export const PlayGamePage = () => {
       <>
         {footballs.map((x: IFootballs) => {
           return (
-            <IoMdFootball
-              key={x.answer}
-              color={
-                x.isAnswer
-                  ? x.isCorrect
-                    ? colors.CorrectGreen
-                    : colors.WronglyRed
-                  : colors.Darkgrey
-              }
-              size={"17px"}
-            />
+            <StyledP>
+              <IoMdFootball
+                key={x.answer}
+                color={
+                  x.isAnswer
+                    ? x.isCorrect
+                      ? colors.CorrectGreen
+                      : colors.WronglyRed
+                    : colors.Darkgrey
+                }
+                size={"22px"}
+              />
+            </StyledP>
           );
         })}
       </>
@@ -255,15 +264,22 @@ export const PlayGamePage = () => {
                         onClick={
                           haveAnswered ? undefined : () => handleClick(x)
                         }
-                        width={"40vh"}
+                        width={"240px"}
+                        height={"min-content"}
                         key={x.answer}
                       >
                         {x.answer}
                       </StyledButton>
                     );
                   })}
-                  <StyledP color={colors.TextBlue}>
+                  <FlexDiv margin='20px' gap={"12px"}>
                     <Footballs />
+                  </FlexDiv>
+                  <StyledP fontSize='14px' color={colors.TextBlue} margin='0'>
+                    {game.team} - {game.opponent}
+                  </StyledP>
+                  <StyledP fontSize='14px' color={colors.TextBlue} margin='0'>
+                    {game.date}
                   </StyledP>
                 </FlexDiv>
               </FlexDiv>

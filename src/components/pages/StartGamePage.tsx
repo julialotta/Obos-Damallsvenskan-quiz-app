@@ -24,7 +24,6 @@ export const StartGamePage = () => {
   const [game, setGame] = useState<ITeams>({
     id: 0,
     team: "",
-
     games: [],
   });
   const [opponent, setOpponent] = useState<IOpponent>({
@@ -200,7 +199,7 @@ export const StartGamePage = () => {
                   position='absolute'
                 >
                   <StyledImage
-                    width='340px'
+                    width='344px'
                     height='x'
                     src={IMAGES[game.id as keyof Iimages].emblem}
                     alt='Allt för laget'
@@ -221,20 +220,21 @@ export const StartGamePage = () => {
               background={colors.White}
               width='390px'
               bottom='55px'
+              margin='-10px 0 0 0'
             >
               <FlexDiv dir='column' width='100%'>
                 <FlexDiv dir='column' width='50%' gap='20px'>
                   <FlexDiv dir='column' width='50%' margin={"0 0 30px 0"}>
                     <FlexDiv gap='20px'>
                       <StyledImage
-                        height='100px'
+                        height='118px'
                         width='x'
                         onError={imageOnErrorHandler}
                         src={IMAGES[game.id as keyof Iimages].logo}
                         alt={"Emblem"}
                       />
                       <StyledImage
-                        height='100px'
+                        height='118px'
                         width='x'
                         onError={imageOnErrorHandler}
                         alt={opponent.opponent}
