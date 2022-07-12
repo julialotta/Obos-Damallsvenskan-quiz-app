@@ -18,3 +18,8 @@ export interface IResult {
   answer: string;
   isCorrect: boolean;
 }
+export interface IFootballs {
+  answer: string;
+  isCorrect: boolean;
+  isAnswer: boolean;
+}

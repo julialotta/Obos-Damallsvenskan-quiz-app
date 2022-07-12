@@ -15,11 +15,16 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { TeamsAndGames } from "../../data/teams";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 import { FaShieldAlt } from "react-icons/fa";
-import { IAnswers, IGameQuestions, IResult } from "../../models/IQuestions";
+import {
+  IAnswers,
+  IFootballs,
+  IGameQuestions,
+  IResult,
+} from "../../models/IQuestions";
 import { IoMdFootball } from "react-icons/io";
 import { saveQuiz } from "../../services/StorageService";
 import { IMAGES } from "../../assets/images";
-import { Iimage, Iimages } from "../../models/IImages";
+import { Iimages } from "../../models/IImages";
 
 export const PlayGamePage = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -87,24 +92,31 @@ export const PlayGamePage = () => {
       }
     }, 2000);
   };
-
   const Footballs = () => {
-    const [hasAnswer, setHasAnswer] = useState(false);
-    let footballs: IResult[] = [];
+    let footballs: IFootballs[] = [];
+    console.log(result);
+
     for (let i = 0; i < result.length; i++) {
-      footballs.push(result[i]);
+      footballs.push({
+        answer: result[i].answer,
+        isCorrect: result[i].isCorrect,
+        isAnswer: true,
+      });
     }
-    if (footballs.length > 5) {
-      footballs.push({ answer: "xxxxxx", isCorrect: false });
+    for (let i = 0; i < 5; i++) {
+      console.log(footballs.length);
+      if (footballs.length < 5) {
+        footballs.push({ answer: "x", isCorrect: false, isAnswer: false });
+      }
     }
     return (
       <>
-        {footballs.map((x: IAnswers) => {
+        {footballs.map((x: IFootballs) => {
           return (
             <IoMdFootball
               key={x.answer}
               color={
-                hasAnswer
+                x.isAnswer
                   ? x.isCorrect
                     ? colors.CorrectGreen
                     : colors.WronglyRed
