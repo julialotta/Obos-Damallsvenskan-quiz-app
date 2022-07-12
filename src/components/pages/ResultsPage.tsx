@@ -19,17 +19,19 @@ import { IGame } from "../../models/ITeams";
 import { Link } from "react-router-dom";
 import { FaShieldAlt } from "react-icons/fa";
 import { IResult } from "../../models/IQuestions";
+import { IMAGES } from "../../assets/images";
+import { Iimages } from "../../models/IImages";
 
 export const ResultsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult] = useState<IResult[]>([]);
 
   const [game, setGame] = useState<IGame>({
+    id: 0,
     team: "",
-    teamImg: "",
     link: "",
     opponent: "",
-    opponentImg: "",
+    opponentid: 0,
     arena: "",
     date: "",
   });
@@ -133,14 +135,16 @@ export const ResultsPage = () => {
               width='390px'
               bottom='55px'
             >
-              <FlexDiv dir='column' width='60%' gap='22px'>
+              <FlexDiv dir='column' width='60%' gap='22px' margin='-70px 0 0 0'>
                 <FlexDiv margin='0 0 20px 0'>
                   {result.map((x: IResult) => {
                     return (
                       <IoMdFootball
                         key={x.answer}
-                        color={x.isCorrect ? "green" : "red"}
-                        size={"30px"}
+                        color={
+                          x.isCorrect ? colors.CorrectGreen : colors.WronglyRed
+                        }
+                        size={"25px"}
                       />
                     );
                   })}
@@ -148,13 +152,13 @@ export const ResultsPage = () => {
                 <FlexDiv gap='15px'>
                   <StyledImage
                     width='70px'
-                    src={game.teamImg}
+                    src={IMAGES[game.id as keyof Iimages].logo}
                     onError={imageOnErrorHandler}
                   />
 
                   <StyledImage
                     width='70px'
-                    src={game.opponentImg}
+                    src={IMAGES[game.opponentid as keyof Iimages].logo}
                     onError={imageOnErrorHandler}
                   />
                 </FlexDiv>

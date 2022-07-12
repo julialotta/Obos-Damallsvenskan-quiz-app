@@ -6,6 +6,8 @@ export const colors = {
   White: "#FFFFFF",
   LightGrey: "#e6e6e6",
   Darkgrey: "#404040",
+  CorrectGreen: "#6CE082",
+  WronglyRed: "#DD4F4F",
 };
 
 const size = {

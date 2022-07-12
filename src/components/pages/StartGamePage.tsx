@@ -15,6 +15,8 @@ import {
   StyledP,
 } from "../StyledComponents/StyledTextElements";
 import { saveGame } from "../../services/StorageService";
+import { IMAGES } from "../../assets/images";
+import { Iimages } from "../../models/IImages";
 
 export const StartGamePage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,14 +24,12 @@ export const StartGamePage = () => {
   const [game, setGame] = useState<ITeams>({
     id: 0,
     team: "",
-    image: "",
-    AOMemblem: "",
-    background: "",
+
     games: [],
   });
   const [opponent, setOpponent] = useState<IOpponent>({
+    id: 0,
     opponent: "",
-    image: "",
     arena: "",
     datestamp: new Date(),
     link: "",
@@ -51,8 +51,8 @@ export const StartGamePage = () => {
     for (let i = 0; i < game.games.length; i++) {
       if (
         !gamesList.includes({
+          id: game.games[i].opponentid,
           opponent: game.games[i].opponent,
-          image: game.games[i].image,
           arena: game.games[i].arena,
           datestamp: game.games[i].datestamp,
           link: game.games[i].link,
@@ -60,8 +60,8 @@ export const StartGamePage = () => {
         })
       ) {
         gamesList.push({
+          id: game.games[i].opponentid,
           opponent: game.games[i].opponent,
-          image: game.games[i].image,
           arena: game.games[i].arena,
           datestamp: game.games[i].datestamp,
           link: game.games[i].link,
@@ -76,8 +76,8 @@ export const StartGamePage = () => {
         if (TeamsAndGames[i].games[y].opponent === game.team) {
           if (
             !gamesList.includes({
+              id: TeamsAndGames[i].id,
               opponent: TeamsAndGames[i].team,
-              image: TeamsAndGames[i].image,
               arena: TeamsAndGames[i].games[y].arena,
               datestamp: TeamsAndGames[i].games[y].datestamp,
               link: TeamsAndGames[i].games[y].link,
@@ -85,8 +85,8 @@ export const StartGamePage = () => {
             })
           ) {
             gamesList.push({
+              id: TeamsAndGames[i].id,
               opponent: TeamsAndGames[i].team,
-              image: TeamsAndGames[i].image,
               arena: TeamsAndGames[i].games[y].arena,
               datestamp: TeamsAndGames[i].games[y].datestamp,
               link: TeamsAndGames[i].games[y].link,
@@ -118,11 +118,11 @@ export const StartGamePage = () => {
 
   useEffect(() => {
     saveGame({
+      id: game.id,
       team: game.team,
-      teamImg: game.AOMemblem,
       link: opponent.link,
       opponent: opponent.opponent,
-      opponentImg: opponent.image,
+      opponentid: opponent.id,
       arena: opponent.arena,
       date: date,
     });
@@ -202,7 +202,7 @@ export const StartGamePage = () => {
                   <StyledImage
                     width='340px'
                     height='x'
-                    src={game.AOMemblem}
+                    src={IMAGES[game.id as keyof Iimages].emblem}
                     alt='Allt för laget'
                   />
                 </FlexDiv>
@@ -210,7 +210,7 @@ export const StartGamePage = () => {
               <StyledImage
                 width='100%'
                 height='100%'
-                src={game.background}
+                src={IMAGES[game.id as keyof Iimages].background}
                 alt='Pattern in team colors'
               />
             </FlexDiv>
@@ -227,14 +227,18 @@ export const StartGamePage = () => {
                   <FlexDiv dir='column' width='50%' margin={"0 0 30px 0"}>
                     <FlexDiv gap='20px'>
                       <StyledImage
+                        height='100px'
+                        width='x'
                         onError={imageOnErrorHandler}
-                        src={game.image}
+                        src={IMAGES[game.id as keyof Iimages].logo}
                         alt={"Emblem"}
                       />
                       <StyledImage
+                        height='100px'
+                        width='x'
                         onError={imageOnErrorHandler}
                         alt={opponent.opponent}
-                        src={opponent.image}
+                        src={IMAGES[opponent.id as keyof Iimages].logo}
                       />
                     </FlexDiv>
                   </FlexDiv>

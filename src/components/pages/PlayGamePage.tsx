@@ -18,6 +18,8 @@ import { FaShieldAlt } from "react-icons/fa";
 import { IAnswers, IGameQuestions, IResult } from "../../models/IQuestions";
 import { IoMdFootball } from "react-icons/io";
 import { saveQuiz } from "../../services/StorageService";
+import { IMAGES } from "../../assets/images";
+import { Iimage, Iimages } from "../../models/IImages";
 
 export const PlayGamePage = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -27,9 +29,6 @@ export const PlayGamePage = () => {
   const [game, setGame] = useState<ITeams>({
     id: 0,
     team: "",
-    image: "",
-    AOMemblem: "",
-    background: "",
     games: [],
   });
 
@@ -70,14 +69,18 @@ export const PlayGamePage = () => {
 
   const handleClick = (x: IAnswers) => {
     setHaveAnswered(true);
+    if (currentQuestion > 4) {
+      navigate("/resultat");
+    }
     if (x.isCorrect) {
       setResult([...result, { answer: x.answer, isCorrect: x.isCorrect }]);
     } else if (x.isCorrect === false) {
       setResult([...result, { answer: x.answer, isCorrect: x.isCorrect }]);
     }
+
     setTimeout(() => {
       setHaveAnswered(false);
-      if (currentQuestion + 1 < 5) {
+      if (currentQuestion < 4) {
         setCurrentQuestion(currentQuestion + 1);
       } else {
         navigate("/resultat");
@@ -86,11 +89,29 @@ export const PlayGamePage = () => {
   };
 
   const Footballs = () => {
+    const [hasAnswer, setHasAnswer] = useState(false);
+    let footballs: IResult[] = [];
+    for (let i = 0; i < result.length; i++) {
+      footballs.push(result[i]);
+    }
+    if (footballs.length > 5) {
+      footballs.push({ answer: "xxxxxx", isCorrect: false });
+    }
     return (
       <>
-        {result.map((x: IAnswers) => {
+        {footballs.map((x: IAnswers) => {
           return (
-            <IoMdFootball color={x.isCorrect ? "green" : "red"} size={"23px"} />
+            <IoMdFootball
+              key={x.answer}
+              color={
+                hasAnswer
+                  ? x.isCorrect
+                    ? colors.CorrectGreen
+                    : colors.WronglyRed
+                  : colors.Darkgrey
+              }
+              size={"17px"}
+            />
           );
         })}
       </>
@@ -156,7 +177,7 @@ export const PlayGamePage = () => {
                     position='absolute'
                     width='120px'
                     height='120px'
-                    src={game.AOMemblem}
+                    src={IMAGES[game.id as keyof Iimages].emblem}
                     onError={imageOnErrorHandler}
                   ></StyledImage>
                 </FlexDiv>
@@ -185,7 +206,7 @@ export const PlayGamePage = () => {
               <StyledImage
                 width='100%'
                 height='100%'
-                src={game.background}
+                src={IMAGES[game.id as keyof Iimages].background}
                 alt='Blue Pattern'
               />
             </FlexDiv>
@@ -219,7 +240,9 @@ export const PlayGamePage = () => {
                               : colors.ButtonBlue
                             : colors.ButtonBlue
                         }
-                        onClick={() => handleClick(x)}
+                        onClick={
+                          haveAnswered ? undefined : () => handleClick(x)
+                        }
                         width={"40vh"}
                         key={x.answer}
                       >

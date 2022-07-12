@@ -11,6 +11,8 @@ import { FaShieldAlt } from "react-icons/fa";
 import { TeamsAndGames } from "../../data/teams";
 import { imageOnErrorHandler } from "../../services/Helpers";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
+import { IMAGES } from "../../assets/images";
+import { Iimage, Iimages } from "../../models/IImages";
 
 export const ChooseTeamPage = () => {
   return (
@@ -112,7 +114,7 @@ export const ChooseTeamPage = () => {
                         width='x'
                         height='58px'
                         transform='scale(1.1)'
-                        src={x.image}
+                        src={IMAGES[x.id as keyof Iimages].logo}
                         shadow={"#15314029 0px 3px 6px"}
                         onError={imageOnErrorHandler}
                       ></StyledImage>
