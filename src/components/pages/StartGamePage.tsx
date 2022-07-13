@@ -149,7 +149,7 @@ export const StartGamePage = () => {
         </FlexDiv>
       ) : (
         <FlexDiv
-          background={colors.BackgroundBlue}
+          linear={"linear-gradient(to bottom right, #172542, #2e3b55)"}
           width={"100%"}
           height='100%'
           dir={"column"}
@@ -200,7 +200,7 @@ export const StartGamePage = () => {
                   position='absolute'
                 >
                   <StyledImage
-                    width='344px'
+                    width='340px'
                     height='x'
                     src={IMAGES[game.id as keyof Iimages].emblem}
                     alt='Allt för laget'

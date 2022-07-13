@@ -57,7 +57,7 @@ export const ResultsPage = () => {
         </FlexDiv>
       ) : (
         <FlexDiv
-          background={colors.BackgroundBlue}
+          linear={"linear-gradient(to bottom right, #172542, #2e3b55)"}
           width={"100%"}
           dir={"column"}
           minHeight='100vh'

@@ -23,6 +23,7 @@ export const FlexDiv = styled.div`
   right: ${(props: IStylingProps) => props.right || "x"};
   box-shadow: ${(props: IStylingProps) => props.shadow || 0};
   min-height: ${(props: IStylingProps) => props.minHeight || 0};
+  background-image: ${(props: IStylingProps) => props.linear || "none"};
 `;
 
 export const ImageDiv = styled(FlexDiv)`

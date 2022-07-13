@@ -148,7 +148,7 @@ export const PlayGamePage = () => {
         </FlexDiv>
       ) : (
         <FlexDiv
-          background={colors.BackgroundBlue}
+          linear={"linear-gradient(to bottom right, #172542, #2e3b55)"}
           width={"100%"}
           dir={"column"}
           minHeight='100vh'
@@ -193,11 +193,11 @@ export const PlayGamePage = () => {
                     <FaShieldAlt color='white' size={"30px"} />
                   </Link>
                 </FlexDiv>
-                <FlexDiv top={"85px"} position='absolute' z='200'>
+                <FlexDiv top={"80px"} position='absolute' z='200'>
                   <StyledImage
                     position='absolute'
-                    width='120px'
-                    height='120px'
+                    width='x'
+                    height='110px'
                     src={IMAGES[game.id as keyof Iimages].emblem}
                     onError={imageOnErrorHandler}
                   ></StyledImage>
@@ -212,21 +212,27 @@ export const PlayGamePage = () => {
                   hoverBackground='none'
                   hover='default'
                   transform='none'
-                  padding={"1px"}
+                  padding={"0"}
                   margin='100px 0 0 0'
                   border='#707070 1px solid'
                 >
-                  <StyledHeadingh3 color={colors.TextBlue} margin={"0"}>
+                  <StyledP
+                    color={colors.TextBlue}
+                    fontSize={"15px"}
+                    margin={"20px 10px 10px 10px"}
+                    font={"GothamBook"}
+                  >
                     {
                       QuizByTeam[game.id].questionsAndAnswers[currentQuestion]
                         .question
                     }
-                  </StyledHeadingh3>
+                  </StyledP>
                 </StyledButton>
               </FlexDiv>
               <StyledImage
                 width='100%'
                 height='100%'
+                min-minHeight='500px'
                 src={IMAGES[game.id as keyof Iimages].background}
                 alt='Blue Pattern'
               />

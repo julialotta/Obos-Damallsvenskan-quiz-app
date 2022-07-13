@@ -33,6 +33,7 @@ export const StyledP = styled.p`
   margin: ${(props: IStylingProps) => props.margin || "5px"};
   font-size: ${(props: IStylingProps) => props.fontSize || "15px"};
   text-shadow: ${(props: IStylingProps) => props.shadow || 0};
+  font-family: ${(props: IStylingProps) => props.font || "GothamLight"};
 `;
 
 export const StyledLink = styled(Link)`
