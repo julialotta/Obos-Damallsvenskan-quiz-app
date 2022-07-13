@@ -30,4 +30,5 @@ interface IimageGeneral {
   onError: string;
   obosLogo: string;
   sponsorLogo: string;
+  curve: string;
 }

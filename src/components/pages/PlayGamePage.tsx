@@ -172,7 +172,7 @@ export const PlayGamePage = () => {
               dir='column'
               width='390px'
               position='relative'
-              height='350px'
+              height='385px'
               background={colors.BackgroundBlue}
               z='0'
             >
@@ -180,7 +180,7 @@ export const PlayGamePage = () => {
                 position='relative'
                 z='200'
                 width='390px'
-                height='380px'
+                height='390px'
                 background={colors.BackgroundBlue}
               >
                 <FlexDiv
@@ -244,6 +244,7 @@ export const PlayGamePage = () => {
               background={colors.White}
               width='390px'
               bottom='55px'
+              margin='-50px 0 10px 0'
             >
               <FlexDiv dir='column' width='60%' gap='22px'>
                 <FlexDiv
@@ -278,14 +279,16 @@ export const PlayGamePage = () => {
                       </StyledButton>
                     );
                   })}
-                  <FlexDiv margin='20px' gap={"12px"}>
+                  <FlexDiv margin='45px' gap={"12px"}>
                     <Footballs />
                   </FlexDiv>
-                  <StyledP fontSize='14px' color={colors.TextBlue} margin='0'>
-                    {game.team} - {game.opponent}
-                  </StyledP>
-                  <StyledP fontSize='14px' color={colors.TextBlue} margin='0'>
-                    {game.date}
+                  <StyledP
+                    fontSize='12px'
+                    color={colors.TextBlue}
+                    margin='0'
+                    textTransform='uppercase'
+                  >
+                    {game.team} - {game.opponent} {game.date}
                   </StyledP>
                 </FlexDiv>
               </FlexDiv>

@@ -172,7 +172,7 @@ export const StartGamePage = () => {
               dir='column'
               width='390px'
               position='relative'
-              height='420px'
+              height='400px'
               background={colors.BackgroundBlue}
               z='0'
             >
@@ -180,7 +180,7 @@ export const StartGamePage = () => {
                 position='relative'
                 z='100'
                 width='390px'
-                height='380px'
+                height='370px'
                 background={colors.BackgroundBlue}
               >
                 <FlexDiv
@@ -200,7 +200,7 @@ export const StartGamePage = () => {
                   position='absolute'
                 >
                   <StyledImage
-                    width='340px'
+                    width='320px'
                     height='x'
                     src={IMAGES[game.id as keyof Iimages].emblem}
                     alt='Allt för laget'
@@ -221,21 +221,21 @@ export const StartGamePage = () => {
               background={colors.White}
               width='390px'
               bottom='55px'
-              margin='-10px 0 0 0'
+              margin='-20px 0 0 0'
             >
               <FlexDiv dir='column' width='100%'>
                 <FlexDiv dir='column' width='50%' gap='20px'>
                   <FlexDiv dir='column' width='50%' margin={"0 0 30px 0"}>
                     <FlexDiv gap='20px'>
                       <StyledImage
-                        height='118px'
+                        height='110px'
                         width='x'
                         onError={imageOnErrorHandler}
                         src={IMAGES[game.id as keyof Iimages].logo}
                         alt={"Emblem"}
                       />
                       <StyledImage
-                        height='118px'
+                        height='110px'
                         width='x'
                         onError={imageOnErrorHandler}
                         alt={opponent.opponent}
@@ -253,17 +253,23 @@ export const StartGamePage = () => {
                     {game.team} - {opponent.opponent}
                   </StyledHeadingh3>
                 </FlexDiv>
-                <StyledP margin='0' color={colors.TextBlue}>
-                  Omgång {opponent.round}
+
+                <StyledP
+                  textTransform='uppercase'
+                  margin='0 0 20px 0'
+                  color={colors.TextBlue}
+                >
+                  {opponent.arena} {date}
                 </StyledP>
-                <StyledP margin='0' color={colors.TextBlue}>
-                  {opponent.arena}
-                </StyledP>
-                <StyledP margin='0' color={colors.TextBlue}>
-                  {date}
-                </StyledP>
+
                 <Link to={`/spela/${game.id}`}>
-                  <StyledButton>Starta matchen</StyledButton>
+                  <StyledButton
+                    width='230px'
+                    height={"60px"}
+                    shadow={"#00000038 0px 3px 5px "}
+                  >
+                    <StyledHeadingh3>Starta matchen</StyledHeadingh3>
+                  </StyledButton>
                 </Link>
               </FlexDiv>
             </FlexDiv>

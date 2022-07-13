@@ -80,5 +80,6 @@ export const GeneralIMAGES: IimagesGenereal = {
     onError: require("./OnError.png"),
     obosLogo: require("./Liga-sponsor/DA_logo@3x.png"),
     sponsorLogo: require("./Liga-sponsor/DA_partnerlogo.png"),
+    curve: require("./curve.png"),
   },
 };

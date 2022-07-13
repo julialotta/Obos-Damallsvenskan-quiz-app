@@ -34,6 +34,7 @@ export const StyledP = styled.p`
   font-size: ${(props: IStylingProps) => props.fontSize || "15px"};
   text-shadow: ${(props: IStylingProps) => props.shadow || 0};
   font-family: ${(props: IStylingProps) => props.font || "GothamLight"};
+  text-transform: ${(props: IStylingProps) => props.textTransform || "none"};
 `;
 
 export const StyledLink = styled(Link)`
