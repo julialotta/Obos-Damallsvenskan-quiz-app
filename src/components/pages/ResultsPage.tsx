@@ -21,6 +21,7 @@ import { FaShieldAlt } from "react-icons/fa";
 import { IResult } from "../../models/IQuestions";
 import { IMAGES } from "../../assets/images";
 import { Iimages } from "../../models/IImages";
+import { Loader } from "../StyledComponents/Loader";
 
 export const ResultsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -51,15 +52,16 @@ export const ResultsPage = () => {
     <>
       <GlobalStyle />
       {isLoading ? (
-        <FlexDiv height='50vh' align={"start"}>
-          <p>Laddar...</p>
+        <FlexDiv height='50vh' align={"start"} margin={"40px 0 0 0"}>
+          <Loader />
         </FlexDiv>
       ) : (
         <FlexDiv
           background={colors.BackgroundBlue}
           width={"100%"}
-          height='100%'
           dir={"column"}
+          minHeight='100vh'
+          justify='start'
           position={"relative"}
         >
           <FlexDiv
@@ -83,41 +85,70 @@ export const ResultsPage = () => {
               background={colors.BackgroundBlue}
               z='0'
             >
-              <FlexDiv dir='column' position='absolute' z='100'>
-                <FlexDiv
-                  top={"40px"}
-                  left={"-160px"}
-                  position='absolute'
-                  z='200'
-                >
+              <FlexDiv
+                position='relative'
+                z='100'
+                width='390px'
+                height='250px'
+                background={colors.BackgroundBlue}
+              >
+                <FlexDiv top={"40px"} left={"-160px"} position='absolute'>
                   <Link to='/'>
                     <FaShieldAlt color='white' size={"30px"} />
                   </Link>
                 </FlexDiv>
-                <StyledHeadingh5>Ställningen</StyledHeadingh5>
-                <FlexDiv dir='row' z='100' align='start' margin='10px 0 0 0'>
-                  <StyledButton
-                    transform='0'
+                <FlexDiv
+                  top={"110px"}
+                  left={"0"}
+                  right={"0"}
+                  position='absolute'
+                >
+                  <FlexDiv dir='column' position='absolute' z='100'>
+                    <StyledHeadingh3>Ställningen</StyledHeadingh3>
+                    <FlexDiv
+                      dir='row'
+                      z='100'
+                      align='start'
+                      margin='10px 0 0 0'
+                    >
+                      <StyledButton
+                        transform='0'
+                        background={colors.White}
+                        height='50px'
+                        width='200px'
+                        hoverColor='none'
+                        hoverBackground='none'
+                        hover='default'
+                      >
+                        <StyledHeadingh3>X</StyledHeadingh3>
+                      </StyledButton>
+                      <StyledButton
+                        transform='0'
+                        background={colors.White}
+                        height='50px'
+                        width='200px'
+                        hoverColor='none'
+                        hoverBackground='none'
+                        hover='default'
+                      >
+                        <StyledHeadingh3>X</StyledHeadingh3>
+                      </StyledButton>
+                    </FlexDiv>
+                  </FlexDiv>
+
+                  {/*  <StyledButton
                     background={colors.White}
                     height='50px'
-                    width='200px'
+                    width='309px'
                     hoverColor='none'
                     hoverBackground='none'
                     hover='default'
-                  >
-                    <StyledHeadingh3>X</StyledHeadingh3>
-                  </StyledButton>
-                  <StyledButton
                     transform='0'
-                    background={colors.White}
-                    height='50px'
-                    width='200px'
-                    hoverColor='none'
-                    hoverBackground='none'
-                    hover='default'
                   >
-                    <StyledHeadingh3>X</StyledHeadingh3>
-                  </StyledButton>
+                    <StyledHeadingh3 fontSize='30px' color={colors.ButtonBlue}>
+                      Välj klubb 👇
+                    </StyledHeadingh3>
+                  </StyledButton> */}
                 </FlexDiv>
               </FlexDiv>
               <StyledImage
@@ -135,8 +166,8 @@ export const ResultsPage = () => {
               width='390px'
               bottom='55px'
             >
-              <FlexDiv dir='column' width='60%' gap='22px' margin='-70px 0 0 0'>
-                <FlexDiv margin='0 0 20px 0'>
+              <FlexDiv dir='column' width='60%' margin='-70px 0 0 0'>
+                <FlexDiv gap='22px' margin='0 0 20px 0'>
                   {result.map((x: IResult) => {
                     return (
                       <IoMdFootball
@@ -149,15 +180,17 @@ export const ResultsPage = () => {
                     );
                   })}
                 </FlexDiv>
-                <FlexDiv gap='15px'>
+                <FlexDiv gap='35px'>
                   <StyledImage
-                    width='70px'
+                    height='118px'
+                    width='x'
                     src={IMAGES[game.id as keyof Iimages].logo}
                     onError={imageOnErrorHandler}
                   />
 
                   <StyledImage
-                    width='70px'
+                    width='x'
+                    height='118px'
                     src={IMAGES[game.opponentid as keyof Iimages].logo}
                     onError={imageOnErrorHandler}
                   />
@@ -171,6 +204,12 @@ export const ResultsPage = () => {
                 <StyledP margin='0' color={colors.TextBlue}>
                   {game.date}
                 </StyledP>
+                <StyledHeadingh5
+                  textTransform='uppercase'
+                  color={colors.TextBlue}
+                >
+                  GÖR ALLT FÖR {game.team}
+                </StyledHeadingh5>
                 <a href={game.link}>
                   <StyledButton margin='5px' padding='22px'>
                     Köp biljetter!

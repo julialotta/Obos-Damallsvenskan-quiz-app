@@ -17,6 +17,7 @@ import {
 import { saveGame } from "../../services/StorageService";
 import { IMAGES } from "../../assets/images";
 import { Iimages } from "../../models/IImages";
+import { Loader } from "../StyledComponents/Loader";
 
 export const StartGamePage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -143,8 +144,8 @@ export const StartGamePage = () => {
     <>
       <GlobalStyle />
       {isLoading ? (
-        <FlexDiv height='50vh' align={"start"}>
-          <p>Laddar...</p>
+        <FlexDiv height='50vh' align={"start"} margin={"40px 0 0 0"}>
+          <Loader />
         </FlexDiv>
       ) : (
         <FlexDiv

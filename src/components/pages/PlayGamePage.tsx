@@ -10,9 +10,8 @@ import { QuizByTeam } from "../../data/quiz";
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { Curve } from "../partials/curve";
 import { imageOnErrorHandler } from "../../services/Helpers";
-import { IGame, IOpponent, ITeams } from "../../models/ITeams";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { TeamsAndGames } from "../../data/teams";
+import { IGame } from "../../models/ITeams";
+import { Link, useNavigate } from "react-router-dom";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 import { FaShieldAlt } from "react-icons/fa";
 import {
@@ -25,6 +24,7 @@ import { IoMdFootball } from "react-icons/io";
 import { getGame, saveQuiz } from "../../services/StorageService";
 import { IMAGES } from "../../assets/images";
 import { Iimages } from "../../models/IImages";
+import { Loader } from "../StyledComponents/Loader";
 
 export const PlayGamePage = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -143,8 +143,8 @@ export const PlayGamePage = () => {
     <>
       <GlobalStyle />
       {isLoading ? (
-        <FlexDiv height='50vh' align={"start"}>
-          <p>Laddar...</p>
+        <FlexDiv height='50vh' align={"start"} margin={"40px 0 0 0"}>
+          <Loader />
         </FlexDiv>
       ) : (
         <FlexDiv

@@ -14,9 +14,20 @@ export interface Iimages {
   12: Iimage;
   13: Iimage;
 }
+export interface IimagesGenereal {
+  general: IimageGeneral;
+}
 
 export interface Iimage {
   logo: string;
   background: string;
   emblem: string;
+}
+
+interface IimageGeneral {
+  bluePatternBackground: string;
+  startBackground: string;
+  onError: string;
+  obosLogo: string;
+  sponsorLogo: string;
 }

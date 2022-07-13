@@ -23,6 +23,7 @@ export const StyledHeadingh5 = styled.h5`
   color: ${(props: IStylingProps) => props.color || colors.White};
   text-align: center;
   text-shadow: ${(props: IStylingProps) => props.shadow || 0};
+  text-transform: ${(props: IStylingProps) => props.textTransform || "none"};
 `;
 
 export const StyledP = styled.p`

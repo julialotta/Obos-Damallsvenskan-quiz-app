@@ -1,4 +1,4 @@
-import { Iimages } from "../models/IImages";
+import { Iimages, IimagesGenereal } from "../models/IImages";
 
 export const IMAGES: Iimages = {
   0: {
@@ -70,5 +70,15 @@ export const IMAGES: Iimages = {
     logo: require("./Orebro/Orebrologo.png"),
     emblem: require("./Orebro/Orebro_emblem.png"),
     background: require("./Orebro/Orebro_Bakgrund@2x.png"),
+  },
+};
+
+export const GeneralIMAGES: IimagesGenereal = {
+  general: {
+    bluePatternBackground: require("./DA_startbakgrund@2x.png"),
+    startBackground: require("./Startbild.jpeg"),
+    onError: require("./OnError.png"),
+    obosLogo: require("./Liga-sponsor/DA_logo@3x.png"),
+    sponsorLogo: require("./Liga-sponsor/DA_partnerlogo.png"),
   },
 };
