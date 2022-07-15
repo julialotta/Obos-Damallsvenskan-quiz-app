@@ -25,8 +25,9 @@ import { Loader } from "../StyledComponents/Loader";
 import { Timerwrapper } from "../StyledComponents/Timer";
 
 export const PlayGamePage = () => {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [timeout, setTimeOut] = useState(true);
+  const [currentQuestion, setCurrentQuestion] = useState(1);
   const [haveAnswered, setHaveAnswered] = useState(false);
   const [result, setResult] = useState<IResult[]>([]);
   const [game, setGame] = useState<IGame>({
@@ -38,15 +39,41 @@ export const PlayGamePage = () => {
     arena: "",
     date: "",
   });
-
+  const [classIsActive, setClassIsActive] = useState(true);
   const navigate = useNavigate();
 
+  function twoSecondDelay() {
+    setClassIsActive(true);
+    setHaveAnswered(false);
+    if (currentQuestion >= 5 || result.length > 4) {
+      navigate("/resultat");
+    } else {
+      setCurrentQuestion(currentQuestion + 1);
+    }
+  }
+
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setClassIsActive(false);
+      setHaveAnswered(true);
+      let newAnswer = {
+        answer: "timeIsUp" + currentQuestion,
+        isCorrect: false,
+      };
+      setResult([...result, newAnswer]);
+      setTimeout(twoSecondDelay, 2500);
+    }, 25000);
+    saveQuiz(result);
+    return () => clearTimeout(timer);
+  }, [currentQuestion]);
+
+  useEffect(() => {
+    saveQuiz(result);
     setGame(getGame<IGame>());
   }, []);
 
   useEffect(() => {
-    if (game != undefined) {
+    if (game.team != "") {
       setIsLoading(false);
     }
   }, [game]);
@@ -60,80 +87,54 @@ export const PlayGamePage = () => {
         // Pick a remaining element.
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
-
         // And swap it with the current element.
         [array[currentIndex], array[randomIndex]] = [
           array[randomIndex],
           array[currentIndex],
         ];
       }
-
       return array;
     }
     shuffle(QuizByTeam[game.id].questionsAndAnswers);
-  }, [result]);
-
-  useEffect(() => {
-    saveQuiz(result);
-  }, [result]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setHaveAnswered(true);
-      setResult([...result, { answer: "Time is up", isCorrect: false }]);
-      if (currentQuestion == 4) {
-        navigate("/resultat");
-      } else if (currentQuestion < 4) {
-        setCurrentQuestion(currentQuestion + 1);
-        setHaveAnswered(false);
-      }
-    }, 20000);
-  }, [currentQuestion]);
+  }, [game]);
 
   const handleClick = (x: IAnswers) => {
     setHaveAnswered(true);
-    if (currentQuestion > 4) {
-      navigate("/resultat");
-    }
+    setClassIsActive(false);
+    //sparar resultat efter klick
     if (x.isCorrect) {
-      setResult([...result, { answer: x.answer, isCorrect: x.isCorrect }]);
+      result.push({ answer: x.answer, isCorrect: x.isCorrect });
+      saveQuiz(result);
     } else if (x.isCorrect === false) {
-      setResult([...result, { answer: x.answer, isCorrect: x.isCorrect }]);
+      result.push({ answer: x.answer, isCorrect: x.isCorrect });
+      saveQuiz(result);
     }
-
-    setTimeout(() => {
-      setHaveAnswered(false);
-      if (currentQuestion < 4) {
-        setCurrentQuestion(currentQuestion + 1);
-      } else {
-        navigate("/resultat");
-      }
-    }, 2000);
+    setTimeout(twoSecondDelay, 2000);
   };
+
   const Footballs = () => {
     let footballs: IFootballs[] = [];
-    console.log(result);
-
-    for (let i = 0; i < result.length; i++) {
-      footballs.push({
-        answer: result[i].answer,
-        isCorrect: result[i].isCorrect,
-        isAnswer: true,
-      });
+    if (footballs.length < 5) {
+      for (let i = 0; i < result.length; i++) {
+        footballs.push({
+          answer: result[i].answer,
+          isCorrect: result[i].isCorrect,
+          isAnswer: true,
+        });
+      }
     }
     for (let i = 0; i < 5; i++) {
-      console.log(footballs.length);
       if (footballs.length < 5) {
         footballs.push({ answer: "x", isCorrect: false, isAnswer: false });
       }
     }
+
     return (
       <>
-        {footballs.map((x: IFootballs) => {
+        {footballs.map((x: IFootballs, i: number) => {
           return (
-            <StyledP>
+            <StyledP key={i}>
               <IoMdFootball
-                key={x.answer}
                 color={
                   x.isAnswer
                     ? x.isCorrect
@@ -257,10 +258,22 @@ export const PlayGamePage = () => {
               bottom='55px'
               margin='-50px 0 10px 0'
             >
-              <Timerwrapper>
-                <div className='color' />
-                <IoMdFootball size={"22px"} color='white' className='ball' />
-              </Timerwrapper>
+              {haveAnswered ? (
+                <FlexDiv height={"21px"} />
+              ) : (
+                <Timerwrapper>
+                  <div
+                    className={
+                      classIsActive ? "bar baranimation" : "bar resetbar"
+                    }
+                  />
+                  <IoMdFootball
+                    size={"19px"}
+                    color='white'
+                    className={classIsActive ? "ballanimation" : "resetball"}
+                  />
+                </Timerwrapper>
+              )}
               <FlexDiv dir='column' width='60%' gap='22px'>
                 <FlexDiv
                   dir='column'
@@ -271,7 +284,7 @@ export const PlayGamePage = () => {
                 >
                   {QuizByTeam[game.id].questionsAndAnswers[
                     currentQuestion
-                  ].answers.map((x: IAnswers, i) => {
+                  ].answers.map((x: IAnswers, i: number) => {
                     return (
                       <StyledButton
                         transform={"none"}
@@ -288,7 +301,7 @@ export const PlayGamePage = () => {
                         }
                         width={"240px"}
                         height={"min-content"}
-                        key={x.answer}
+                        key={i}
                       >
                         {x.answer}
                       </StyledButton>

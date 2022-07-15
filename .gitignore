@@ -3,6 +3,9 @@
 # data
 /src/data
 
+# db
+db.ts
+
 # dependencies
 /node_modules
 /.pnp

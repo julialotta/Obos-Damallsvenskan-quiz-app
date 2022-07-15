@@ -7,7 +7,6 @@ import {
   StyledHeadingh5,
   StyledP,
 } from "../StyledComponents/StyledTextElements";
-import background from "../../assets/DA_startbakgrund@2x.png";
 import { IoMdFootball } from "react-icons/io";
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { Curve } from "../partials/curve";
@@ -81,7 +80,7 @@ export const ResultsPage = () => {
               dir='column'
               width='390px'
               position='relative'
-              height='250px'
+              height='370px'
               background={colors.BackgroundBlue}
               z='0'
             >
@@ -98,63 +97,65 @@ export const ResultsPage = () => {
                   </Link>
                 </FlexDiv>
                 <FlexDiv
-                  top={"110px"}
+                  top={"100px"}
                   left={"0"}
                   right={"0"}
                   position='absolute'
                 >
-                  <FlexDiv dir='column' position='absolute' z='100'>
+                  <FlexDiv
+                    dir='column'
+                    align='center'
+                    justify='start'
+                    position='absolute'
+                    z='100'
+                    top={"-60px"}
+                  >
                     <StyledHeadingh3>Ställningen</StyledHeadingh3>
                     <FlexDiv
                       dir='row'
+                      position='absolute'
                       z='100'
-                      align='start'
+                      align='end'
                       margin='10px 0 0 0'
+                      top={"270px"}
+                      gap={"30px"}
                     >
                       <StyledButton
                         transform='0'
                         background={colors.White}
-                        height='50px'
-                        width='200px'
+                        height='200px'
+                        width='80px'
                         hoverColor='none'
+                        borderRad='2px'
                         hoverBackground='none'
                         hover='default'
                       >
-                        <StyledHeadingh3>X</StyledHeadingh3>
+                        <StyledHeadingh3 color={colors.TextBlue}>
+                          450
+                        </StyledHeadingh3>
                       </StyledButton>
                       <StyledButton
                         transform='0'
+                        borderRad='2px'
                         background={colors.White}
-                        height='50px'
-                        width='200px'
+                        height='140px'
+                        width='80px'
                         hoverColor='none'
                         hoverBackground='none'
                         hover='default'
                       >
-                        <StyledHeadingh3>X</StyledHeadingh3>
+                        <StyledHeadingh3 color={colors.TextBlue}>
+                          301
+                        </StyledHeadingh3>
                       </StyledButton>
                     </FlexDiv>
                   </FlexDiv>
-
-                  {/*  <StyledButton
-                    background={colors.White}
-                    height='50px'
-                    width='309px'
-                    hoverColor='none'
-                    hoverBackground='none'
-                    hover='default'
-                    transform='0'
-                  >
-                    <StyledHeadingh3 fontSize='30px' color={colors.ButtonBlue}>
-                      Välj klubb 👇
-                    </StyledHeadingh3>
-                  </StyledButton> */}
                 </FlexDiv>
               </FlexDiv>
               <StyledImage
                 width='100%'
                 height='100%'
-                src={background}
+                src={IMAGES[game.id as keyof Iimages].background}
                 alt='Blue Pattern'
               />
             </FlexDiv>
