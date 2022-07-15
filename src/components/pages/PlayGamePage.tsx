@@ -61,9 +61,9 @@ export const PlayGamePage = () => {
         isCorrect: false,
       };
       setResult([...result, newAnswer]);
+      saveQuiz([...result, newAnswer]);
       setTimeout(twoSecondDelay, 2500);
     }, 25000);
-    saveQuiz(result);
     return () => clearTimeout(timer);
   }, [currentQuestion]);
 
@@ -173,7 +173,6 @@ export const PlayGamePage = () => {
             background={colors.White}
             position={"relative"}
             borderRad={"5px"}
-            bottom='15px'
             width={"390px"}
             minHeight='100vh'
             shadow={

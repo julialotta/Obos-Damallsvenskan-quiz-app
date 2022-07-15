@@ -69,7 +69,6 @@ export const ResultsPage = () => {
             background={colors.White}
             position={"relative"}
             borderRad={"5px"}
-            bottom='15px'
             width={"390px"}
             minHeight='100vh'
             shadow={
@@ -168,7 +167,7 @@ export const ResultsPage = () => {
               bottom='55px'
             >
               <FlexDiv dir='column' width='60%' margin='-70px 0 0 0'>
-                <FlexDiv gap='22px' margin='0 0 20px 0'>
+                <FlexDiv gap='12px' margin='0 0 45px 0'>
                   {result.map((x: IResult) => {
                     return (
                       <IoMdFootball
@@ -181,7 +180,7 @@ export const ResultsPage = () => {
                     );
                   })}
                 </FlexDiv>
-                <FlexDiv gap='35px'>
+                <FlexDiv gap='35px' margin='0 0 30px 0'>
                   <StyledImage
                     height='118px'
                     width='x'
@@ -196,23 +195,33 @@ export const ResultsPage = () => {
                     onError={imageOnErrorHandler}
                   />
                 </FlexDiv>
-                <StyledP margin='0' color={colors.TextBlue}>
+                <StyledP
+                  fontSize='13px'
+                  textTransform='uppercase'
+                  margin='0'
+                  color={colors.TextBlue}
+                >
                   {game.team} - {game.opponent}
                 </StyledP>
-                <StyledP margin='0' color={colors.TextBlue}>
+                <StyledP
+                  fontSize='13px'
+                  textTransform='uppercase'
+                  margin='0'
+                  color={colors.TextBlue}
+                >
                   {game.arena}
                 </StyledP>
-                <StyledP margin='0' color={colors.TextBlue}>
+                <StyledP fontSize='13px' margin='0' color={colors.TextBlue}>
                   {game.date}
                 </StyledP>
                 <StyledHeadingh5
                   textTransform='uppercase'
                   color={colors.TextBlue}
                 >
-                  GÖR ALLT FÖR {game.team}
+                  GÖR ALLT FÖR {game.team}!
                 </StyledHeadingh5>
                 <a href={game.link}>
-                  <StyledButton margin='5px' padding='22px'>
+                  <StyledButton margin='0px' padding='22px'>
                     Köp biljetter!
                   </StyledButton>
                 </a>

@@ -49,7 +49,6 @@ export const ChooseTeamPage = () => {
             background={colors.White}
             position={"relative"}
             borderRad={"5px"}
-            bottom='15px'
             width={"390px"}
             minHeight='100vh'
             shadow={
@@ -112,9 +111,15 @@ export const ChooseTeamPage = () => {
               background={colors.White}
               width='390px'
               bottom='55px'
-              margin='-60px 0 0 0'
+              margin='-70px 0 0 0'
             >
-              <FlexDiv dir='column' width='100%' margin='0 0 10px 0'>
+              <FlexDiv
+                dir='column'
+                width='100%'
+                margin='0 0 5px 0'
+                justify='center'
+                align='center'
+              >
                 <StyledImage
                   width='100px'
                   height='x'
@@ -124,17 +129,17 @@ export const ChooseTeamPage = () => {
                 ></StyledImage>
                 <FlexDiv
                   align='start'
-                  width='90%'
+                  justify='center'
+                  width='80%'
                   gap='30px'
                   wrap='wrap'
-                  margin='50px 0 90px 0'
+                  margin='40px 0 30px 0'
                 >
                   {TeamsAndGames?.map((x) => {
                     return (
                       <Link to={`/starta-matchen/${x.id}`} key={x.id}>
                         <StyledImage
-                          width='x'
-                          height='58px'
+                          width='55px'
                           transform='scale(1.1)'
                           src={IMAGES[x.id as keyof Iimages].logo}
                           shadow={"#15314029 0px 3px 6px"}
