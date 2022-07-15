@@ -221,8 +221,14 @@ export const ResultsPage = () => {
                   GÖR ALLT FÖR {game.team}!
                 </StyledHeadingh5>
                 <a href={game.link}>
-                  <StyledButton margin='0px' padding='22px'>
-                    Köp biljetter!
+                  <StyledButton
+                    margin='0px'
+                    padding='22px'
+                    width={"210px"}
+                    height={"50px"}
+                    shadow='#00000038 0px 3px 5px'
+                  >
+                    KÖP BILJETTER
                   </StyledButton>
                 </a>
               </FlexDiv>
