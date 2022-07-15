@@ -1,9 +1,6 @@
 import { StyledButton } from "../StyledComponents/StyledButton";
 import { StyledImage } from "../StyledComponents/StyledImage";
-import {
-  StyledHeadingh3,
-  StyledP,
-} from "../StyledComponents/StyledTextElements";
+import { StyledP } from "../StyledComponents/StyledTextElements";
 import { FlexDiv } from "../StyledComponents/Wrappers";
 import { useEffect, useState } from "react";
 import { QuizByTeam } from "../../data/quiz";
@@ -25,6 +22,7 @@ import { getGame, saveQuiz } from "../../services/StorageService";
 import { IMAGES } from "../../assets/images";
 import { Iimages } from "../../models/IImages";
 import { Loader } from "../StyledComponents/Loader";
+import { Timerwrapper } from "../StyledComponents/Timer";
 
 export const PlayGamePage = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -78,6 +76,19 @@ export const PlayGamePage = () => {
   useEffect(() => {
     saveQuiz(result);
   }, [result]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setHaveAnswered(true);
+      setResult([...result, { answer: "Time is up", isCorrect: false }]);
+      if (currentQuestion == 4) {
+        navigate("/resultat");
+      } else if (currentQuestion < 4) {
+        setCurrentQuestion(currentQuestion + 1);
+        setHaveAnswered(false);
+      }
+    }, 20000);
+  }, [currentQuestion]);
 
   const handleClick = (x: IAnswers) => {
     setHaveAnswered(true);
@@ -246,6 +257,10 @@ export const PlayGamePage = () => {
               bottom='55px'
               margin='-50px 0 10px 0'
             >
+              <Timerwrapper>
+                <div className='color' />
+                <IoMdFootball size={"22px"} color='white' className='ball' />
+              </Timerwrapper>
               <FlexDiv dir='column' width='60%' gap='22px'>
                 <FlexDiv
                   dir='column'
