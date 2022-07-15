@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { colors } from "./Styling/Mixins";
+
 // tanke - gör om animationerna till props så att de körs im vid varje ny rendering?
 
 // https://linguinecode.com/post/how-to-add-react-animation
@@ -15,7 +17,6 @@ export const Timerwrapper = styled.div`
   .bar {
     position: absolute;
     right: 0;
-    background-color: #192b41;
     width: 0px;
     height: 17px;
     margin: 0;
@@ -36,7 +37,7 @@ export const Timerwrapper = styled.div`
     animation: bar 25s;
   }
   .resetbar {
-    background-color: white;
+    background-color: ${colors.White};
     //background-color: #c1c4ca;
     width: 100%;
   }
@@ -54,12 +55,21 @@ export const Timerwrapper = styled.div`
       left: 92.5%;
     }
   }
+
   @keyframes bar {
     0% {
+      background-color: ${colors.ButtonBlue};
       width: 100%;
+    }
+    59% {
+      background-color: ${colors.ButtonBlue};
+    }
+    60% {
+      background-color: ${colors.WronglyRed};
     }
 
     100% {
+      background-color: ${colors.WronglyRed};
       width: 7.5%;
     }
   } ;
