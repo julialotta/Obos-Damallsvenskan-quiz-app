@@ -161,7 +161,6 @@ export const StartGamePage = () => {
             background={colors.White}
             position={"relative"}
             borderRad={"5px"}
-            bottom='15px'
             width={"390px"}
             minHeight='100vh'
             shadow={

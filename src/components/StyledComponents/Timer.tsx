@@ -6,7 +6,7 @@ import styled from "styled-components";
 export const Timerwrapper = styled.div`
   position: relative;
   height: 17px;
-  width: 70%;
+  width: 63%;
   border: 2px solid #192b41;
   border-radius: 11px;
   display: flex;

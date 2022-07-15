@@ -8,18 +8,35 @@ import {
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 import { StyledImage } from "../StyledComponents/StyledImage";
-import { GeneralIMAGES } from "../../assets/images";
+import { GeneralIMAGES, IMAGES } from "../../assets/images";
 import { useEffect, useState } from "react";
 import { Loader } from "../StyledComponents/Loader";
+import useProgressiveImg from "../../services/Helpers";
 
 export const StartPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (GeneralIMAGES) {
+    if (GeneralIMAGES && IMAGES) {
       setIsLoading(false);
     }
   });
+  const BlurredUpImage = () => {
+    const [src, { blur }] = useProgressiveImg(
+      GeneralIMAGES.general.startBackground,
+      GeneralIMAGES.general.startBackground
+    );
+    return (
+      <img
+        src={src}
+        style={{
+          width: 200,
+          filter: blur ? "blur(20px)" : "none",
+          transition: blur ? "none" : "filter 0.3s ease-out",
+        }}
+      />
+    );
+  };
 
   return (
     <>
@@ -38,7 +55,6 @@ export const StartPage = () => {
             dir='column'
             image={GeneralIMAGES.general.startBackground}
             borderRad={"5px"}
-            bottom='15px'
             width={"390px"}
             minHeight='100vh'
             position={"relative"}
