@@ -23,10 +23,12 @@ import { IMAGES } from "../../assets/images";
 import { Iimages } from "../../models/IImages";
 import { Loader } from "../StyledComponents/Loader";
 import { Timerwrapper } from "../StyledComponents/Timer";
+import { writeData } from "../../services/db";
 
 export const PlayGamePage = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [timeout, setTimeOut] = useState(true);
+  const [points, setPoints] = useState(0);
+  const [startTime, setStartTime] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(1);
   const [haveAnswered, setHaveAnswered] = useState(false);
   const [result, setResult] = useState<IResult[]>([]);
@@ -36,6 +38,7 @@ export const PlayGamePage = () => {
     link: "",
     opponent: "",
     opponentid: 0,
+    round: 0,
     arena: "",
     date: "",
   });
@@ -43,12 +46,17 @@ export const PlayGamePage = () => {
   const navigate = useNavigate();
 
   function twoSecondDelay() {
+    setStartTime(Date.now());
     setClassIsActive(true);
     setHaveAnswered(false);
-    if (currentQuestion >= 5 || result.length > 4) {
-      navigate("/resultat");
-    } else {
-      setCurrentQuestion(currentQuestion + 1);
+    if (startTime !== 0) {
+      if (currentQuestion >= 5 || result.length > 4) {
+        writeData(game.round.toString(), game.id.toString(), points);
+        navigate("/resultat");
+      } else {
+        setCurrentQuestion(currentQuestion + 1);
+        return;
+      }
     }
   }
 
@@ -59,23 +67,25 @@ export const PlayGamePage = () => {
       let newAnswer = {
         answer: "timeIsUp" + currentQuestion,
         isCorrect: false,
+        time: 0,
       };
       setResult([...result, newAnswer]);
       saveQuiz([...result, newAnswer]);
       setTimeout(twoSecondDelay, 2500);
     }, 25000);
     return () => clearTimeout(timer);
-  }, [currentQuestion]);
+  }, [currentQuestion, result]);
 
   useEffect(() => {
     saveQuiz(result);
     setGame(getGame<IGame>());
-  }, []);
+  }, [result]);
 
   useEffect(() => {
-    if (game.team != "") {
+    if (game.team !== "") {
       setIsLoading(false);
     }
+    setStartTime(Date.now());
   }, [game]);
 
   useEffect(() => {
@@ -83,7 +93,7 @@ export const PlayGamePage = () => {
       let currentIndex = array.length,
         randomIndex;
       // While there remain elements to shuffle.
-      while (currentIndex != 0) {
+      while (currentIndex !== 0) {
         // Pick a remaining element.
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
@@ -101,12 +111,23 @@ export const PlayGamePage = () => {
   const handleClick = (x: IAnswers) => {
     setHaveAnswered(true);
     setClassIsActive(false);
-    //sparar resultat efter klick
+    let endTime = Date.now();
+    let secondsPassed =
+      Math.floor(endTime / 1000) - Math.floor(startTime / 1000);
     if (x.isCorrect) {
-      result.push({ answer: x.answer, isCorrect: x.isCorrect });
+      result.push({
+        answer: x.answer,
+        isCorrect: x.isCorrect,
+        time: 25 - secondsPassed,
+      });
+      setPoints(points + 25 - secondsPassed);
       saveQuiz(result);
     } else if (x.isCorrect === false) {
-      result.push({ answer: x.answer, isCorrect: x.isCorrect });
+      result.push({
+        answer: x.answer,
+        isCorrect: x.isCorrect,
+        time: 25 - secondsPassed,
+      });
       saveQuiz(result);
     }
     setTimeout(twoSecondDelay, 2000);

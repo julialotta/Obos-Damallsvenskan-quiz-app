@@ -38,12 +38,13 @@ export const StyledP = styled.p`
 `;
 
 export const StyledLink = styled(Link)`
+  font-family: ${(props: IStylingProps) => props.font || "GothamLight"};
   color: ${(props: IStylingProps) => props.color || colors.White};
   text-align: center;
   line-height: 22px;
   margin: ${(props: IStylingProps) => props.margin || "5px"};
   text-shadow: ${(props: IStylingProps) => props.shadow || 0};
-  text-decoration: none;
+  text-decoration: ${(props: IStylingProps) => props.decoration || "none"};
   h3 {
     text-decoration: none;
   }

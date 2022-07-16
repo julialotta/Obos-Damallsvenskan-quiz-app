@@ -30,4 +30,5 @@ export interface IStylingProps {
   image?: string;
   textTransform?: string;
   linear?: string;
+  decoration?: string;
 }

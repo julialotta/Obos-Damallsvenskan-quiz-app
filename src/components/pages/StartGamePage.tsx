@@ -115,12 +115,13 @@ export const StartGamePage = () => {
       }
     }
     getNextGame();
-  }, [game]);
+  }, [game, params.id]);
 
   useEffect(() => {
     saveGame({
       id: game.id,
       team: game.team,
+      round: opponent.round,
       link: opponent.link,
       opponent: opponent.opponent,
       opponentid: opponent.id,
@@ -130,15 +131,12 @@ export const StartGamePage = () => {
   }, [opponent, game, date]);
 
   useEffect(() => {
-    setIsLoading(false);
-  }, [opponent]);
-
-  useEffect(() => {
     let d = opponent.datestamp;
     let day = d.getDate();
     let month = d.getMonth() + 1;
     let time = d.toLocaleTimeString();
     setDate(day + "/" + month + " " + time.slice(0, -3));
+    setIsLoading(false);
   }, [opponent]);
 
   return (

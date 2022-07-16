@@ -17,9 +17,15 @@ export interface IAnswers {
 export interface IResult {
   answer: string;
   isCorrect: boolean;
+  time: number;
 }
 export interface IFootballs {
   answer: string;
   isCorrect: boolean;
   isAnswer: boolean;
+}
+
+export interface IData {
+  id: string;
+  data: any;
 }

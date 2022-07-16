@@ -1,7 +1,6 @@
 export interface ITeams {
   id: number;
   team: string;
-
   games: IGames[];
 }
 
@@ -25,6 +24,7 @@ export interface IOpponent {
 export interface IGame {
   id: number;
   team: string;
+  round: number;
   opponentid: number;
   opponent: string;
   arena: string;

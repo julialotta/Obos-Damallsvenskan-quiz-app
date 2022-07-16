@@ -11,32 +11,34 @@ import { StyledImage } from "../StyledComponents/StyledImage";
 import { GeneralIMAGES, IMAGES } from "../../assets/images";
 import { useEffect, useState } from "react";
 import { Loader } from "../StyledComponents/Loader";
-import useProgressiveImg from "../../services/Helpers";
+import Modal from "react-modal";
+import { modalStyles } from "../StyledComponents/Styling/modalStyles";
+import { getUser, saveUser } from "../../services/StorageService";
+import { Iuser } from "../../models/Iuser";
+
+Modal.setAppElement("#root");
 
 export const StartPage = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<Iuser>({ user: false });
+  const [modalIsOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
+    setUser(getUser());
+
+    if (user === { user: true }) {
+      setIsOpen(false);
+    }
+
     if (GeneralIMAGES && IMAGES) {
       setIsLoading(false);
     }
-  });
-  const BlurredUpImage = () => {
-    const [src, { blur }] = useProgressiveImg(
-      GeneralIMAGES.general.startBackground,
-      GeneralIMAGES.general.startBackground
-    );
-    return (
-      <img
-        src={src}
-        style={{
-          width: 200,
-          filter: blur ? "blur(20px)" : "none",
-          transition: blur ? "none" : "filter 0.3s ease-out",
-        }}
-      />
-    );
-  };
+  }, []);
+
+  function closeModal() {
+    saveUser({ user: true });
+    setIsOpen(false);
+  }
 
   return (
     <>
@@ -51,6 +53,35 @@ export const StartPage = () => {
           width={"100%"}
           height='100%'
         >
+          <Modal
+            isOpen={modalIsOpen}
+            //onRequestClose={closeModal}
+            contentLabel='Kakor'
+            style={modalStyles}
+          >
+            <FlexDiv
+              dir='column'
+              height={"30vh"}
+              justify={"center"}
+              width={"100%"}
+            >
+              <StyledButton onClick={closeModal}>Stäng</StyledButton>
+              <StyledP color={colors.TextBlue}>
+                Vi använder cookies för att tillhandahålla våra tjänster samt
+                för mätnings- och analyssyften. Genom att använda vår webbplats
+                och våra tjänster godkänner du användningen av cookies på det
+                sätt som beskrivs i vår
+                <StyledLink
+                  font='GothamLight'
+                  decoration='underline'
+                  color={colors.TextBlue}
+                  to={"/cookies"}
+                >
+                  policy för cookies.
+                </StyledLink>
+              </StyledP>
+            </FlexDiv>
+          </Modal>
           <ImageDiv
             dir='column'
             image={GeneralIMAGES.general.startBackground}
