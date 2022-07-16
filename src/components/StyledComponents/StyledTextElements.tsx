@@ -43,4 +43,8 @@ export const StyledLink = styled(Link)`
   line-height: 22px;
   margin: ${(props: IStylingProps) => props.margin || "5px"};
   text-shadow: ${(props: IStylingProps) => props.shadow || 0};
+  text-decoration: none;
+  h3 {
+    text-decoration: none;
+  }
 `;

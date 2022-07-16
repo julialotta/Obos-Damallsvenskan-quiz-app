@@ -12,6 +12,7 @@ import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 import { FaShieldAlt } from "react-icons/fa";
 import {
   StyledHeadingh3,
+  StyledLink,
   StyledP,
 } from "../StyledComponents/StyledTextElements";
 import { saveGame } from "../../services/StorageService";
@@ -209,6 +210,7 @@ export const StartGamePage = () => {
               <StyledImage
                 width='100%'
                 height='100%'
+                borderRad={"5px"}
                 src={IMAGES[game.id as keyof Iimages].background}
                 alt='Pattern in team colors'
               />
@@ -261,7 +263,7 @@ export const StartGamePage = () => {
                   {opponent.arena} {date}
                 </StyledP>
 
-                <Link to={`/spela/${game.id}`}>
+                <StyledLink to={`/spela/${game.id}`}>
                   <StyledButton
                     width='230px'
                     height={"60px"}
@@ -269,7 +271,7 @@ export const StartGamePage = () => {
                   >
                     <StyledHeadingh3>Starta matchen</StyledHeadingh3>
                   </StyledButton>
-                </Link>
+                </StyledLink>
               </FlexDiv>
             </FlexDiv>
           </FlexDiv>

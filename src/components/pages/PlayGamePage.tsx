@@ -244,6 +244,7 @@ export const PlayGamePage = () => {
                 width='100%'
                 height='100%'
                 min-minHeight='500px'
+                borderRad={"5px"}
                 src={IMAGES[game.id as keyof Iimages].background}
                 alt='Blue Pattern'
               />

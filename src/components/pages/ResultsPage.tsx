@@ -154,6 +154,7 @@ export const ResultsPage = () => {
               <StyledImage
                 width='100%'
                 height='100%'
+                borderRad={"5px"}
                 src={IMAGES[game.id as keyof Iimages].background}
                 alt='Blue Pattern'
               />

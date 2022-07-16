@@ -99,6 +99,7 @@ export const ChooseTeamPage = () => {
               <StyledImage
                 width='100%'
                 height='100%'
+                borderRad={"5px"}
                 src={GeneralIMAGES.general.bluePatternBackground}
                 loading={"eager"}
                 alt='Blue Pattern'

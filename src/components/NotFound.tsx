@@ -28,7 +28,6 @@ export const NotFound = () => {
           background={colors.White}
           position={"relative"}
           borderRad={"5px"}
-          bottom='15px'
           width={"390px"}
           minHeight='100vh'
           shadow={
@@ -59,6 +58,7 @@ export const NotFound = () => {
             <StyledImage
               width='100%'
               height='100%'
+              borderRad={"5px"}
               src={background}
               alt='Blue Pattern'
             />

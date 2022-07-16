@@ -34,4 +34,7 @@ export const StyledButton = styled.button`
     text-decoration: none;
     color: ${(props: IStylingProps) => props.color || colors.White};
   }
+  h3 {
+    text-decoration: none;
+  }
 `;
