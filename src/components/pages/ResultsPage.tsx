@@ -21,14 +21,18 @@ import { IResult } from "../../models/IQuestions";
 import { IMAGES } from "../../assets/images";
 import { Iimages } from "../../models/IImages";
 import { Loader } from "../StyledComponents/Loader";
+import { readData } from "../../services/db";
 
 export const ResultsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult] = useState<IResult[]>([]);
+  const [homeTeamScore, setHomeTeamScore] = useState(0);
+  const [awayTeamScore, setAwayTeamScore] = useState(0);
 
   const [game, setGame] = useState<IGame>({
     id: 0,
     team: "",
+    round: 0,
     link: "",
     opponent: "",
     opponentid: 0,
@@ -36,13 +40,48 @@ export const ResultsPage = () => {
     date: "",
   });
 
+  // maxpoints: 125 på ett spel
   useEffect(() => {
     setGame(getGame<IGame>());
     setResult(getQuiz);
+
+    const fetchHomeData = async () => {
+      const homeData = await readData(
+        game.round.toString(),
+        game.id.toString()
+      );
+      return homeData;
+    };
+
+    const fetchAwayData = async () => {
+      const awayData = await readData(
+        game.round.toString(),
+        game.opponentid.toString()
+      );
+      console.log(awayData);
+
+      return awayData;
+    };
+    fetchHomeData()
+      .catch(console.error)
+      .then((r) => {
+        let list = JSON.stringify(r);
+        console.log("====================================");
+        console.log(list);
+        console.log("====================================");
+
+        setHomeTeamScore(list.length);
+      });
+    fetchAwayData()
+      .catch(console.error)
+      .then((result) => {
+        let data = JSON.stringify(result);
+        setAwayTeamScore(data.length);
+      });
   }, []);
 
   useEffect(() => {
-    if (game != undefined) {
+    if (game !== undefined) {
       setIsLoading(false);
     }
   }, [game]);
@@ -122,7 +161,7 @@ export const ResultsPage = () => {
                       <StyledButton
                         transform='0'
                         background={colors.White}
-                        height='200px'
+                        height={homeTeamScore * 2 + 30 + "px"}
                         width='80px'
                         hoverColor='none'
                         borderRad='2px'
@@ -130,21 +169,21 @@ export const ResultsPage = () => {
                         hover='default'
                       >
                         <StyledHeadingh3 color={colors.TextBlue}>
-                          450
+                          {homeTeamScore}
                         </StyledHeadingh3>
                       </StyledButton>
                       <StyledButton
                         transform='0'
                         borderRad='2px'
                         background={colors.White}
-                        height='140px'
+                        height={awayTeamScore * 2 + 30 + "px"}
                         width='80px'
                         hoverColor='none'
                         hoverBackground='none'
                         hover='default'
                       >
                         <StyledHeadingh3 color={colors.TextBlue}>
-                          301
+                          {awayTeamScore}
                         </StyledHeadingh3>
                       </StyledButton>
                     </FlexDiv>
@@ -169,10 +208,10 @@ export const ResultsPage = () => {
             >
               <FlexDiv dir='column' width='60%' margin='-70px 0 0 0'>
                 <FlexDiv gap='12px' margin='0 0 45px 0'>
-                  {result.map((x: IResult) => {
+                  {result.map((x: IResult, i) => {
                     return (
                       <IoMdFootball
-                        key={x.answer}
+                        key={i}
                         color={
                           x.isCorrect ? colors.CorrectGreen : colors.WronglyRed
                         }
