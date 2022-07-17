@@ -1,6 +1,5 @@
 import { StyledImage } from "../StyledComponents/StyledImage";
 import { FlexDiv } from "../StyledComponents/Wrappers";
-
 import { StyledButton } from "../StyledComponents/StyledButton";
 import {
   StyledHeadingh3,
@@ -26,8 +25,8 @@ import { readData } from "../../services/db";
 export const ResultsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult] = useState<IResult[]>([]);
-  const [homeTeamScore, setHomeTeamScore] = useState(0);
-  const [awayTeamScore, setAwayTeamScore] = useState(0);
+  const [homeTeamScore, setHomeTeamScore] = useState<number>(0);
+  const [awayTeamScore, setAwayTeamScore] = useState<number>(0);
 
   const [game, setGame] = useState<IGame>({
     id: 0,
@@ -50,7 +49,7 @@ export const ResultsPage = () => {
         game.round.toString(),
         game.id.toString()
       );
-      return homeData;
+      // setHomeTeamScore(homeData.length);
     };
 
     const fetchAwayData = async () => {
@@ -58,26 +57,10 @@ export const ResultsPage = () => {
         game.round.toString(),
         game.opponentid.toString()
       );
-      console.log(awayData);
-
-      return awayData;
     };
-    fetchHomeData()
-      .catch(console.error)
-      .then((r) => {
-        let list = JSON.stringify(r);
-        console.log("====================================");
-        console.log(list);
-        console.log("====================================");
+    fetchHomeData().catch(console.error);
 
-        setHomeTeamScore(list.length);
-      });
-    fetchAwayData()
-      .catch(console.error)
-      .then((result) => {
-        let data = JSON.stringify(result);
-        setAwayTeamScore(data.length);
-      });
+    fetchAwayData().catch(console.error);
   }, []);
 
   useEffect(() => {

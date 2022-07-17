@@ -14,19 +14,16 @@ import { Loader } from "../StyledComponents/Loader";
 import Modal from "react-modal";
 import { modalStyles } from "../StyledComponents/Styling/modalStyles";
 import { getUser, saveUser } from "../../services/StorageService";
-import { Iuser } from "../../models/Iuser";
 
 Modal.setAppElement("#root");
 
 export const StartPage = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState<Iuser>({ user: false });
   const [modalIsOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
-    setUser(getUser());
-
-    if (user === { user: true }) {
+    let user: [] = getUser();
+    if (user.length !== 0) {
       setIsOpen(false);
     }
 

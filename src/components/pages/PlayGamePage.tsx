@@ -27,11 +27,11 @@ import { writeData } from "../../services/db";
 
 export const PlayGamePage = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [points, setPoints] = useState(0);
   const [startTime, setStartTime] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(1);
   const [haveAnswered, setHaveAnswered] = useState(false);
   const [result, setResult] = useState<IResult[]>([]);
+  const [points, setPoints] = useState(0);
   const [game, setGame] = useState<IGame>({
     id: 0,
     team: "",
@@ -47,16 +47,15 @@ export const PlayGamePage = () => {
 
   function twoSecondDelay() {
     setStartTime(Date.now());
+
     setClassIsActive(true);
     setHaveAnswered(false);
-    if (startTime !== 0) {
-      if (currentQuestion >= 5 || result.length > 4) {
-        writeData(game.round.toString(), game.id.toString(), points);
-        navigate("/resultat");
-      } else {
-        setCurrentQuestion(currentQuestion + 1);
-        return;
-      }
+    if (currentQuestion >= 5 || result.length > 4) {
+      writeData(game.round.toString(), game.id.toString(), points);
+
+      navigate("/resultat");
+    } else {
+      setCurrentQuestion(currentQuestion + 1);
     }
   }
 
@@ -74,18 +73,18 @@ export const PlayGamePage = () => {
       setTimeout(twoSecondDelay, 2500);
     }, 25000);
     return () => clearTimeout(timer);
-  }, [currentQuestion, result]);
+  }, [currentQuestion]);
 
   useEffect(() => {
     saveQuiz(result);
     setGame(getGame<IGame>());
-  }, [result]);
+  }, []);
 
   useEffect(() => {
-    if (game.team !== "") {
+    if (game.team != "") {
+      setStartTime(Date.now());
       setIsLoading(false);
     }
-    setStartTime(Date.now());
   }, [game]);
 
   useEffect(() => {
@@ -93,7 +92,7 @@ export const PlayGamePage = () => {
       let currentIndex = array.length,
         randomIndex;
       // While there remain elements to shuffle.
-      while (currentIndex !== 0) {
+      while (currentIndex != 0) {
         // Pick a remaining element.
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
@@ -121,12 +120,13 @@ export const PlayGamePage = () => {
         time: 25 - secondsPassed,
       });
       setPoints(points + 25 - secondsPassed);
+
       saveQuiz(result);
     } else if (x.isCorrect === false) {
       result.push({
         answer: x.answer,
         isCorrect: x.isCorrect,
-        time: 25 - secondsPassed,
+        time: 0,
       });
       saveQuiz(result);
     }
@@ -265,7 +265,6 @@ export const PlayGamePage = () => {
                 width='100%'
                 height='100%'
                 min-minHeight='500px'
-                borderRad={"5px"}
                 src={IMAGES[game.id as keyof Iimages].background}
                 alt='Blue Pattern'
               />

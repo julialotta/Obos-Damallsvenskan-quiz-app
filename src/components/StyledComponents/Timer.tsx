@@ -1,10 +1,6 @@
 import styled from "styled-components";
 import { colors } from "./Styling/Mixins";
 
-// tanke - gör om animationerna till props så att de körs im vid varje ny rendering?
-
-// https://linguinecode.com/post/how-to-add-react-animation
-
 export const Timerwrapper = styled.div`
   position: relative;
   height: 17px;
