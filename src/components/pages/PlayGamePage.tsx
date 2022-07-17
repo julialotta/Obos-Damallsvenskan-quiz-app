@@ -25,13 +25,14 @@ import { Loader } from "../StyledComponents/Loader";
 import { Timerwrapper } from "../StyledComponents/Timer";
 import { writeData } from "../../services/db";
 
+//function reducer() {}
+
 export const PlayGamePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [startTime, setStartTime] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(1);
   const [haveAnswered, setHaveAnswered] = useState(false);
   const [result, setResult] = useState<IResult[]>([]);
-  const [points, setPoints] = useState(0);
   const [game, setGame] = useState<IGame>({
     id: 0,
     team: "",
@@ -45,19 +46,22 @@ export const PlayGamePage = () => {
   const [classIsActive, setClassIsActive] = useState(true);
   const navigate = useNavigate();
 
-  function twoSecondDelay() {
+  const twoSecondDelay = () => {
+    let points: number = 0;
+    for (let i = 0; i < result.length; i++) {
+      points = points + result[i].time;
+    }
     setStartTime(Date.now());
-
     setClassIsActive(true);
     setHaveAnswered(false);
+
     if (currentQuestion >= 5 || result.length > 4) {
       writeData(game.round.toString(), game.id.toString(), points);
-
       navigate("/resultat");
     } else {
       setCurrentQuestion(currentQuestion + 1);
     }
-  }
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -119,7 +123,6 @@ export const PlayGamePage = () => {
         isCorrect: x.isCorrect,
         time: 25 - secondsPassed,
       });
-      setPoints(points + 25 - secondsPassed);
 
       saveQuiz(result);
     } else if (x.isCorrect === false) {

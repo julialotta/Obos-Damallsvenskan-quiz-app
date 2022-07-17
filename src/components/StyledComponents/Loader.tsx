@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 export const Loader = styled.div`
   display: inline-block;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
 
   :after {
     content: " ";
     display: block;
-    width: 64px;
-    height: 64px;
+    width: 100px;
+    height: 100px;
     margin: 8px;
     border-radius: 50%;
     border: 6px solid #fff;

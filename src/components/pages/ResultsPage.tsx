@@ -16,18 +16,18 @@ import { useEffect, useState } from "react";
 import { IGame } from "../../models/ITeams";
 import { Link } from "react-router-dom";
 import { FaShieldAlt } from "react-icons/fa";
-import { IResult } from "../../models/IQuestions";
+import { IData, IResult } from "../../models/IQuestions";
 import { IMAGES } from "../../assets/images";
 import { Iimages } from "../../models/IImages";
 import { Loader } from "../StyledComponents/Loader";
-import { readData } from "../../services/db";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../services/db";
 
 export const ResultsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult] = useState<IResult[]>([]);
-  const [homeTeamScore, setHomeTeamScore] = useState<number>(0);
-  const [awayTeamScore, setAwayTeamScore] = useState<number>(0);
-
+  const [homeTeamScore, setHomeTeamScore] = useState<number>(-1);
+  const [awayTeamScore, setAwayTeamScore] = useState<number>(-1);
   const [game, setGame] = useState<IGame>({
     id: 0,
     team: "",
@@ -39,35 +39,57 @@ export const ResultsPage = () => {
     date: "",
   });
 
-  // maxpoints: 125 på ett spel
   useEffect(() => {
     setGame(getGame<IGame>());
     setResult(getQuiz);
-
-    const fetchHomeData = async () => {
-      const homeData = await readData(
-        game.round.toString(),
-        game.id.toString()
-      );
-      // setHomeTeamScore(homeData.length);
-    };
-
-    const fetchAwayData = async () => {
-      const awayData = await readData(
-        game.round.toString(),
-        game.opponentid.toString()
-      );
-    };
-    fetchHomeData().catch(console.error);
-
-    fetchAwayData().catch(console.error);
   }, []);
 
+  const fetchHomeData = async () => {
+    let list: IData[] = [];
+    let total: number = 0;
+    const querySnapshot = await getDocs(
+      collection(db, game.round + "/" + game.id, "/scores/")
+    );
+    querySnapshot.forEach((doc) => {
+      list.push({ id: doc.id, data: doc.data() });
+    });
+    for (let i = 0; i < list.length; i++) {
+      total = total + list[i].data.points;
+    }
+    if (list.length > 0) {
+      setHomeTeamScore(total / list.length);
+    } else {
+      setHomeTeamScore(0);
+    }
+  };
+  fetchHomeData().catch(console.error);
+
+  const fetchAwayData = async () => {
+    let total: number = 0;
+    let list: IData[] = [];
+
+    const querySnapshot = await getDocs(
+      collection(db, game.round + "/" + game.opponentid, "/scores/")
+    );
+    querySnapshot.forEach((doc) => {
+      list.push({ id: doc.id, data: doc.data() });
+    });
+    for (let i = 0; i < list.length; i++) {
+      total = total + list[i].data.points;
+    }
+    if (list.length > 0) {
+      setAwayTeamScore(total / list.length);
+    } else {
+      setAwayTeamScore(0);
+    }
+  };
+  fetchAwayData().catch(console.error);
+
   useEffect(() => {
-    if (game !== undefined) {
+    if (game !== undefined && homeTeamScore >= 0 && awayTeamScore >= 0) {
       setIsLoading(false);
     }
-  }, [game]);
+  }, [game, homeTeamScore, awayTeamScore]);
 
   return (
     <>
@@ -152,7 +174,7 @@ export const ResultsPage = () => {
                         hover='default'
                       >
                         <StyledHeadingh3 color={colors.TextBlue}>
-                          {homeTeamScore}
+                          {~~homeTeamScore}
                         </StyledHeadingh3>
                       </StyledButton>
                       <StyledButton
@@ -166,7 +188,7 @@ export const ResultsPage = () => {
                         hover='default'
                       >
                         <StyledHeadingh3 color={colors.TextBlue}>
-                          {awayTeamScore}
+                          {~~awayTeamScore}
                         </StyledHeadingh3>
                       </StyledButton>
                     </FlexDiv>
