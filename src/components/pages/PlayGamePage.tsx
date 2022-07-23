@@ -176,11 +176,6 @@ export const PlayGamePage = () => {
   };
 
   const Question = () => {
-    console.log("====================================");
-    console.log(
-      QuizByTeam[game.id].questionsAndAnswers[currentQuestion].question.length
-    );
-    console.log("====================================");
     if (
       QuizByTeam[game.id].questionsAndAnswers[currentQuestion].question.length >
       100
@@ -272,11 +267,11 @@ export const PlayGamePage = () => {
                     <FaShieldAlt color='white' size={"30px"} />
                   </Link>
                 </FlexDiv>
-                <FlexDiv top={"65px"} position='absolute' z='200'>
+                <FlexDiv top={"70px"} position='absolute' z='200'>
                   <StyledImage
                     position='absolute'
                     width='x'
-                    height='100px'
+                    height='140px'
                     src={IMAGES[game.id as keyof Iimages].emblem}
                     onError={imageOnErrorHandler}
                   ></StyledImage>
@@ -293,7 +288,7 @@ export const PlayGamePage = () => {
                   transform='none'
                   padding={"0"}
                   shadow={"#282a313c 0px 3px 5px"}
-                  margin='70px 0 0 0'
+                  margin='60px 0 0 0'
                 >
                   <Question />
                 </StyledButton>

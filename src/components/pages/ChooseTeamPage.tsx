@@ -63,16 +63,16 @@ export const ChooseTeamPage = () => {
                 {TeamsAndGames?.map((x) => {
                   return (
                     <Link to={`/starta-matchen/${x.id}`} key={x.id}>
-                      <StyledImage
-                        minWidth='x'
-                        maxWidth='60px'
-                        minHeight='x'
-                        maxHeight='65px'
-                        transform='scale(1.1)'
-                        src={IMAGES[x.id as keyof Iimages].logo}
-                        shadow={"#15314029 0px 3px 6px"}
-                        onError={imageOnErrorHandler}
-                      ></StyledImage>
+                      <FlexDiv width='60px'>
+                        <StyledImage
+                          height='55px'
+                          width='x'
+                          transform='scale(1.1)'
+                          src={IMAGES[x.id as keyof Iimages].logo}
+                          shadow={"#15314029 0px 3px 6px"}
+                          onError={imageOnErrorHandler}
+                        ></StyledImage>
+                      </FlexDiv>
                     </Link>
                   );
                 })}

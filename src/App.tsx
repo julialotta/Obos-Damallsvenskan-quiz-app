@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { NotFound } from "./components/NotFound";
 import { Layout } from "./components/Layout";
 import { StartPage } from "./components/pages/StartPage";
@@ -10,9 +10,11 @@ import { CookiesPage } from "./components/Cookies";
 import { AnimatePresence } from "framer-motion";
 
 function App() {
+  const location = useLocation();
+
   return (
     <AnimatePresence initial={false} exitBeforeEnter>
-      <Routes>
+      <Routes key={location.pathname} location={location.pathname}>
         <Route path='/' element={<Layout />}>
           <Route index element={<StartPage />}></Route>
           <Route path='valj-klubb' element={<ChooseTeamPage />}></Route>

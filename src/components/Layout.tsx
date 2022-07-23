@@ -4,18 +4,18 @@ import { motion } from "framer-motion";
 
 export const Layout = () => {
   const animations = {
-    initial: { opacity: 0, x: "100vw" },
-    animate: { opacity: 1, x: "0%" },
-    exit: { opacity: 0, x: "-100vw" },
+    initial: { opacity: 0, y: "-100vw" },
+    animate: { opacity: 1, y: "0%" },
+    exit: { opacity: 0, y: "-100vw" },
   };
   return (
-    <AppWrapper>
+    <AppWrapper linear={"linear-gradient(to bottom right, #172542, #2e3b55)"}>
       <motion.main
         variants={animations}
         initial='initial'
         animate='animate'
         exit='exit'
-        transition={{ duration: 1 }}
+        transition={{ duration: 0.7 }}
       >
         <Outlet />
       </motion.main>
