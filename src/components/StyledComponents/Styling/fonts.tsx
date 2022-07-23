@@ -14,8 +14,6 @@ export const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'GothamBookRegular';
     src: url(${GothamBookRegular}) format('truetype');
-    font-style: normal;
-    font-display: auto;
   }
   @font-face {
     font-family: 'GothamBook';
@@ -37,7 +35,9 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'GothamBlackRegular';
   }
   h5 {
-    font-family: 'GothamBook';
+    font-family: 'GothamBookRegular';
+      font-weight: bold;
+
   }
 p {
     font-family: 'GothamLight';

@@ -76,7 +76,6 @@ export const IMAGES: Iimages = {
 export const GeneralIMAGES: IimagesGenereal = {
   general: {
     bluePatternBackground: require("./DA_startbakgrund@2x.png"),
-    startBackground: require("./Startbild.jpeg"),
     onError: require("./OnError.png"),
     obosLogo: require("./Liga-sponsor/DA_logo@3x.png"),
     obosLogoRibbon: require("./Liga-sponsor/DA_logo_ribbon.png"),

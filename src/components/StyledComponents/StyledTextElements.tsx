@@ -27,6 +27,8 @@ export const StyledHeadingh5 = styled.h5`
   text-shadow: ${(props: IStylingProps) => props.shadow || 0};
   text-transform: ${(props: IStylingProps) => props.textTransform || "none"};
   margin: ${(props: IStylingProps) => props.margin || "5px"};
+  font-family: "GothamBookRegular";
+  font-weight: bold;
 `;
 
 export const StyledP = styled.p`

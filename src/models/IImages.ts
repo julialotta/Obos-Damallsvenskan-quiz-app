@@ -26,7 +26,6 @@ export interface Iimage {
 
 interface IimageGeneral {
   bluePatternBackground: string;
-  startBackground: string;
   onError: string;
   obosLogo: string;
   obosLogoRibbon: string;
