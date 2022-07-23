@@ -112,8 +112,7 @@ export const ResultsPage = () => {
             justify={"start"}
             background={colors.White}
             position={"relative"}
-            borderRad={"5px"}
-            width={"390px"}
+            width={"400px"}
             minHeight='100vh'
             shadow={
               "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
@@ -121,16 +120,14 @@ export const ResultsPage = () => {
           >
             <FlexDiv
               dir='column'
-              width='390px'
               position='relative'
-              height='370px'
+              height='300px'
               background={colors.BackgroundBlue}
               z='0'
             >
               <FlexDiv
                 position='relative'
                 z='100'
-                width='390px'
                 height='250px'
                 background={colors.BackgroundBlue}
               >
@@ -140,7 +137,7 @@ export const ResultsPage = () => {
                   </Link>
                 </FlexDiv>
                 <FlexDiv
-                  top={"100px"}
+                  top={"20px"}
                   left={"0"}
                   right={"0"}
                   position='absolute'
@@ -151,29 +148,33 @@ export const ResultsPage = () => {
                     justify='start'
                     position='absolute'
                     z='100'
-                    top={"-60px"}
                   >
-                    <StyledHeadingh3>Ställningen</StyledHeadingh3>
+                    <StyledHeadingh3 fontSize='20px'>
+                      Ställningen
+                    </StyledHeadingh3>
                     <FlexDiv
                       dir='row'
                       position='absolute'
                       z='100'
                       align='end'
-                      margin='10px 0 0 0'
-                      top={"270px"}
+                      margin='0'
+                      top={"230px"}
                       gap={"30px"}
                     >
                       <StyledButton
                         transform='0'
                         background={colors.White}
-                        height={homeTeamScore * 1.5 + 30 + "px"}
+                        height={homeTeamScore * 1.2 + 30 + "px"}
                         width='80px'
                         hoverColor='none'
                         borderRad='2px'
                         hoverBackground='none'
                         hover='default'
                       >
-                        <StyledHeadingh3 color={colors.TextBlue}>
+                        <StyledHeadingh3
+                          color={colors.TextBlue}
+                          fontSize='20px'
+                        >
                           {~~homeTeamScore}
                         </StyledHeadingh3>
                       </StyledButton>
@@ -181,13 +182,16 @@ export const ResultsPage = () => {
                         transform='0'
                         borderRad='2px'
                         background={colors.White}
-                        height={awayTeamScore * 1.5 + 30 + "px"}
+                        height={awayTeamScore * 1.2 + 30 + "px"}
                         width='80px'
                         hoverColor='none'
                         hoverBackground='none'
                         hover='default'
                       >
-                        <StyledHeadingh3 color={colors.TextBlue}>
+                        <StyledHeadingh3
+                          color={colors.TextBlue}
+                          fontSize='20px'
+                        >
                           {~~awayTeamScore}
                         </StyledHeadingh3>
                       </StyledButton>
@@ -198,7 +202,6 @@ export const ResultsPage = () => {
               <StyledImage
                 width='100%'
                 height='100%'
-                borderRad={"5px"}
                 src={IMAGES[game.id as keyof Iimages].background}
                 alt='Blue Pattern'
               />
@@ -208,11 +211,10 @@ export const ResultsPage = () => {
               dir='column'
               position='relative'
               background={colors.White}
-              width='390px'
               bottom='55px'
             >
               <FlexDiv dir='column' width='60%' margin='-70px 0 0 0'>
-                <FlexDiv gap='12px' margin='0 0 45px 0'>
+                <FlexDiv gap='12px' margin='0 0 30px 0'>
                   {result.map((x: IResult, i) => {
                     return (
                       <IoMdFootball
@@ -227,7 +229,7 @@ export const ResultsPage = () => {
                 </FlexDiv>
                 <FlexDiv gap='35px' margin='0 0 30px 0'>
                   <StyledImage
-                    height='118px'
+                    height='100px'
                     width='x'
                     src={IMAGES[game.id as keyof Iimages].logo}
                     onError={imageOnErrorHandler}
@@ -235,7 +237,7 @@ export const ResultsPage = () => {
 
                   <StyledImage
                     width='x'
-                    height='118px'
+                    height='100px'
                     src={IMAGES[game.opponentid as keyof Iimages].logo}
                     onError={imageOnErrorHandler}
                   />
@@ -251,7 +253,7 @@ export const ResultsPage = () => {
                 <StyledP
                   fontSize='13px'
                   textTransform='uppercase'
-                  margin='0'
+                  margin='-5px 0'
                   color={colors.TextBlue}
                 >
                   {game.arena}
@@ -260,12 +262,12 @@ export const ResultsPage = () => {
                   {game.date}
                 </StyledP>
                 <StyledHeadingh5
-                  textTransform='uppercase'
                   color={colors.TextBlue}
+                  margin={"45px 0 10px 0"}
                 >
-                  GÖR ALLT FÖR {game.team}!
+                  Gör allt för {game.team}!
                 </StyledHeadingh5>
-                <a href={game.link}>
+                <a href={game.link} target='_blank' rel='noopener noreferrer'>
                   <StyledButton
                     margin='0px'
                     padding='22px'
@@ -273,7 +275,7 @@ export const ResultsPage = () => {
                     height={"50px"}
                     shadow='#00000038 0px 3px 5px'
                   >
-                    KÖP BILJETTER
+                    Köp biljetter
                   </StyledButton>
                 </a>
               </FlexDiv>

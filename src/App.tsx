@@ -7,10 +7,11 @@ import { StartGamePage } from "./components/pages/StartGamePage";
 import { PlayGamePage } from "./components/pages/PlayGamePage";
 import { ResultsPage } from "./components/pages/ResultsPage";
 import { CookiesPage } from "./components/Cookies";
+import { AnimatePresence } from "framer-motion";
 
 function App() {
   return (
-    <BrowserRouter>
+    <AnimatePresence initial={false} exitBeforeEnter>
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<StartPage />}></Route>
@@ -22,7 +23,7 @@ function App() {
           <Route path='*' element={<NotFound />}></Route>
         </Route>
       </Routes>
-    </BrowserRouter>
+    </AnimatePresence>
   );
 }
 

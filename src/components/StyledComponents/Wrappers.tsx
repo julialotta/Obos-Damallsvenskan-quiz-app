@@ -15,7 +15,6 @@ export const FlexDiv = styled.div`
   gap: ${(props: IStylingProps) => props.gap || "0"};
   margin: ${(props: IStylingProps) => props.margin || "0"};
   padding: ${(props: IStylingProps) => props.padding || "0"};
-  border-radius: ${(props: IStylingProps) => props.borderRad || "0"};
   z-index: ${(props: IStylingProps) => props.z || "auto"};
   top: ${(props: IStylingProps) => props.top || "x"};
   bottom: ${(props: IStylingProps) => props.bottom || "x"};
@@ -27,11 +26,15 @@ export const FlexDiv = styled.div`
 `;
 
 export const ImageDiv = styled(FlexDiv)`
-  background-image: linear-gradient(186deg, #00000000, #00000086, #000000),
-    url(${(props: IStylingProps) => props.image || ""});
-  background-size: 370%;
+  /*   background-image: linear-gradient(186deg, #00000000, #00000086, #000000),
+    url(${(props: IStylingProps) => props.image || ""}); */
+  background-image: url(${(props: IStylingProps) => props.image || ""});
+  background-size: 100%;
   //background-repeat: no-repeat;
-  background-position: 68% 65%;
+  //background-position: 68% 65%;
+  position: ${(props: IStylingProps) => props.position || ""};
+  min-width: ${(props: IStylingProps) => props.minWidth || "x"};
+  max-width: ${(props: IStylingProps) => props.maxWidth || "x"};
 `;
 
 export const AppWrapper = styled.div`

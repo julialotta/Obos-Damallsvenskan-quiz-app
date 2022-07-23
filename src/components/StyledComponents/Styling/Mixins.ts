@@ -8,20 +8,5 @@ export const colors = {
   Darkgrey: "#404040",
   CorrectGreen: "#6CE082",
   WronglyRed: "#DD4F4F",
-};
-
-const size = {
-  sm: "576px",
-  md: "768px",
-  lg: "992px",
-  xl: "1200px",
-  xxl: "1400px",
-};
-
-export const device = {
-  sm: `(min-width: ${size.sm})`,
-  md: `(min-width: ${size.md})`,
-  lg: `(min-width: ${size.lg})`,
-  xl: `(min-width: ${size.xl})`,
-  xxl: `(min-width: ${size.xxl})`,
+  ShieldBlue: "#122A42",
 };

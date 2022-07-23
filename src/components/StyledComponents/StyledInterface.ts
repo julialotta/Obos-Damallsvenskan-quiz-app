@@ -26,6 +26,9 @@ export interface IStylingProps {
   right?: string;
   shadow?: string;
   minHeight?: string;
+  maxHeight?: string;
+  minWidth?: string;
+  maxWidth?: string;
   transform?: string;
   image?: string;
   textTransform?: string;

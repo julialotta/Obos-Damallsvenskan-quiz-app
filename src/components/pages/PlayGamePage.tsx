@@ -75,7 +75,7 @@ export const PlayGamePage = () => {
       setResult([...result, newAnswer]);
       saveQuiz([...result, newAnswer]);
       setTimeout(twoSecondDelay, 2500);
-    }, 25000);
+    }, 20000);
     return () => clearTimeout(timer);
   }, [currentQuestion]);
 
@@ -121,7 +121,7 @@ export const PlayGamePage = () => {
       result.push({
         answer: x.answer,
         isCorrect: x.isCorrect,
-        time: 25 - secondsPassed,
+        time: 20 - secondsPassed,
       });
 
       saveQuiz(result);
@@ -175,6 +175,54 @@ export const PlayGamePage = () => {
     );
   };
 
+  const Question = () => {
+    console.log("====================================");
+    console.log(
+      QuizByTeam[game.id].questionsAndAnswers[currentQuestion].question.length
+    );
+    console.log("====================================");
+    if (
+      QuizByTeam[game.id].questionsAndAnswers[currentQuestion].question.length >
+      100
+    ) {
+      return (
+        <StyledP
+          color={colors.TextBlue}
+          fontSize={"13px"}
+          margin={"20px 10px 10px 10px"}
+          font={"GothamBook"}
+        >
+          {QuizByTeam[game.id].questionsAndAnswers[currentQuestion].question}
+        </StyledP>
+      );
+    } else if (
+      QuizByTeam[game.id].questionsAndAnswers[currentQuestion].question.length >
+      74
+    ) {
+      return (
+        <StyledP
+          color={colors.TextBlue}
+          fontSize={"14px"}
+          margin={"20px 10px 10px 10px"}
+          font={"GothamBook"}
+        >
+          {QuizByTeam[game.id].questionsAndAnswers[currentQuestion].question}
+        </StyledP>
+      );
+    } else {
+      return (
+        <StyledP
+          color={colors.TextBlue}
+          fontSize={"15px"}
+          margin={"20px 10px 10px 10px"}
+          font={"GothamBook"}
+        >
+          {QuizByTeam[game.id].questionsAndAnswers[currentQuestion].question}
+        </StyledP>
+      );
+    }
+  };
+
   return (
     <>
       <GlobalStyle />
@@ -196,8 +244,7 @@ export const PlayGamePage = () => {
             justify={"start"}
             background={colors.White}
             position={"relative"}
-            borderRad={"5px"}
-            width={"390px"}
+            width={"400px"}
             minHeight='100vh'
             shadow={
               "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
@@ -205,17 +252,14 @@ export const PlayGamePage = () => {
           >
             <FlexDiv
               dir='column'
-              width='390px'
               position='relative'
-              height='385px'
+              height='345px'
               background={colors.BackgroundBlue}
               z='0'
             >
               <FlexDiv
                 position='relative'
-                z='200'
-                width='390px'
-                height='390px'
+                height='345px'
                 background={colors.BackgroundBlue}
               >
                 <FlexDiv
@@ -228,11 +272,11 @@ export const PlayGamePage = () => {
                     <FaShieldAlt color='white' size={"30px"} />
                   </Link>
                 </FlexDiv>
-                <FlexDiv top={"80px"} position='absolute' z='200'>
+                <FlexDiv top={"65px"} position='absolute' z='200'>
                   <StyledImage
                     position='absolute'
                     width='x'
-                    height='110px'
+                    height='100px'
                     src={IMAGES[game.id as keyof Iimages].emblem}
                     onError={imageOnErrorHandler}
                   ></StyledImage>
@@ -248,20 +292,10 @@ export const PlayGamePage = () => {
                   hover='default'
                   transform='none'
                   padding={"0"}
-                  margin='100px 0 0 0'
-                  border='#707070 1px solid'
+                  shadow={"#282a313c 0px 3px 5px"}
+                  margin='70px 0 0 0'
                 >
-                  <StyledP
-                    color={colors.TextBlue}
-                    fontSize={"15px"}
-                    margin={"20px 10px 10px 10px"}
-                    font={"GothamBook"}
-                  >
-                    {
-                      QuizByTeam[game.id].questionsAndAnswers[currentQuestion]
-                        .question
-                    }
-                  </StyledP>
+                  <Question />
                 </StyledButton>
               </FlexDiv>
               <StyledImage
@@ -277,9 +311,8 @@ export const PlayGamePage = () => {
               dir='column'
               position='relative'
               background={colors.White}
-              width='390px'
               bottom='55px'
-              margin='-50px 0 10px 0'
+              margin='-65px 0 10px 0'
             >
               {haveAnswered ? (
                 <FlexDiv height={"21px"} />
@@ -297,12 +330,12 @@ export const PlayGamePage = () => {
                   />
                 </Timerwrapper>
               )}
-              <FlexDiv dir='column' width='60%' gap='22px'>
+              <FlexDiv dir='column' width='60%' gap='22px' margin='10px 0 0 0'>
                 <FlexDiv
                   dir='column'
                   justify='start'
                   position='relative'
-                  height='200px'
+                  height='240px'
                   background={colors.White}
                 >
                   {QuizByTeam[game.id].questionsAndAnswers[
@@ -310,13 +343,13 @@ export const PlayGamePage = () => {
                   ].answers.map((x: IAnswers, i: number) => {
                     return (
                       <StyledButton
-                        transform={"none"}
+                        // transform={"none"}
                         hoverBackground={"none"}
                         background={
                           haveAnswered
                             ? x.isCorrect
-                              ? "green"
-                              : colors.ButtonBlue
+                              ? "#2FBA44"
+                              : "#BA2F2F"
                             : colors.ButtonBlue
                         }
                         onClick={
@@ -330,7 +363,7 @@ export const PlayGamePage = () => {
                       </StyledButton>
                     );
                   })}
-                  <FlexDiv margin='45px' gap={"12px"}>
+                  <FlexDiv margin='30px 0 15px 0' gap={"12px"}>
                     <Footballs />
                   </FlexDiv>
                   <StyledP

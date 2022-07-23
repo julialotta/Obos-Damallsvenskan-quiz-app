@@ -31,8 +31,7 @@ export const CookiesPage = () => {
           justify={"start"}
           background={colors.White}
           position={"relative"}
-          borderRad={"5px"}
-          width={"390px"}
+          width={"400px"}
           minHeight='100vh'
           shadow={
             "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
@@ -40,7 +39,7 @@ export const CookiesPage = () => {
         >
           <FlexDiv
             dir='column'
-            width='390px'
+            width='400px'
             position='relative'
             height='200px'
             background={colors.BackgroundBlue}
@@ -49,7 +48,6 @@ export const CookiesPage = () => {
             <FlexDiv
               position='relative'
               z='100'
-              width='390px'
               height='200px'
               background={colors.BackgroundBlue}
             >
@@ -62,7 +60,6 @@ export const CookiesPage = () => {
             <StyledImage
               width='100%'
               height='100%'
-              borderRad={"5px"}
               src={background}
               alt='Blue Pattern'
             />

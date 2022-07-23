@@ -1,10 +1,6 @@
 import { StyledButton } from "../StyledComponents/StyledButton";
 import { FlexDiv, ImageDiv } from "../StyledComponents/Wrappers";
-import {
-  StyledP,
-  StyledTopHeading,
-  StyledLink,
-} from "../StyledComponents/StyledTextElements";
+import { StyledP, StyledLink } from "../StyledComponents/StyledTextElements";
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 import { StyledImage } from "../StyledComponents/StyledImage";
@@ -50,12 +46,7 @@ export const StartPage = () => {
           width={"100%"}
           height='100%'
         >
-          <Modal
-            isOpen={modalIsOpen}
-            //onRequestClose={closeModal}
-            contentLabel='Kakor'
-            style={modalStyles}
-          >
+          <Modal isOpen={modalIsOpen} contentLabel='Kakor' style={modalStyles}>
             <FlexDiv
               dir='column'
               height={"30vh"}
@@ -81,33 +72,24 @@ export const StartPage = () => {
           </Modal>
           <ImageDiv
             dir='column'
-            image={GeneralIMAGES.general.startBackground}
-            borderRad={"5px"}
-            width={"390px"}
+            image={GeneralIMAGES.general.bluePatternBackground}
+            width={"400px"}
             minHeight='100vh'
             position={"relative"}
             shadow={
               "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
             }
           >
-            <FlexDiv dir='column' width='90%' gap='22px'>
+            <FlexDiv dir='column' width='75%' gap='22px'>
               <StyledImage
-                height='100px'
+                height='230px'
                 width='x'
-                src={GeneralIMAGES.general.obosLogo}
+                src={GeneralIMAGES.general.obosLogoRibbon}
                 alt='DA logo'
                 shadow='#00000057 3pt 3pt 3pt'
               />
-              <StyledTopHeading
-                color={colors.White}
-                shadow='#0000005A 2pt 2pt 2pt'
-              >
-                Allt för klubben
-              </StyledTopHeading>
-              <StyledP color='white'>
-                Matchen pågår även på läktaren, eller hur? Nu har ni chans att
-                visa vilka supportrar som kan mest. <br />
-                <br />
+
+              <StyledP color='white' font='GothamBook'>
                 Varje omgång får ni supportrar chans att via ett quiz visa vilka
                 supportrar som kan mest om fotboll.
               </StyledP>
@@ -115,6 +97,7 @@ export const StartPage = () => {
                 <StyledButton
                   margin='5px'
                   padding='22px'
+                  font=''
                   width='181px'
                   color={colors.ButtonBlue}
                   hoverColor={colors.ButtonBlue}
@@ -123,11 +106,12 @@ export const StartPage = () => {
                   border='#707070 1pt solid'
                   shadow='#00000038 0px 3px 5px'
                 >
-                  STARTA MATCHEN
+                  Starta matchen
                 </StyledButton>
               </StyledLink>
               <StyledImage
                 height='x'
+                margin='60px 0 0 0'
                 width='240px'
                 src={GeneralIMAGES.general.sponsorLogo}
                 alt='Partner logos'

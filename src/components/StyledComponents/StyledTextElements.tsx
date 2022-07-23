@@ -17,13 +17,16 @@ export const StyledHeadingh3 = styled.h3`
   font-size: 18px;
   text-align: center;
   text-transform: ${(props: IStylingProps) => props.textTransform || "none"};
+  font-size: ${(props: IStylingProps) => props.fontSize || "30px"};
   text-shadow: ${(props: IStylingProps) => props.shadow || 0};
+  margin: ${(props: IStylingProps) => props.margin || "5px"};
 `;
 export const StyledHeadingh5 = styled.h5`
   color: ${(props: IStylingProps) => props.color || colors.White};
   text-align: center;
   text-shadow: ${(props: IStylingProps) => props.shadow || 0};
   text-transform: ${(props: IStylingProps) => props.textTransform || "none"};
+  margin: ${(props: IStylingProps) => props.margin || "5px"};
 `;
 
 export const StyledP = styled.p`

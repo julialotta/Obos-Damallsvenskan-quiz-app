@@ -32,10 +32,13 @@ export const GlobalStyle = createGlobalStyle`
   h1 {
     font-family: 'GothamBlackRegular';
     text-transform: uppercase;
-}
+  }
   h3 {
     font-family: 'GothamBlackRegular';
-}
+  }
+  h5 {
+    font-family: 'GothamBook';
+  }
 p {
     font-family: 'GothamLight';
   }

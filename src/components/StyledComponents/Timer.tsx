@@ -27,10 +27,10 @@ export const Timerwrapper = styled.div`
     border: none;
     //top: 0;
     left: -6px;
-    animation: ball 25s;
+    animation: ball 20s;
   }
   .baranimation {
-    animation: bar 25s;
+    animation: bar 20s;
   }
   .resetbar {
     background-color: ${colors.White};

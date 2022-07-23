@@ -29,6 +29,7 @@ interface IimageGeneral {
   startBackground: string;
   onError: string;
   obosLogo: string;
+  obosLogoRibbon: string;
   sponsorLogo: string;
   curve: string;
 }

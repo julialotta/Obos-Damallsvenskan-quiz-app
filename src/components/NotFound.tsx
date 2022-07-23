@@ -27,8 +27,7 @@ export const NotFound = () => {
           justify={"start"}
           background={colors.White}
           position={"relative"}
-          borderRad={"5px"}
-          width={"390px"}
+          width={"400px"}
           minHeight='100vh'
           shadow={
             "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
@@ -36,7 +35,6 @@ export const NotFound = () => {
         >
           <FlexDiv
             dir='column'
-            width='390px'
             position='relative'
             height='250px'
             background={colors.BackgroundBlue}
@@ -45,7 +43,6 @@ export const NotFound = () => {
             <FlexDiv
               position='relative'
               z='100'
-              width='390px'
               height='250px'
               background={colors.BackgroundBlue}
             >
@@ -58,7 +55,6 @@ export const NotFound = () => {
             <StyledImage
               width='100%'
               height='100%'
-              borderRad={"5px"}
               src={background}
               alt='Blue Pattern'
             />
@@ -68,7 +64,6 @@ export const NotFound = () => {
             dir='column'
             position='relative'
             background={colors.White}
-            width='390px'
             bottom='55px'
             margin='-60px 0 0 0'
           >

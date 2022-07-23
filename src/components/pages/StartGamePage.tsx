@@ -159,8 +159,7 @@ export const StartGamePage = () => {
             justify={"start"}
             background={colors.White}
             position={"relative"}
-            borderRad={"5px"}
-            width={"390px"}
+            width={"400px"}
             minHeight='100vh'
             shadow={
               "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
@@ -168,17 +167,15 @@ export const StartGamePage = () => {
           >
             <FlexDiv
               dir='column'
-              width='390px'
               position='relative'
-              height='400px'
+              height='350px'
               background={colors.BackgroundBlue}
               z='0'
             >
               <FlexDiv
                 position='relative'
                 z='100'
-                width='390px'
-                height='370px'
+                width='400px'
                 background={colors.BackgroundBlue}
               >
                 <FlexDiv
@@ -192,13 +189,13 @@ export const StartGamePage = () => {
                   </Link>
                 </FlexDiv>
                 <FlexDiv
-                  top={"180px"}
+                  top={"155px"}
                   left={"0"}
                   right={"0"}
                   position='absolute'
                 >
                   <StyledImage
-                    width='320px'
+                    width='275px'
                     height='x'
                     src={IMAGES[game.id as keyof Iimages].emblem}
                     alt='Allt för laget'
@@ -208,7 +205,6 @@ export const StartGamePage = () => {
               <StyledImage
                 width='100%'
                 height='100%'
-                borderRad={"5px"}
                 src={IMAGES[game.id as keyof Iimages].background}
                 alt='Pattern in team colors'
               />
@@ -218,13 +214,23 @@ export const StartGamePage = () => {
               dir='column'
               position='relative'
               background={colors.White}
-              width='390px'
               bottom='55px'
-              margin='-20px 0 0 0'
+              margin='-75px 0 0 0'
             >
+              <StyledLink to={`/spela/${game.id}`}>
+                <StyledButton
+                  width='230px'
+                  height={"55px"}
+                  shadow={"#00000038 0px 3px 5px "}
+                >
+                  <StyledHeadingh3 fontSize={"18px"}>
+                    Starta matchen
+                  </StyledHeadingh3>
+                </StyledButton>
+              </StyledLink>
               <FlexDiv dir='column' width='100%'>
                 <FlexDiv dir='column' width='50%' gap='20px'>
-                  <FlexDiv dir='column' width='50%' margin={"0 0 30px 0"}>
+                  <FlexDiv dir='column' width='50%' margin={"15px 0 15px 0"}>
                     <FlexDiv gap='20px'>
                       <StyledImage
                         height='110px'
@@ -243,33 +249,22 @@ export const StartGamePage = () => {
                     </FlexDiv>
                   </FlexDiv>
                 </FlexDiv>
-                <FlexDiv width='95%'>
+                <FlexDiv width='95%' margin='10px 0 0 0'>
                   <StyledHeadingh3
+                    margin='0'
                     textTransform='uppercase'
                     color={colors.TextBlue}
-                    fontSize='10px'
+                    fontSize='20px'
                   >
                     {game.team} - {opponent.opponent}
                   </StyledHeadingh3>
                 </FlexDiv>
 
-                <StyledP
-                  textTransform='uppercase'
-                  margin='0 0 20px 0'
-                  color={colors.TextBlue}
-                >
+                <StyledP fontSize='13px' margin='0' color={colors.TextBlue}>
+                  Omgång {opponent.round}
+                  {"    "}
                   {opponent.arena} {date}
                 </StyledP>
-
-                <StyledLink to={`/spela/${game.id}`}>
-                  <StyledButton
-                    width='230px'
-                    height={"60px"}
-                    shadow={"#00000038 0px 3px 5px "}
-                  >
-                    <StyledHeadingh3>Starta matchen</StyledHeadingh3>
-                  </StyledButton>
-                </StyledLink>
               </FlexDiv>
             </FlexDiv>
           </FlexDiv>

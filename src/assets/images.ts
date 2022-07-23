@@ -14,7 +14,7 @@ export const IMAGES: Iimages = {
   2: {
     logo: require("./DIF/DIF@2x.png"),
     emblem: require("./DIF/DIF_emblem.png"),
-    background: require("./DIF/DIF_Bakgrund@2x.png"),
+    background: require("./DIF/dif.gif"),
   },
   3: {
     logo: require("./Eskilstuna/Eskilstuna@2x.png"),
@@ -79,6 +79,7 @@ export const GeneralIMAGES: IimagesGenereal = {
     startBackground: require("./Startbild.jpeg"),
     onError: require("./OnError.png"),
     obosLogo: require("./Liga-sponsor/DA_logo@3x.png"),
+    obosLogoRibbon: require("./Liga-sponsor/DA_logo_ribbon.png"),
     sponsorLogo: require("./Liga-sponsor/DA_partnerlogo.png"),
     curve: require("./curve.png"),
   },
