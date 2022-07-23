@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 
 export const Layout = () => {
   const animations = {
-    initial: { opacity: 0, y: "-100vw" },
+    initial: { opacity: 0, y: "-100%" },
     animate: { opacity: 1, y: "0%" },
-    exit: { opacity: 0, y: "-100vw" },
+    exit: { opacity: 0, y: "-100%" },
   };
   return (
     <AppWrapper linear={"linear-gradient(to bottom right, #172542, #2e3b55)"}>
