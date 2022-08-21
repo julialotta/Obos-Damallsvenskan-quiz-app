@@ -347,6 +347,7 @@ export const PlayGamePage = () => {
                               : "#BA2F2F"
                             : colors.ButtonBlue
                         }
+                        transform={haveAnswered ? "none" : "scale(1.05)"}
                         onClick={
                           haveAnswered ? undefined : () => handleClick(x)
                         }

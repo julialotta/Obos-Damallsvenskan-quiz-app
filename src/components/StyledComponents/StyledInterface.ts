@@ -34,4 +34,5 @@ export interface IStylingProps {
   textTransform?: string;
   linear?: string;
   decoration?: string;
+  lineheight?: string;
 }

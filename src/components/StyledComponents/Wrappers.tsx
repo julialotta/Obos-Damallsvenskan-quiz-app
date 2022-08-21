@@ -22,15 +22,17 @@ export const FlexDiv = styled.div`
   right: ${(props: IStylingProps) => props.right || "x"};
   box-shadow: ${(props: IStylingProps) => props.shadow || 0};
   min-height: ${(props: IStylingProps) => props.minHeight || 0};
-  /*  background-image: ${(props: IStylingProps) => props.linear || "none"}; */
+  :hover {
+    cursor: ${(props: IStylingProps) => props.hover || "default"};
+  }
 `;
 
 export const ImageDiv = styled(FlexDiv)`
   /*   background-image: linear-gradient(186deg, #00000000, #00000086, #000000),
     url(${(props: IStylingProps) => props.image || ""}); */
   background-image: url(${(props: IStylingProps) => props.image || ""});
-  background-size: 100%;
-  //background-repeat: no-repeat;
+  background-size: 115%;
+  background-repeat: no-repeat;
   //background-position: 68% 65%;
   position: ${(props: IStylingProps) => props.position || ""};
   min-width: ${(props: IStylingProps) => props.minWidth || "x"};

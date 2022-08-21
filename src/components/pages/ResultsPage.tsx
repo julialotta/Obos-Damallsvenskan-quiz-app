@@ -5,12 +5,15 @@ import {
   StyledHeadingh3,
   StyledHeadingh5,
   StyledP,
+  StyledLink,
 } from "../StyledComponents/StyledTextElements";
 import { IoMdFootball } from "react-icons/io";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { Curve } from "../partials/curve";
 import { imageOnErrorHandler } from "../../services/Helpers";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
+import Modal from "react-modal";
 import { getGame, getQuiz } from "../../services/StorageService";
 import { useEffect, useState } from "react";
 import { IGame } from "../../models/ITeams";
@@ -22,10 +25,13 @@ import { Iimages } from "../../models/IImages";
 import { Loader } from "../StyledComponents/Loader";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../services/db";
+import { modalStylesResults } from "../StyledComponents/Styling/modalStylesResults";
 
 export const ResultsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult] = useState<IResult[]>([]);
+  const [points, setPoints] = useState("");
+  const [modalIsOpen, setIsOpen] = useState(false);
   const [homeTeamScore, setHomeTeamScore] = useState<number>(-1);
   const [awayTeamScore, setAwayTeamScore] = useState<number>(-1);
   const [game, setGame] = useState<IGame>({
@@ -43,6 +49,13 @@ export const ResultsPage = () => {
     setGame(getGame<IGame>());
     setResult(getQuiz);
   }, []);
+  useEffect(() => {
+    let points: number = 0;
+    for (let i = 0; i < result.length; i++) {
+      points = points + result[i].time;
+    }
+    setPoints(points.toString());
+  }, [result]);
 
   const fetchHomeData = async () => {
     let list: IData[] = [];
@@ -57,7 +70,7 @@ export const ResultsPage = () => {
       total = total + list[i].data.points;
     }
     if (list.length > 0) {
-      setHomeTeamScore(total / list.length);
+      setHomeTeamScore(total);
     } else {
       setHomeTeamScore(0);
     }
@@ -78,7 +91,7 @@ export const ResultsPage = () => {
       total = total + list[i].data.points;
     }
     if (list.length > 0) {
-      setAwayTeamScore(total / list.length);
+      setAwayTeamScore(total);
     } else {
       setAwayTeamScore(0);
     }
@@ -121,82 +134,30 @@ export const ResultsPage = () => {
             <FlexDiv
               dir='column'
               position='relative'
-              height='300px'
+              height='210px'
               background={colors.BackgroundBlue}
               z='0'
             >
               <FlexDiv
                 position='relative'
                 z='100'
-                height='250px'
                 background={colors.BackgroundBlue}
               >
+                <FlexDiv
+                  height='100%'
+                  dir='column'
+                  justify='start'
+                  width='70%'
+                  margin='100px 0 0 0 '
+                >
+                  <StyledHeadingh3 fontSize='25px' lineheight='30px'>
+                    Du fixade <u>{points} poäng</u> till {game.team}
+                  </StyledHeadingh3>
+                </FlexDiv>
                 <FlexDiv top={"40px"} left={"-160px"} position='absolute'>
                   <Link to='/'>
                     <FaShieldAlt color='white' size={"30px"} />
                   </Link>
-                </FlexDiv>
-                <FlexDiv
-                  top={"20px"}
-                  left={"0"}
-                  right={"0"}
-                  position='absolute'
-                >
-                  <FlexDiv
-                    dir='column'
-                    align='center'
-                    justify='start'
-                    position='absolute'
-                    z='100'
-                  >
-                    <StyledHeadingh3 fontSize='20px'>
-                      Ställningen
-                    </StyledHeadingh3>
-                    <FlexDiv
-                      dir='row'
-                      position='absolute'
-                      z='100'
-                      align='end'
-                      margin='0'
-                      top={"230px"}
-                      gap={"30px"}
-                    >
-                      <StyledButton
-                        transform='0'
-                        background={colors.White}
-                        height={homeTeamScore * 1.2 + 30 + "px"}
-                        width='80px'
-                        hoverColor='none'
-                        borderRad='2px'
-                        hoverBackground='none'
-                        hover='default'
-                      >
-                        <StyledHeadingh3
-                          color={colors.TextBlue}
-                          fontSize='20px'
-                        >
-                          {~~homeTeamScore}
-                        </StyledHeadingh3>
-                      </StyledButton>
-                      <StyledButton
-                        transform='0'
-                        borderRad='2px'
-                        background={colors.White}
-                        height={awayTeamScore * 1.2 + 30 + "px"}
-                        width='80px'
-                        hoverColor='none'
-                        hoverBackground='none'
-                        hover='default'
-                      >
-                        <StyledHeadingh3
-                          color={colors.TextBlue}
-                          fontSize='20px'
-                        >
-                          {~~awayTeamScore}
-                        </StyledHeadingh3>
-                      </StyledButton>
-                    </FlexDiv>
-                  </FlexDiv>
                 </FlexDiv>
               </FlexDiv>
               <StyledImage
@@ -227,21 +188,114 @@ export const ResultsPage = () => {
                     );
                   })}
                 </FlexDiv>
-                <FlexDiv gap='35px' margin='0 0 30px 0'>
-                  <StyledImage
-                    height='100px'
-                    width='x'
-                    src={IMAGES[game.id as keyof Iimages].logo}
-                    onError={imageOnErrorHandler}
-                  />
-
-                  <StyledImage
-                    width='x'
-                    height='100px'
-                    src={IMAGES[game.opponentid as keyof Iimages].logo}
-                    onError={imageOnErrorHandler}
-                  />
+                <Modal
+                  isOpen={modalIsOpen}
+                  contentLabel='Kakor'
+                  style={modalStylesResults}
+                >
+                  <FlexDiv
+                    dir='column'
+                    height={"30vh"}
+                    justify={"center"}
+                    width={"100%"}
+                  >
+                    <StyledButton onClick={() => setIsOpen(false)}>
+                      Stäng
+                    </StyledButton>
+                    <StyledP color={colors.TextBlue}>
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                      In eveniet, vero, possimus repellat animi esse delectus
+                      tempore optio itaque explicabo placeat nobis dolores
+                      voluptatibus sint repellendus, error ducimus corporis
+                      odit?
+                    </StyledP>
+                  </FlexDiv>
+                </Modal>
+                <FlexDiv align='center' justify='center'>
+                  <StyledHeadingh3 fontSize='20px' color={colors.TextBlue}>
+                    Ställningen
+                  </StyledHeadingh3>
+                  <FlexDiv width='15px' hover='pointer'>
+                    <AiOutlineInfoCircle
+                      color={colors.TextBlue}
+                      onClick={() => {
+                        setIsOpen(true);
+                      }}
+                    />
+                  </FlexDiv>
                 </FlexDiv>
+
+                <FlexDiv dir='column' align='center' justify='start'>
+                  <FlexDiv dir='row' align='end' margin='0' gap={"30px"}>
+                    <FlexDiv dir='column' margin='20px 0 0 0'>
+                      <StyledButton
+                        transform='0'
+                        background={colors.ResultBlue}
+                        height={homeTeamScore / 4 + 35 + "px"}
+                        width='80px'
+                        hoverColor='none'
+                        borderRad='2px'
+                        hoverBackground='none'
+                        hover='default'
+                        margin='0 0 30px 0'
+                      >
+                        <FlexDiv dir='column'>
+                          <StyledHeadingh3
+                            color={colors.White}
+                            fontSize='20px'
+                            margin='0'
+                          >
+                            {~~homeTeamScore}
+                          </StyledHeadingh3>
+                          <StyledP margin='-8px 0 0 0' fontSize='10px'>
+                            poäng
+                          </StyledP>
+                        </FlexDiv>
+                      </StyledButton>
+                      <StyledImage
+                        margin='0 0 30px 0'
+                        height='100px'
+                        width='x'
+                        src={IMAGES[game.id as keyof Iimages].logo}
+                        onError={imageOnErrorHandler}
+                      />
+                    </FlexDiv>
+                    <FlexDiv dir='column'>
+                      <StyledButton
+                        transform='0'
+                        borderRad='2px'
+                        background={colors.ResultBlue}
+                        height={awayTeamScore / 4 + 40 + "px"}
+                        width='80px'
+                        hoverColor='none'
+                        hoverBackground='none'
+                        hover='default'
+                        margin='0 0 30px 0'
+                      >
+                        <FlexDiv dir='column'>
+                          <StyledHeadingh3
+                            color={colors.White}
+                            fontSize='20px'
+                            margin='0'
+                          >
+                            {~~awayTeamScore}
+                          </StyledHeadingh3>
+                          <StyledP margin='-8px 0 0 0' fontSize='10px'>
+                            poäng
+                          </StyledP>
+                        </FlexDiv>
+                      </StyledButton>
+                      <StyledImage
+                        width='x'
+                        margin='0 0 30px 0'
+                        height='100px'
+                        src={IMAGES[game.opponentid as keyof Iimages].logo}
+                        onError={imageOnErrorHandler}
+                      />
+                    </FlexDiv>
+                  </FlexDiv>
+                </FlexDiv>
+
                 <StyledP
                   fontSize='13px'
                   textTransform='uppercase'
@@ -267,7 +321,12 @@ export const ResultsPage = () => {
                 >
                   Gör allt för {game.team}!
                 </StyledHeadingh5>
-                <a href={game.link} target='_blank' rel='noopener noreferrer'>
+                <a
+                  href={game.link}
+                  id={game.link}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
                   <StyledButton
                     margin='0px'
                     padding='22px'
