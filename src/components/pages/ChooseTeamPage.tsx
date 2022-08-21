@@ -43,7 +43,7 @@ export const ChooseTeamPage = () => {
               "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
             }
           >
-            <FlexDiv position='absolute' top={"-340px"} left={"-150px"}>
+            <FlexDiv position='absolute' top={"-350px"} left={"-150px"}>
               <Link to='/'>
                 <FaShieldAlt color={colors.ShieldBlue} size={"30px"} />
               </Link>
