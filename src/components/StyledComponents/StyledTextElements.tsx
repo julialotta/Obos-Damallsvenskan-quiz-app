@@ -20,7 +20,9 @@ export const StyledHeadingh3 = styled.h3`
   font-size: ${(props: IStylingProps) => props.fontSize || "30px"};
   text-shadow: ${(props: IStylingProps) => props.shadow || 0};
   margin: ${(props: IStylingProps) => props.margin || "5px"};
+  line-height: ${(props: IStylingProps) => props.lineheight || "default"};
 `;
+
 export const StyledHeadingh5 = styled.h5`
   color: ${(props: IStylingProps) => props.color || colors.White};
   text-align: center;
