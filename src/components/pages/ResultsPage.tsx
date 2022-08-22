@@ -174,7 +174,7 @@ export const ResultsPage = () => {
               background={colors.White}
               bottom='55px'
             >
-              <FlexDiv dir='column' width='60%' margin='-70px 0 0 0'>
+              <FlexDiv dir='column' width='70%' margin='-70px 0 0 0'>
                 <FlexDiv gap='12px' margin='0 0 30px 0'>
                   {result.map((x: IResult, i) => {
                     return (
@@ -226,7 +226,7 @@ export const ResultsPage = () => {
                 </FlexDiv>
 
                 <FlexDiv dir='column' align='center' justify='start'>
-                  <FlexDiv dir='row' align='end' margin='0' gap={"30px"}>
+                  <FlexDiv dir='row' align='end' margin='0' gap={"0"}>
                     <FlexDiv dir='column' margin='20px 0 0 0'>
                       <StyledButton
                         transform='0'

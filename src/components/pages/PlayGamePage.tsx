@@ -25,8 +25,6 @@ import { Loader } from "../StyledComponents/Loader";
 import { Timerwrapper } from "../StyledComponents/Timer";
 import { writeData } from "../../services/db";
 
-//function reducer() {}
-
 export const PlayGamePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [startTime, setStartTime] = useState(0);
