@@ -1,37 +1,44 @@
 import { StyledButton } from "../StyledComponents/StyledButton";
 import { FlexDiv, ImageDiv } from "../StyledComponents/Wrappers";
 import { StyledP, StyledLink } from "../StyledComponents/StyledTextElements";
-import { colors } from "../StyledComponents/Styling/Mixins";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
-import { StyledImage } from "../StyledComponents/StyledImage";
 import { GeneralIMAGES, IMAGES } from "../../assets/images";
 import { useEffect, useState } from "react";
+import { IData } from "../../models/IQuestions";
+import { getDocs, collection } from "firebase/firestore";
+import { db } from "../../services/db";
 import { Loader } from "../StyledComponents/Loader";
-import Modal from "react-modal";
-import { modalStylesCookies } from "../StyledComponents/Styling/modalStylesCookies";
-import { getUser, saveUser } from "../../services/StorageService";
-
-Modal.setAppElement("#root");
 
 export const StartPage = () => {
+  const [list, setList] = useState<IData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [modalIsOpen, setIsOpen] = useState(true);
+
+  const fetchHomeData = async () => {
+    let list: IData[] = [];
+    let total: number = 0;
+    const querySnapshot = await getDocs(collection(db, "16"));
+    querySnapshot.forEach((doc) => {
+      list.push({ id: doc.id, data: doc.data() });
+    });
+    for (let i = 0; i < list.length; i++) {
+      total = total + list[i].data.points;
+    }
+    if (list.length > 0) {
+      console.log("====================================");
+      console.log(list);
+      console.log("====================================");
+      setList(list);
+    } else {
+      console.log("====sry================================");
+    }
+  };
+  fetchHomeData().catch(console.error);
 
   useEffect(() => {
-    let user: [] = getUser();
-    if (user.length !== 0) {
-      setIsOpen(false);
-    }
-
-    if (GeneralIMAGES && IMAGES) {
+    if (list !== undefined) {
       setIsLoading(false);
     }
-  }, []);
-
-  function closeModal() {
-    saveUser({ user: true });
-    setIsOpen(false);
-  }
+  }, [list]);
 
   return (
     <>
@@ -46,34 +53,6 @@ export const StartPage = () => {
           width={"100%"}
           height='100%'
         >
-          <Modal
-            isOpen={modalIsOpen}
-            contentLabel='Kakor'
-            style={modalStylesCookies}
-          >
-            <FlexDiv
-              dir='column'
-              height={"30vh"}
-              justify={"center"}
-              width={"100%"}
-            >
-              <StyledButton onClick={closeModal}>Stäng</StyledButton>
-              <StyledP color={colors.TextBlue}>
-                Vi använder cookies för att tillhandahålla våra tjänster samt
-                för mätnings- och analyssyften. Genom att använda vår webbplats
-                och våra tjänster godkänner du användningen av cookies på det
-                sätt som beskrivs i vår
-                <StyledLink
-                  font='GothamLight'
-                  decoration='underline'
-                  color={colors.TextBlue}
-                  to={"/cookies"}
-                >
-                  policy för cookies.
-                </StyledLink>
-              </StyledP>
-            </FlexDiv>
-          </Modal>
           <ImageDiv
             dir='column'
             image={GeneralIMAGES.general.bluePatternBackground}
@@ -85,42 +64,12 @@ export const StartPage = () => {
             }
           >
             <FlexDiv dir='column' width='75%' gap='22px'>
-              <StyledImage
-                height='230px'
-                width='x'
-                src={GeneralIMAGES.general.obosLogoRibbon}
-                alt='DA logo'
-                shadow='#00000057 3pt 3pt 3pt'
-              />
-
-              <StyledP color='white' font='GothamBook'>
-                Varje omgång får ni supportrar chans att via ett quiz visa vilka
-                supportrar som kan mest om fotboll.
-              </StyledP>
-              <StyledLink to={"/valj-klubb"}>
-                <StyledButton
-                  margin='5px'
-                  padding='22px'
-                  font=''
-                  width='181px'
-                  color={colors.ButtonBlue}
-                  hoverColor={colors.ButtonBlue}
-                  background={colors.White}
-                  hoverBackground={colors.White}
-                  border='#707070 1pt solid'
-                  shadow='#00000038 0px 3px 5px'
-                >
-                  Starta matchen
-                </StyledButton>
-              </StyledLink>
-              <StyledImage
-                height='x'
-                margin='60px 0 0 0'
-                width='240px'
-                src={GeneralIMAGES.general.sponsorLogo}
-                alt='Partner logos'
-                shadow='#00000057 3pt 3pt 3pt'
-              />
+              <h2>Statistik</h2>
+              {list.map((item) => (
+                <div key={item.id}>
+                  <p>{item.id}</p>
+                </div>
+              ))}
             </FlexDiv>
           </ImageDiv>
         </FlexDiv>
