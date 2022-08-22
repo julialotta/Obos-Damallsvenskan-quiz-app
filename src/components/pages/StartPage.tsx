@@ -2,12 +2,13 @@ import { StyledButton } from "../StyledComponents/StyledButton";
 import { FlexDiv, ImageDiv } from "../StyledComponents/Wrappers";
 import { StyledP, StyledLink } from "../StyledComponents/StyledTextElements";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
-import { GeneralIMAGES, IMAGES } from "../../assets/images";
+import { GeneralIMAGES } from "../../assets/images";
 import { useEffect, useState } from "react";
 import { IData } from "../../models/IQuestions";
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "../../services/db";
 import { Loader } from "../StyledComponents/Loader";
+import { TeamsAndGames } from "../../data/teams";
 
 export const StartPage = () => {
   const [list, setList] = useState<IData[]>([]);
@@ -24,9 +25,7 @@ export const StartPage = () => {
       total = total + list[i].data.points;
     }
     if (list.length > 0) {
-      console.log("====================================");
       console.log(list);
-      console.log("====================================");
       setList(list);
     } else {
       console.log("====sry================================");
@@ -65,6 +64,7 @@ export const StartPage = () => {
           >
             <FlexDiv dir='column' width='75%' gap='22px'>
               <h2>Statistik</h2>
+              <h3>Runda 16</h3>
               {list.map((item) => (
                 <div key={item.id}>
                   <p>{item.id}</p>
