@@ -8,6 +8,7 @@ import { PlayGamePage } from "./components/pages/PlayGamePage";
 import { ResultsPage } from "./components/pages/ResultsPage";
 import { CookiesPage } from "./components/Cookies";
 import { AnimatePresence } from "framer-motion";
+import { AdminPage } from "./components/pages/AdminPage";
 
 function App() {
   const location = useLocation();
@@ -22,6 +23,7 @@ function App() {
           <Route path='spela/:id' element={<PlayGamePage />}></Route>
           <Route path='resultat' element={<ResultsPage />}></Route>
           <Route path='cookies' element={<CookiesPage />}></Route>
+          <Route path='admin6539514' element={<AdminPage />}></Route>
           <Route path='*' element={<NotFound />}></Route>
         </Route>
       </Routes>
