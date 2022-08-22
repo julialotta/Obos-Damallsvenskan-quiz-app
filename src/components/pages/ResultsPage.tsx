@@ -8,7 +8,6 @@ import {
   StyledLink,
 } from "../StyledComponents/StyledTextElements";
 import { IoMdFootball } from "react-icons/io";
-import { AiOutlineInfoCircle } from "react-icons/ai";
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { Curve } from "../partials/curve";
 import { imageOnErrorHandler } from "../../services/Helpers";
@@ -175,7 +174,7 @@ export const ResultsPage = () => {
               bottom='55px'
             >
               <FlexDiv dir='column' width='70%' margin='-70px 0 0 0'>
-                <FlexDiv gap='12px' margin='0 0 30px 0'>
+                <FlexDiv gap='12px' margin='0 0 20px 0'>
                   {result.map((x: IResult, i) => {
                     return (
                       <IoMdFootball
@@ -188,42 +187,10 @@ export const ResultsPage = () => {
                     );
                   })}
                 </FlexDiv>
-                <Modal
-                  isOpen={modalIsOpen}
-                  contentLabel='Kakor'
-                  style={modalStylesResults}
-                >
-                  <FlexDiv
-                    dir='column'
-                    height={"30vh"}
-                    justify={"center"}
-                    width={"100%"}
-                  >
-                    <StyledButton onClick={() => setIsOpen(false)}>
-                      Stäng
-                    </StyledButton>
-                    <StyledP color={colors.TextBlue}>
-                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                      In eveniet, vero, possimus repellat animi esse delectus
-                      tempore optio itaque explicabo placeat nobis dolores
-                      voluptatibus sint repellendus, error ducimus corporis
-                      odit?
-                    </StyledP>
-                  </FlexDiv>
-                </Modal>
-                <FlexDiv align='center' justify='center'>
-                  <StyledHeadingh3 fontSize='20px' color={colors.TextBlue}>
-                    Ställningen
-                  </StyledHeadingh3>
-                  <FlexDiv width='15px' hover='pointer'>
-                    <AiOutlineInfoCircle
-                      color={colors.TextBlue}
-                      onClick={() => {
-                        setIsOpen(true);
-                      }}
-                    />
-                  </FlexDiv>
-                </FlexDiv>
+
+                <StyledHeadingh3 fontSize='20px' color={colors.TextBlue}>
+                  Ställningen
+                </StyledHeadingh3>
 
                 <FlexDiv dir='column' align='center' justify='start'>
                   <FlexDiv dir='row' align='end' margin='0' gap={"0"}>
@@ -231,7 +198,7 @@ export const ResultsPage = () => {
                       <StyledButton
                         transform='0'
                         background={colors.ResultBlue}
-                        height={homeTeamScore / 4 + 35 + "px"}
+                        height={homeTeamScore / 5 + 35 + "px"}
                         width='80px'
                         hoverColor='none'
                         borderRad='2px'
@@ -243,11 +210,11 @@ export const ResultsPage = () => {
                           <StyledHeadingh3
                             color={colors.White}
                             fontSize='20px'
-                            margin='0'
+                            margin='3px 0 0 0'
                           >
                             {~~homeTeamScore}
                           </StyledHeadingh3>
-                          <StyledP margin='-8px 0 0 0' fontSize='10px'>
+                          <StyledP margin='-7px 0 0 0' fontSize='10px'>
                             poäng
                           </StyledP>
                         </FlexDiv>
@@ -265,7 +232,7 @@ export const ResultsPage = () => {
                         transform='0'
                         borderRad='2px'
                         background={colors.ResultBlue}
-                        height={awayTeamScore / 4 + 40 + "px"}
+                        height={awayTeamScore / 5 + 40 + "px"}
                         width='80px'
                         hoverColor='none'
                         hoverBackground='none'
@@ -276,11 +243,11 @@ export const ResultsPage = () => {
                           <StyledHeadingh3
                             color={colors.White}
                             fontSize='20px'
-                            margin='0'
+                            margin='3px 0 0 0'
                           >
                             {~~awayTeamScore}
                           </StyledHeadingh3>
-                          <StyledP margin='-8px 0 0 0' fontSize='10px'>
+                          <StyledP margin='-7px 0 0 0' fontSize='10px'>
                             poäng
                           </StyledP>
                         </FlexDiv>
@@ -317,7 +284,7 @@ export const ResultsPage = () => {
                 </StyledP>
                 <StyledHeadingh5
                   color={colors.TextBlue}
-                  margin={"45px 0 10px 0"}
+                  margin={"25px 0 10px 0"}
                 >
                   Gör allt för {game.team}!
                 </StyledHeadingh5>
