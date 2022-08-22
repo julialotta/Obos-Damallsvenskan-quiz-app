@@ -14,25 +14,25 @@ export const StartPage = () => {
   const [list, setList] = useState<IData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchHomeData = async () => {
-    let list: IData[] = [];
-    let total: number = 0;
-    const querySnapshot = await getDocs(collection(db, "16"));
-    querySnapshot.forEach((doc) => {
-      list.push({ id: doc.id, data: doc.data() });
-    });
-    for (let i = 0; i < list.length; i++) {
-      total = total + list[i].data.points;
-    }
-    if (list.length > 0) {
-      console.log(list);
-      setList(list);
-    } else {
-      console.log("====sry================================");
-    }
-  };
-  fetchHomeData().catch(console.error);
-
+  useEffect(() => {
+    const fetchHomeData = async () => {
+      let list: IData[] = [];
+      let total: number = 0;
+      const querySnapshot = await getDocs(collection(db, "16"));
+      querySnapshot.forEach((doc) => {
+        list.push({ id: doc.id, data: doc.data() });
+      });
+      for (let i = 0; i < list.length; i++) {
+        total = total + list[i].data.points;
+      }
+      if (list.length > 0) {
+        console.log(list);
+        setList(list);
+      } else {
+      }
+    };
+    fetchHomeData().catch(console.error);
+  }, []);
   useEffect(() => {
     if (list !== undefined) {
       setIsLoading(false);
