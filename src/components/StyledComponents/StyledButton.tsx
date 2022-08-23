@@ -17,17 +17,18 @@ export const StyledButton = styled.button`
   border-radius: ${(props: IStylingProps) => props.borderRad || "11pt"};
   box-shadow: ${(props: IStylingProps) => props.shadow || 0};
   color: ${(props: IStylingProps) => props.hoverColor || colors.White};
+  @media (hover: hover) {
+    :hover {
+      background-color: ${(props: IStylingProps) =>
+        props.hoverBackground || colors.BackgroundBlue};
 
-  :hover {
-    background-color: ${(props: IStylingProps) =>
-      props.hoverBackground || colors.BackgroundBlue};
-
-    cursor: ${(props: IStylingProps) => props.hover || "pointer"};
-    transform: ${(props: IStylingProps) => props.transform || "scale(1.05)"};
-    transition: transform 330ms ease-in-out;
-    color: ${(props: IStylingProps) => props.hoverColor || colors.White};
-    a {
+      cursor: ${(props: IStylingProps) => props.hover || "pointer"};
+      transform: ${(props: IStylingProps) => props.transform || "scale(1.05)"};
+      transition: transform 330ms ease-in-out;
       color: ${(props: IStylingProps) => props.hoverColor || colors.White};
+      a {
+        color: ${(props: IStylingProps) => props.hoverColor || colors.White};
+      }
     }
   }
   a {

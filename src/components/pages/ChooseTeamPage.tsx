@@ -63,7 +63,7 @@ export const ChooseTeamPage = () => {
                 {TeamsAndGames?.map((x) => {
                   return (
                     <Link to={`/starta-matchen/${x.id}`} key={x.id}>
-                      <FlexDiv width='60px'>
+                      <FlexDiv width='60px' hover='pointer'>
                         <StyledImage
                           height='55px'
                           width='x'
