@@ -6,20 +6,36 @@
       "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "shortcuts": [
+    {
+      "name": "Choose Team Page",
+      "short_name": "ChooseTeam",
+      "description": "Choose your team",
+      "url": "/valj-klubb"
+    },
+    {
+      "name": "Start Game Page",
+      "short_name": "StartGame",
+      "description": "Start the Quiz",
+      "url": "/starta-matchen/:id"
+    },
+    {
+      "name": "Play Game Page",
+      "short_name": "PlayGame",
+      "description": "Do the Quiz",
+      "url": "/spela/:id"
+    },
+    {
+      "name": "Result Page",
+      "short_name": "Result",
+      "description": "Get your result",
+      "url": "/resultat"
+    }
+  ]
 }
