@@ -25,16 +25,14 @@ export const Timerwrapper = styled.div`
     background-color: black;
     border-radius: 30px;
     border: none;
-    //top: 0;
     left: -6px;
-    animation: ball 20s;
+    animation: ball 20s linear;
   }
   .baranimation {
-    animation: bar 20s;
+    animation: bar 20s linear;
   }
   .resetbar {
     background-color: ${colors.White};
-    //background-color: #c1c4ca;
     width: 100%;
   }
 
@@ -57,10 +55,10 @@ export const Timerwrapper = styled.div`
       background-color: ${colors.ButtonBlue};
       width: 100%;
     }
-    59% {
+    69% {
       background-color: ${colors.ButtonBlue};
     }
-    60% {
+    70% {
       background-color: ${colors.WronglyRed};
     }
 

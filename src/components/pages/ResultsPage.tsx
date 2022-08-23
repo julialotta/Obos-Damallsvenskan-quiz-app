@@ -5,14 +5,13 @@ import {
   StyledHeadingh3,
   StyledHeadingh5,
   StyledP,
-  StyledLink,
+  StyledAnchor,
 } from "../StyledComponents/StyledTextElements";
 import { IoMdFootball } from "react-icons/io";
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { Curve } from "../partials/curve";
 import { imageOnErrorHandler } from "../../services/Helpers";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
-import Modal from "react-modal";
 import { getGame, getQuiz } from "../../services/StorageService";
 import { useEffect, useState } from "react";
 import { IGame } from "../../models/ITeams";
@@ -24,7 +23,6 @@ import { Iimages } from "../../models/IImages";
 import { Loader } from "../StyledComponents/Loader";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../services/db";
-import { modalStylesResults } from "../StyledComponents/Styling/modalStylesResults";
 
 export const ResultsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -288,7 +286,7 @@ export const ResultsPage = () => {
                 >
                   Gör allt för {game.team}!
                 </StyledHeadingh5>
-                <a
+                <StyledAnchor
                   href={game.link}
                   id={game.link}
                   target='_blank'
@@ -303,7 +301,7 @@ export const ResultsPage = () => {
                   >
                     Köp biljetter
                   </StyledButton>
-                </a>
+                </StyledAnchor>
               </FlexDiv>
             </FlexDiv>
           </FlexDiv>

@@ -56,3 +56,17 @@ export const StyledLink = styled(Link)`
     text-decoration: none;
   }
 `;
+
+export const StyledAnchor = styled.a`
+  font-family: ${(props: IStylingProps) => props.font || "GothamLight"};
+  color: ${(props: IStylingProps) => props.color || colors.White};
+  text-align: center;
+  line-height: 22px;
+  margin: ${(props: IStylingProps) => props.margin || "5px"};
+  text-shadow: ${(props: IStylingProps) => props.shadow || 0};
+  text-decoration: ${(props: IStylingProps) => props.decoration || "none"};
+  text-decoration: none;
+  button {
+    text-decoration: none;
+  }
+`;

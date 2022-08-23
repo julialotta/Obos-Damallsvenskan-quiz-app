@@ -17,6 +17,7 @@ export const StyledButton = styled.button`
   border-radius: ${(props: IStylingProps) => props.borderRad || "11pt"};
   box-shadow: ${(props: IStylingProps) => props.shadow || 0};
   color: ${(props: IStylingProps) => props.hoverColor || colors.White};
+  text-decoration: none;
   @media (hover: hover) {
     :hover {
       background-color: ${(props: IStylingProps) =>
@@ -34,6 +35,9 @@ export const StyledButton = styled.button`
   a {
     text-decoration: none;
     color: ${(props: IStylingProps) => props.color || colors.White};
+    button {
+      text-decoration: none;
+    }
   }
   h3 {
     text-decoration: none;

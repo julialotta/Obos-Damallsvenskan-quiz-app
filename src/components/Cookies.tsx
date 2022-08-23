@@ -7,7 +7,6 @@ import {
   StyledHeadingh3,
   StyledP,
 } from "./StyledComponents/StyledTextElements";
-
 import { GlobalStyle } from "./StyledComponents/Styling/fonts";
 import { colors } from "./StyledComponents/Styling/Mixins";
 import { FlexDiv } from "./StyledComponents/Wrappers";

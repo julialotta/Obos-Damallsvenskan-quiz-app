@@ -54,6 +54,7 @@ export const PlayGamePage = () => {
     setHaveAnswered(false);
 
     if (currentQuestion >= 5 || result.length > 4) {
+      setIsLoading(true);
       writeData(game.round.toString(), game.id.toString(), points);
       navigate("/resultat");
     } else {
