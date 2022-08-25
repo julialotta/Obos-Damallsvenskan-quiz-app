@@ -196,7 +196,7 @@ export const ResultsPage = () => {
                       <StyledButton
                         transform='0'
                         background={colors.ResultBlue}
-                        height={homeTeamScore / 5 + 37 + "px"}
+                        height={homeTeamScore / 10 + 37 + "px"}
                         width='80px'
                         hoverColor='none'
                         borderRad='2px'
@@ -230,7 +230,7 @@ export const ResultsPage = () => {
                         transform='0'
                         borderRad='2px'
                         background={colors.ResultBlue}
-                        height={awayTeamScore / 5 + 37 + "px"}
+                        height={awayTeamScore / 10 + 37 + "px"}
                         width='80px'
                         hoverColor='none'
                         hoverBackground='none'
