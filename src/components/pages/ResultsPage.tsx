@@ -18,7 +18,7 @@ import { IGame } from "../../models/ITeams";
 import { Link } from "react-router-dom";
 import { FaShieldAlt } from "react-icons/fa";
 import { IData, IResult } from "../../models/IQuestions";
-import { IMAGES } from "../../assets/images";
+import { GeneralIMAGES, IMAGES } from "../../assets/images";
 import { Iimages } from "../../models/IImages";
 import { Loader } from "../StyledComponents/Loader";
 import { collection, getDocs } from "firebase/firestore";
@@ -225,7 +225,7 @@ export const ResultsPage = () => {
                         onError={imageOnErrorHandler}
                       />
                     </FlexDiv>
-                    <FlexDiv dir='column'>
+                    <FlexDiv dir='column' margin='20px 0 0 0'>
                       <StyledButton
                         transform='0'
                         borderRad='2px'
@@ -302,6 +302,14 @@ export const ResultsPage = () => {
                     Köp biljetter
                   </StyledButton>
                 </StyledAnchor>
+                <StyledImage
+                  height='x'
+                  margin='60px 0 0 0'
+                  width='240px'
+                  src={GeneralIMAGES.general.sponsorLogoBlack}
+                  alt='Partner logos'
+                  shadow='#00000057 3pt 3pt 3pt'
+                />
               </FlexDiv>
             </FlexDiv>
           </FlexDiv>

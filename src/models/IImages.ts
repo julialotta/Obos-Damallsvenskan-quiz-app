@@ -30,5 +30,6 @@ interface IimageGeneral {
   obosLogo: string;
   obosLogoRibbon: string;
   sponsorLogo: string;
+  sponsorLogoBlack: string;
   curve: string;
 }
