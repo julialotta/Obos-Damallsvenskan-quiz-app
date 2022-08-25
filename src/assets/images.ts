@@ -44,7 +44,7 @@ export const IMAGES: Iimages = {
   8: {
     logo: require("./Linkoping/Linkoping_@2x.png"),
     emblem: require("./Linkoping/Linkoping_emblem.png"),
-    background: require("./Linkoping/Linkoping_Bakgrund@2x.png"),
+    background: require("./Linkoping/Linkoping.gif"),
   },
   9: {
     logo: require("./Pitea/Pitea@2x.png"),

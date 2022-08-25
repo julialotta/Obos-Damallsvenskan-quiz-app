@@ -26,6 +26,7 @@ export const StartGamePage = () => {
   const [game, setGame] = useState<ITeams>({
     id: 0,
     team: "",
+    link: "",
     games: [],
   });
   const [opponent, setOpponent] = useState<IOpponent>({
@@ -33,7 +34,6 @@ export const StartGamePage = () => {
     opponent: "",
     arena: "",
     datestamp: new Date(),
-    link: "",
     round: 0,
   });
   const params = useParams();
@@ -56,7 +56,6 @@ export const StartGamePage = () => {
           opponent: game.games[i].opponent,
           arena: game.games[i].arena,
           datestamp: game.games[i].datestamp,
-          link: game.games[i].link,
           round: game.games[i].round,
         })
       ) {
@@ -65,7 +64,6 @@ export const StartGamePage = () => {
           opponent: game.games[i].opponent,
           arena: game.games[i].arena,
           datestamp: game.games[i].datestamp,
-          link: game.games[i].link,
           round: game.games[i].round,
         });
       }
@@ -81,7 +79,6 @@ export const StartGamePage = () => {
               opponent: TeamsAndGames[i].team,
               arena: TeamsAndGames[i].games[y].arena,
               datestamp: TeamsAndGames[i].games[y].datestamp,
-              link: TeamsAndGames[i].games[y].link,
               round: TeamsAndGames[i].games[y].round,
             })
           ) {
@@ -90,7 +87,6 @@ export const StartGamePage = () => {
               opponent: TeamsAndGames[i].team,
               arena: TeamsAndGames[i].games[y].arena,
               datestamp: TeamsAndGames[i].games[y].datestamp,
-              link: TeamsAndGames[i].games[y].link,
               round: TeamsAndGames[i].games[y].round,
             });
           }
@@ -122,7 +118,7 @@ export const StartGamePage = () => {
       id: game.id,
       team: game.team,
       round: opponent.round,
-      link: opponent.link,
+      link: game.link,
       opponent: opponent.opponent,
       opponentid: opponent.id,
       arena: opponent.arena,

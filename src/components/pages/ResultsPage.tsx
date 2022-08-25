@@ -28,7 +28,6 @@ export const ResultsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult] = useState<IResult[]>([]);
   const [points, setPoints] = useState("");
-  const [modalIsOpen, setIsOpen] = useState(false);
   const [homeTeamScore, setHomeTeamScore] = useState<number>(-1);
   const [awayTeamScore, setAwayTeamScore] = useState<number>(-1);
   const [game, setGame] = useState<IGame>({
@@ -144,11 +143,12 @@ export const ResultsPage = () => {
                   height='100%'
                   dir='column'
                   justify='start'
-                  width='70%'
+                  width='100%'
                   margin='100px 0 0 0 '
                 >
                   <StyledHeadingh3 fontSize='25px' lineheight='30px'>
-                    Du fixade <u>{points} poäng</u> till {game.team}
+                    Du fixade <u>{points} poäng</u> <br />
+                    till {game.team}
                   </StyledHeadingh3>
                 </FlexDiv>
                 <FlexDiv top={"40px"} left={"-160px"} position='absolute'>
@@ -196,7 +196,7 @@ export const ResultsPage = () => {
                       <StyledButton
                         transform='0'
                         background={colors.ResultBlue}
-                        height={homeTeamScore / 5 + 35 + "px"}
+                        height={homeTeamScore / 5 + 37 + "px"}
                         width='80px'
                         hoverColor='none'
                         borderRad='2px'
@@ -230,7 +230,7 @@ export const ResultsPage = () => {
                         transform='0'
                         borderRad='2px'
                         background={colors.ResultBlue}
-                        height={awayTeamScore / 5 + 40 + "px"}
+                        height={awayTeamScore / 5 + 37 + "px"}
                         width='80px'
                         hoverColor='none'
                         hoverBackground='none'

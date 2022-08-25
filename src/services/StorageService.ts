@@ -1,3 +1,5 @@
+import { IGame } from "../models/ITeams";
+
 const SESSIONSTORAGE_KEY_QUIZ = "quiz";
 const SESSIONSTORAGE_KEY_GAME = "game";
 const LOCALSTORAGE_BROWSER = "browser";
@@ -11,7 +13,7 @@ export const getQuiz = <T>(): T[] => {
   return JSON.parse(valueFromLS) as T[];
 };
 
-export const saveGame = <IGame>(data: IGame): void => {
+export const saveGame = (data: IGame): void => {
   sessionStorage.setItem(SESSIONSTORAGE_KEY_GAME, JSON.stringify(data));
 };
 
