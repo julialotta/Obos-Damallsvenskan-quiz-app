@@ -19,7 +19,7 @@ export const ChooseTeamPage = () => {
     if (IMAGES) {
       setIsLoading(false);
     }
-  });
+  }, []);
 
   return (
     <>

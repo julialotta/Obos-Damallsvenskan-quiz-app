@@ -55,6 +55,7 @@ export const PlayGamePage = () => {
 
     if (currentQuestion >= 5 || result.length > 4) {
       setIsLoading(true);
+
       writeData(game.round.toString(), game.id.toString(), points);
       navigate("/resultat");
     } else {
@@ -84,7 +85,7 @@ export const PlayGamePage = () => {
   }, []);
 
   useEffect(() => {
-    if (game.team != "") {
+    if (game.team !== "") {
       setStartTime(Date.now());
       setIsLoading(false);
     }
@@ -95,7 +96,7 @@ export const PlayGamePage = () => {
       let currentIndex = array.length,
         randomIndex;
       // While there remain elements to shuffle.
-      while (currentIndex != 0) {
+      while (currentIndex !== 0) {
         // Pick a remaining element.
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;

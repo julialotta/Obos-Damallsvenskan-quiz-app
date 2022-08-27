@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "alltforklubben",
+    "dev": "alltforklubben"
+  },
+  "targets": {},
+  "etags": {}
+}
