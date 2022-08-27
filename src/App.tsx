@@ -9,6 +9,8 @@ import { ResultsPage } from "./components/pages/ResultsPage";
 import { CookiesPage } from "./components/Cookies";
 import { AnimatePresence } from "framer-motion";
 
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+
 function App() {
   const location = useLocation();
 
