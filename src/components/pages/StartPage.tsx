@@ -97,6 +97,7 @@ export const StartPage = () => {
                 Varje omgång får ni supportrar chans att via ett quiz visa vilka
                 supportrar som kan mest om fotboll.
               </StyledP>
+
               <StyledLink to={"/valj-klubb"}>
                 <StyledButton
                   margin='5px'
