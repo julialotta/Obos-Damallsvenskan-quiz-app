@@ -5,15 +5,17 @@ import { GeneralIMAGES } from "../../assets/images";
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "../../services/db";
 import { Loader } from "../StyledComponents/Loader";
-import { IScores } from "../../models/ITeams";
 import { TeamsAndGames } from "../../data/scores";
 
 export const StartPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [counter, setCounter] = useState(18);
   const [teamCounter, setTeamCounter] = useState(0);
   const [team, setTeam] = useState("AIK");
   const [scores, setScores] = useState([0]);
+  const [total, setTotal] = useState([0]);
+
+  const _ = require("lodash");
 
   //increase counter
   const increase = () => {
@@ -45,12 +47,15 @@ export const StartPage = () => {
       setScores([]);
     }
   };
+
   useEffect(() => {
     setIsLoading(true);
+
     const fetchHomeData = async () => {
       const querySnapshot = await getDocs(
         collection(db, counter + "/" + teamCounter + "/scores")
       );
+      setScores([]);
       querySnapshot.forEach((doc) => {
         setScores((current) => [...current, doc.data().points]);
       });
@@ -69,6 +74,11 @@ export const StartPage = () => {
       }
     }
   }, [teamCounter]);
+
+  useEffect(() => {
+    let all = _.sum(scores);
+    setTotal(all);
+  }, [scores]);
 
   return (
     <>
@@ -95,22 +105,31 @@ export const StartPage = () => {
           >
             <FlexDiv dir='column' width='75%' gap='22px' align='start'>
               <h2>Statistik</h2>
-              <h3>Runda {counter}</h3>
+              <h3>Omgång {counter}</h3>
 
-              <button className='control__btn' onClick={decrease}>
-                -
-              </button>
-              <button className='control__btn' onClick={increase}>
-                +
-              </button>
+              <FlexDiv width='75%' gap='22px' align='start'>
+                <button className='control__btn' onClick={decrease}>
+                  -
+                </button>
+                <button className='control__btn' onClick={increase}>
+                  +
+                </button>
+              </FlexDiv>
 
               <h3>Lag {teamCounter}</h3>
-              <button onClick={decreaseTeam}>←</button>
-              <button onClick={increaseTeam}>→</button>
+              <FlexDiv width='75%' gap='22px' align='start'>
+                <button onClick={decreaseTeam}>←</button>
+                <button onClick={increaseTeam}>→</button>
+              </FlexDiv>
               <h2>{team}</h2>
-              <h5>Poäng:</h5>
-              <h5>Antal som spelat:</h5>
-              <p>{scores.length}</p>
+              <FlexDiv width='75%' gap='22px' justify='start'>
+                <h4>Poäng:</h4>
+                <h4>{total}</h4>
+              </FlexDiv>
+              <FlexDiv width='75%' gap='22px' justify='start'>
+                <h4>Antal som spelat:</h4>
+                <h4>{scores.length}</h4>
+              </FlexDiv>
             </FlexDiv>
           </ImageDiv>
         </FlexDiv>
