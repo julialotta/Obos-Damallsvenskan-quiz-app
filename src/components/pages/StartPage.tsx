@@ -1,43 +1,74 @@
-import { StyledButton } from "../StyledComponents/StyledButton";
+import React, { useEffect, useState } from "react";
 import { FlexDiv, ImageDiv } from "../StyledComponents/Wrappers";
-import { StyledP, StyledLink } from "../StyledComponents/StyledTextElements";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 import { GeneralIMAGES } from "../../assets/images";
-import { useEffect, useState } from "react";
-import { IData } from "../../models/IQuestions";
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "../../services/db";
 import { Loader } from "../StyledComponents/Loader";
-import { TeamsAndGames } from "../../data/teams";
+import { IScores } from "../../models/ITeams";
+import { TeamsAndGames } from "../../data/scores";
 
 export const StartPage = () => {
-  const [list, setList] = useState<IData[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [counter, setCounter] = useState(18);
+  const [teamCounter, setTeamCounter] = useState(0);
+  const [team, setTeam] = useState("AIK");
+  const [scores, setScores] = useState([0]);
+
+  //increase counter
+  const increase = () => {
+    if (counter < 26) {
+      setCounter((count) => count + 1);
+      setScores([]);
+    }
+  };
+
+  //decrease counter
+  const decrease = () => {
+    if (counter > 18) {
+      setCounter((count) => count - 1);
+      setScores([]);
+    }
+  };
+  //increase counter
+  const increaseTeam = () => {
+    if (teamCounter < 13) {
+      setTeamCounter((count) => count + 1);
+      setScores([]);
+    }
+  };
+
+  //decrease counter
+  const decreaseTeam = () => {
+    if (teamCounter > 0) {
+      setTeamCounter((count) => count - 1);
+      setScores([]);
+    }
+  };
+  useEffect(() => {
+    setIsLoading(true);
+    const fetchHomeData = async () => {
+      const querySnapshot = await getDocs(
+        collection(db, counter + "/" + teamCounter + "/scores")
+      );
+      querySnapshot.forEach((doc) => {
+        setScores((current) => [...current, doc.data().points]);
+      });
+    };
+    fetchHomeData()
+      .then(() => {
+        setIsLoading(false);
+      })
+      .catch(console.error);
+  }, [counter, teamCounter]);
 
   useEffect(() => {
-    const fetchHomeData = async () => {
-      let list: IData[] = [];
-      let total: number = 0;
-      const querySnapshot = await getDocs(collection(db, "16"));
-      querySnapshot.forEach((doc) => {
-        list.push({ id: doc.id, data: doc.data() });
-      });
-      for (let i = 0; i < list.length; i++) {
-        total = total + list[i].data.points;
+    for (let i = 0; i < TeamsAndGames.length; i++) {
+      if (TeamsAndGames[i].id === teamCounter) {
+        setTeam(TeamsAndGames[i].team);
       }
-      if (list.length > 0) {
-        console.log(list);
-        setList(list);
-      } else {
-      }
-    };
-    fetchHomeData().catch(console.error);
-  }, []);
-  useEffect(() => {
-    if (list !== undefined) {
-      setIsLoading(false);
     }
-  }, [list]);
+  }, [teamCounter]);
 
   return (
     <>
@@ -62,14 +93,24 @@ export const StartPage = () => {
               "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
             }
           >
-            <FlexDiv dir='column' width='75%' gap='22px'>
+            <FlexDiv dir='column' width='75%' gap='22px' align='start'>
               <h2>Statistik</h2>
-              <h3>Runda 16</h3>
-              {list.map((item) => (
-                <div key={item.id}>
-                  <p>{item.id}</p>
-                </div>
-              ))}
+              <h3>Runda {counter}</h3>
+
+              <button className='control__btn' onClick={decrease}>
+                -
+              </button>
+              <button className='control__btn' onClick={increase}>
+                +
+              </button>
+
+              <h3>Lag {teamCounter}</h3>
+              <button onClick={decreaseTeam}>←</button>
+              <button onClick={increaseTeam}>→</button>
+              <h2>{team}</h2>
+              <h5>Poäng:</h5>
+              <h5>Antal som spelat:</h5>
+              <p>{scores.length}</p>
             </FlexDiv>
           </ImageDiv>
         </FlexDiv>

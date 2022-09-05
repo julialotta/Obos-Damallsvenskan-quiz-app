@@ -26,6 +26,7 @@ export interface IFootballs {
 }
 
 export interface IData {
-  id: string;
-  data: any;
+  round: number;
+  team: number;
+  points: [];
 }

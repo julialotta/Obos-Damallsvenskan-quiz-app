@@ -32,7 +32,7 @@ export const ImageDiv = styled(FlexDiv)`
     url(${(props: IStylingProps) => props.image || ""}); */
   background-image: url(${(props: IStylingProps) => props.image || ""});
   background-size: 115%;
-  background-repeat: no-repeat;
+  //background-repeat: no-repeat;
   //background-position: 68% 65%;
   position: ${(props: IStylingProps) => props.position || ""};
   min-width: ${(props: IStylingProps) => props.minWidth || "x"};
