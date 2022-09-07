@@ -3,6 +3,7 @@ import { NotFound } from "./components/NotFound";
 import { Layout } from "./components/Layout";
 import { StartPage } from "./components/pages/StartPage";
 import { AnimatePresence } from "framer-motion";
+import { Allplayers } from "./components/pages/Allplayers";
 
 function App() {
   const location = useLocation();
@@ -12,6 +13,7 @@ function App() {
       <Routes key={location.pathname} location={location.pathname}>
         <Route path='/' element={<Layout />}>
           <Route index element={<StartPage />}></Route>
+          <Route path='/all' element={<Allplayers />}></Route>
           <Route path='*' element={<NotFound />}></Route>
         </Route>
       </Routes>

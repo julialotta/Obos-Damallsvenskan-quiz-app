@@ -6,6 +6,8 @@ import { getDocs, collection } from "firebase/firestore";
 import { db } from "../../services/db";
 import { Loader } from "../StyledComponents/Loader";
 import { TeamsAndGames } from "../../data/scores";
+import { StyledButton } from "../StyledComponents/StyledButton";
+import { StyledLink } from "../StyledComponents/StyledTextElements";
 
 export const StartPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -50,7 +52,6 @@ export const StartPage = () => {
 
   useEffect(() => {
     setIsLoading(true);
-
     const fetchHomeData = async () => {
       const querySnapshot = await getDocs(
         collection(db, counter + "/" + teamCounter + "/scores")
@@ -103,30 +104,35 @@ export const StartPage = () => {
               "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
             }
           >
+            <StyledLink to={"/all"}>
+              <StyledButton width={"200px"}>
+                Se totalt antal spelare och poäng
+              </StyledButton>
+            </StyledLink>
             <FlexDiv dir='column' width='75%' gap='22px' align='start'>
               <h2>Statistik</h2>
               <h3>Omgång {counter}</h3>
 
               <FlexDiv width='75%' gap='22px' align='start'>
-                <button className='control__btn' onClick={decrease}>
+                <StyledButton className='control__btn' onClick={decrease}>
                   -
-                </button>
-                <button className='control__btn' onClick={increase}>
+                </StyledButton>
+                <StyledButton className='control__btn' onClick={increase}>
                   +
-                </button>
+                </StyledButton>
               </FlexDiv>
 
-              <h3>Lag {teamCounter}</h3>
+              <h3>Lag {teamCounter + 1}</h3>
               <FlexDiv width='75%' gap='22px' align='start'>
-                <button onClick={decreaseTeam}>←</button>
-                <button onClick={increaseTeam}>→</button>
+                <StyledButton onClick={decreaseTeam}>←</StyledButton>
+                <StyledButton onClick={increaseTeam}>→</StyledButton>
               </FlexDiv>
               <h2>{team}</h2>
               <FlexDiv width='75%' gap='22px' justify='start'>
                 <h4>Poäng:</h4>
                 <h4>{total}</h4>
               </FlexDiv>
-              <FlexDiv width='75%' gap='22px' justify='start'>
+              <FlexDiv width='75%' justify='start'>
                 <h4>Antal som spelat:</h4>
                 <h4>{scores.length}</h4>
               </FlexDiv>
