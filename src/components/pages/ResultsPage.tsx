@@ -22,7 +22,13 @@ import { GeneralIMAGES, IMAGES } from "../../assets/images";
 import { Iimages } from "../../models/IImages";
 import { Loader } from "../StyledComponents/Loader";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../services/db";
+import { db, writeCompetitionData } from "../../services/db";
+import Modal from "react-modal";
+import { modalStylesCompetition } from "../StyledComponents/Styling/modalStylesCompetition";
+import { useForm } from "react-hook-form";
+import { Form, Input, Label } from "../StyledComponents/Form";
+
+Modal.setAppElement("#root");
 
 export const ResultsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,6 +36,8 @@ export const ResultsPage = () => {
   const [points, setPoints] = useState("");
   const [homeTeamScore, setHomeTeamScore] = useState<number>(-1);
   const [awayTeamScore, setAwayTeamScore] = useState<number>(-1);
+  const [modalIsOpen, setIsOpen] = useState(true);
+  const [hasPlayed, setHasPlayed] = useState(false);
   const [game, setGame] = useState<IGame>({
     id: 0,
     team: "",
@@ -40,6 +48,16 @@ export const ResultsPage = () => {
     arena: "",
     date: "",
   });
+
+  const {
+    register,
+    handleSubmit,
+
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const [name, email] = watch(["name", "email"]);
 
   useEffect(() => {
     setGame(getGame<IGame>());
@@ -100,6 +118,14 @@ export const ResultsPage = () => {
     }
   }, [game, homeTeamScore, awayTeamScore]);
 
+  function closeModal() {
+    setHasPlayed(false);
+    setIsOpen(false);
+  }
+  function enterCompetition() {
+    setHasPlayed(true);
+    writeCompetitionData(name, email, game.team);
+  }
   return (
     <>
       <GlobalStyle />
@@ -116,6 +142,106 @@ export const ResultsPage = () => {
           justify='start'
           position={"relative"}
         >
+          <Modal
+            isOpen={modalIsOpen}
+            contentLabel='Kakor'
+            style={modalStylesCompetition}
+          >
+            <FlexDiv dir='column' justify={"center"} width={"100%"}>
+              <FlexDiv width='100%' justify='end' margin='-10px -10px 0 0'>
+                <StyledButton
+                  align='left'
+                  width='max-content'
+                  onClick={closeModal}
+                  padding='8px'
+                  height='30px'
+                >
+                  ⨉
+                </StyledButton>
+              </FlexDiv>
+              {hasPlayed ? (
+                <FlexDiv margin='20px 0' dir='column'>
+                  <StyledHeadingh3 color={colors.TextBlue}>
+                    Tack!
+                  </StyledHeadingh3>
+                  <StyledP fontSize='18px' color={colors.TextBlue}>
+                    Din e-post {email} är registrerad.
+                    <br />
+                    Vinnaren kontaktas via mail.
+                  </StyledP>
+                </FlexDiv>
+              ) : (
+                <>
+                  <StyledHeadingh3 color={colors.TextBlue}>
+                    Var med i utlottningen och vinn ditt lags matchtröja!
+                  </StyledHeadingh3>
+                  <Form onSubmit={handleSubmit(enterCompetition)}>
+                    <Label>
+                      Namn:
+                      <Input
+                        {...register("name", {
+                          required: true,
+                          minLength: 1,
+                          maxLength: 40,
+                        })}
+                        type='text'
+                      />
+                      {errors.name && (
+                        <StyledP fontSize='16px' color={colors.WronglyRed}>
+                          Ange ditt namn
+                        </StyledP>
+                      )}
+                    </Label>
+                    <Label>
+                      E-post:
+                      <Input
+                        {...register("email", {
+                          required: true,
+                        })}
+                        type='email'
+                      />
+                      {errors.email && (
+                        <StyledP fontSize='16px' color={colors.WronglyRed}>
+                          Ange en e-postadress
+                        </StyledP>
+                      )}
+                    </Label>
+                    <Label>
+                      <StyledP color={colors.TextBlue}>
+                        Jag godkänner
+                        <StyledAnchor
+                          font='GothamLight'
+                          decoration='underline'
+                          color={colors.TextBlue}
+                          href='https://assets.ctfassets.net/iga9wroxnatc/5qMsoM29vvg3mUDYoXEeBZ/c529a07b2398dba4a7042f596774ee68/PL_Policy_2018.pdf'
+                        >
+                          policy för hantering av personuppgifter och cookies.
+                        </StyledAnchor>
+                      </StyledP>
+                      <input
+                        className='checkbox'
+                        type='checkbox'
+                        {...register("checkbox", {
+                          required: true,
+                          minLength: 9,
+                          maxLength: 12,
+                        })}
+                      />{" "}
+                      {errors.checkbox && (
+                        <StyledP fontSize='16px' color={colors.WronglyRed}>
+                          Du måste godkänna policy för hantering av
+                          personuppgifter och cookies.
+                        </StyledP>
+                      )}
+                    </Label>
+                    <FlexDiv>
+                      <StyledButton type='submit'>Tävla</StyledButton>
+                    </FlexDiv>
+                  </Form>
+                </>
+              )}
+            </FlexDiv>
+          </Modal>
           <FlexDiv
             dir={"column"}
             justify={"start"}

@@ -65,7 +65,6 @@ export const StyledAnchor = styled.a`
   margin: ${(props: IStylingProps) => props.margin || "5px"};
   text-shadow: ${(props: IStylingProps) => props.shadow || 0};
   text-decoration: ${(props: IStylingProps) => props.decoration || "none"};
-  text-decoration: none;
   button {
     text-decoration: none;
   }

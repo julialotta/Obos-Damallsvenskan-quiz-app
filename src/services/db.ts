@@ -27,4 +27,11 @@ async function writeData(round: string, gameId: string, points: number) {
     points,
   });
 }
-export { writeData, db };
+async function writeCompetitionData(name: string, email: string, team: string) {
+  await addDoc(collection(db, "competition"), {
+    name,
+    email,
+    team,
+  });
+}
+export { writeData, writeCompetitionData, db };
