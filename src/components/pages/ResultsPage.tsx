@@ -207,30 +207,34 @@ export const ResultsPage = () => {
                       )}
                     </Label>
                     <Label>
-                      <StyledP color={colors.TextBlue}>
-                        Jag godkänner
-                        <StyledAnchor
-                          font='GothamLight'
-                          decoration='underline'
-                          color={colors.TextBlue}
-                          href='https://assets.ctfassets.net/iga9wroxnatc/5qMsoM29vvg3mUDYoXEeBZ/c529a07b2398dba4a7042f596774ee68/PL_Policy_2018.pdf'
-                        >
-                          policy för hantering av personuppgifter och cookies.
-                        </StyledAnchor>
-                      </StyledP>
-                      <input
-                        className='checkbox'
-                        type='checkbox'
-                        {...register("checkbox", {
-                          required: true,
-                          minLength: 9,
-                          maxLength: 12,
-                        })}
-                      />{" "}
+                      <FlexDiv>
+                        <StyledP color={colors.TextBlue}>
+                          Jag godkänner
+                          <StyledAnchor
+                            decoration='underline'
+                            href='https://xn--alltfrklubben-mmb.se/AllmannaTavlingsvillkorPassionLab.pdf'
+                            target='_blank'
+                            rel='noopener noreferrer'
+                            color={colors.TextBlue}
+                          >
+                            de allmänna tävlingsvillkoren och behandling av
+                            personuppgifter
+                          </StyledAnchor>
+                        </StyledP>
+                        <input
+                          className='checkbox'
+                          type='checkbox'
+                          {...register("checkbox", {
+                            required: true,
+                            minLength: 9,
+                            maxLength: 12,
+                          })}
+                        />
+                      </FlexDiv>
                       {errors.checkbox && (
                         <StyledP fontSize='16px' color={colors.WronglyRed}>
-                          Du måste godkänna policy för hantering av
-                          personuppgifter och cookies.
+                          Du måste godkänna de allmänna tävlingsvillkoren och
+                          behandling av personuppgifter
                         </StyledP>
                       )}
                     </Label>
