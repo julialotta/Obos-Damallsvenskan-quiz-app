@@ -47,6 +47,7 @@ export const ResultsPage = () => {
     opponentid: 0,
     arena: "",
     date: "",
+    home: false,
   });
 
   const {
@@ -321,74 +322,149 @@ export const ResultsPage = () => {
                 </StyledHeadingh3>
 
                 <FlexDiv dir='column' align='center' justify='start'>
-                  <FlexDiv dir='row' align='end' margin='0' gap={"0"}>
-                    <FlexDiv dir='column' margin='20px 0 0 0'>
-                      <StyledButton
-                        transform='0'
-                        background={colors.ResultBlue}
-                        height={homeTeamScore / 10 + 37 + "px"}
-                        width='80px'
-                        hoverColor='none'
-                        borderRad='2px'
-                        hoverBackground='none'
-                        hover='default'
-                        margin='0 0 30px 0'
-                      >
-                        <FlexDiv dir='column'>
-                          <StyledHeadingh3
-                            color={colors.White}
-                            fontSize='20px'
-                            margin='3px 0 0 0'
+                  {game.home ? (
+                    <>
+                      <FlexDiv dir='row' align='end' margin='0' gap={"0"}>
+                        <FlexDiv dir='column' margin='20px 0 0 0'>
+                          <StyledButton
+                            transform='0'
+                            background={colors.ResultBlue}
+                            height={homeTeamScore / 110 + 37 + "px"}
+                            width='80px'
+                            hoverColor='none'
+                            borderRad='2px'
+                            hoverBackground='none'
+                            hover='default'
+                            margin='0 0 30px 0'
                           >
-                            {~~homeTeamScore}
-                          </StyledHeadingh3>
-                          <StyledP margin='-7px 0 0 0' fontSize='10px'>
-                            poäng
-                          </StyledP>
+                            <FlexDiv dir='column'>
+                              <StyledHeadingh3
+                                color={colors.White}
+                                fontSize='20px'
+                                margin='3px 0 0 0'
+                              >
+                                {~~homeTeamScore}
+                              </StyledHeadingh3>
+                              <StyledP margin='-7px 0 0 0' fontSize='10px'>
+                                poäng
+                              </StyledP>
+                            </FlexDiv>
+                          </StyledButton>
+                          <StyledImage
+                            margin='0 0 30px 0'
+                            height='100px'
+                            width='x'
+                            src={IMAGES[game.id as keyof Iimages].logo}
+                            onError={imageOnErrorHandler}
+                          />
                         </FlexDiv>
-                      </StyledButton>
-                      <StyledImage
-                        margin='0 0 30px 0'
-                        height='100px'
-                        width='x'
-                        src={IMAGES[game.id as keyof Iimages].logo}
-                        onError={imageOnErrorHandler}
-                      />
-                    </FlexDiv>
-                    <FlexDiv dir='column' margin='20px 0 0 0'>
-                      <StyledButton
-                        transform='0'
-                        borderRad='2px'
-                        background={colors.ResultBlue}
-                        height={awayTeamScore / 10 + 37 + "px"}
-                        width='80px'
-                        hoverColor='none'
-                        hoverBackground='none'
-                        hover='default'
-                        margin='0 0 30px 0'
-                      >
-                        <FlexDiv dir='column'>
-                          <StyledHeadingh3
-                            color={colors.White}
-                            fontSize='20px'
-                            margin='3px 0 0 0'
+                        <FlexDiv dir='column' margin='20px 0 0 0'>
+                          <StyledButton
+                            transform='0'
+                            borderRad='2px'
+                            background={colors.ResultBlue}
+                            height={awayTeamScore / 110 + 37 + "px"}
+                            width='80px'
+                            hoverColor='none'
+                            hoverBackground='none'
+                            hover='default'
+                            margin='0 0 30px 0'
                           >
-                            {~~awayTeamScore}
-                          </StyledHeadingh3>
-                          <StyledP margin='-7px 0 0 0' fontSize='10px'>
-                            poäng
-                          </StyledP>
+                            <FlexDiv dir='column'>
+                              <StyledHeadingh3
+                                color={colors.White}
+                                fontSize='20px'
+                                margin='3px 0 0 0'
+                              >
+                                {~~awayTeamScore}
+                              </StyledHeadingh3>
+                              <StyledP margin='-7px 0 0 0' fontSize='10px'>
+                                poäng
+                              </StyledP>
+                            </FlexDiv>
+                          </StyledButton>
+                          <StyledImage
+                            width='x'
+                            margin='0 0 30px 0'
+                            height='100px'
+                            src={IMAGES[game.opponentid as keyof Iimages].logo}
+                            onError={imageOnErrorHandler}
+                          />
                         </FlexDiv>
-                      </StyledButton>
-                      <StyledImage
-                        width='x'
-                        margin='0 0 30px 0'
-                        height='100px'
-                        src={IMAGES[game.opponentid as keyof Iimages].logo}
-                        onError={imageOnErrorHandler}
-                      />
-                    </FlexDiv>
-                  </FlexDiv>
+                      </FlexDiv>
+                    </>
+                  ) : (
+                    <>
+                      <FlexDiv dir='row' align='end' margin='0' gap={"0"}>
+                        <FlexDiv dir='column' margin='20px 0 0 0'>
+                          <StyledButton
+                            transform='0'
+                            background={colors.ResultBlue}
+                            height={awayTeamScore / 110 + 37 + "px"}
+                            width='80px'
+                            hoverColor='none'
+                            borderRad='2px'
+                            hoverBackground='none'
+                            hover='default'
+                            margin='0 0 30px 0'
+                          >
+                            <FlexDiv dir='column'>
+                              <StyledHeadingh3
+                                color={colors.White}
+                                fontSize='20px'
+                                margin='3px 0 0 0'
+                              >
+                                {~~awayTeamScore}
+                              </StyledHeadingh3>
+                              <StyledP margin='-7px 0 0 0' fontSize='10px'>
+                                poäng
+                              </StyledP>
+                            </FlexDiv>
+                          </StyledButton>
+                          <StyledImage
+                            margin='0 0 30px 0'
+                            height='100px'
+                            width='x'
+                            src={IMAGES[game.opponentid as keyof Iimages].logo}
+                            onError={imageOnErrorHandler}
+                          />
+                        </FlexDiv>
+                        <FlexDiv dir='column' margin='20px 0 0 0'>
+                          <StyledButton
+                            transform='0'
+                            borderRad='2px'
+                            background={colors.ResultBlue}
+                            height={homeTeamScore / 110 + 37 + "px"}
+                            width='80px'
+                            hoverColor='none'
+                            hoverBackground='none'
+                            hover='default'
+                            margin='0 0 30px 0'
+                          >
+                            <FlexDiv dir='column'>
+                              <StyledHeadingh3
+                                color={colors.White}
+                                fontSize='20px'
+                                margin='3px 0 0 0'
+                              >
+                                {~~homeTeamScore}
+                              </StyledHeadingh3>
+                              <StyledP margin='-7px 0 0 0' fontSize='10px'>
+                                poäng
+                              </StyledP>
+                            </FlexDiv>
+                          </StyledButton>
+                          <StyledImage
+                            width='x'
+                            margin='0 0 30px 0'
+                            height='100px'
+                            src={IMAGES[game.id as keyof Iimages].logo}
+                            onError={imageOnErrorHandler}
+                          />
+                        </FlexDiv>
+                      </FlexDiv>
+                    </>
+                  )}
                 </FlexDiv>
 
                 <StyledP
@@ -397,7 +473,7 @@ export const ResultsPage = () => {
                   margin='0'
                   color={colors.TextBlue}
                 >
-                  {game.team} - {game.opponent}
+                  {game.opponent} - {game.team}
                 </StyledP>
                 <StyledP
                   fontSize='13px'

@@ -18,6 +18,7 @@ export interface IOpponent {
   opponent: string;
   datestamp: Date;
   arena: string;
+  home: boolean;
 }
 
 export interface IGame {
@@ -29,4 +30,5 @@ export interface IGame {
   arena: string;
   date: string;
   link: string;
+  home: boolean;
 }

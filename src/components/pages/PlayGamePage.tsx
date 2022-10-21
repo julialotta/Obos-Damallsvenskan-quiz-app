@@ -40,6 +40,7 @@ export const PlayGamePage = () => {
     round: 0,
     arena: "",
     date: "",
+    home: false,
   });
   const [classIsActive, setClassIsActive] = useState(true);
   const navigate = useNavigate();

@@ -37,6 +37,7 @@ export const ChartPage = () => {
     opponentid: 0,
     arena: "",
     date: "",
+    home: false,
   });
 
   useEffect(() => {
