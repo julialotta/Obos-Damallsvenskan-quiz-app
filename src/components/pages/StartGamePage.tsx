@@ -23,6 +23,7 @@ import { Loader } from "../StyledComponents/Loader";
 export const StartGamePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [date, setDate] = useState("");
+  const [noOpponent, setNoOpponent] = useState(false);
   const [game, setGame] = useState<ITeams>({
     id: 0,
     team: "",
@@ -112,6 +113,8 @@ export const StartGamePage = () => {
         if (gamesList[i].datestamp >= d) {
           setOpponent(gamesList[i]);
           return;
+        } else {
+          setNoOpponent(true);
         }
       }
     }
@@ -230,93 +233,119 @@ export const StartGamePage = () => {
                   </StyledHeadingh3>
                 </StyledButton>
               </StyledLink>
-              <FlexDiv dir='column' width='100%'>
-                {opponent.home ? (
-                  <>
-                    <FlexDiv dir='column' width='50%' gap='20px'>
-                      <FlexDiv
-                        dir='column'
-                        width='50%'
-                        margin={"15px 0 15px 0"}
-                      >
-                        <FlexDiv gap='20px'>
-                          <StyledImage
-                            height='110px'
-                            width='x'
-                            onError={imageOnErrorHandler}
-                            src={IMAGES[game.id as keyof Iimages].logo}
-                            alt={"Emblem"}
-                          />
-                          <StyledImage
-                            height='110px'
-                            width='x'
-                            onError={imageOnErrorHandler}
-                            alt={opponent.opponent}
-                            src={IMAGES[opponent.id as keyof Iimages].logo}
-                          />
+              {noOpponent ? (
+                <>
+                  <FlexDiv width='80%'>
+                    <StyledHeadingh3
+                      margin='0'
+                      textTransform='uppercase'
+                      color={colors.TextBlue}
+                      fontSize='20px'
+                    >
+                      Omgången är slut, men du kan fortfarande quizza och samla
+                      poäng till {game.team}
+                    </StyledHeadingh3>
+                  </FlexDiv>
+                </>
+              ) : (
+                <>
+                  <FlexDiv dir='column' width='100%'>
+                    {opponent.home ? (
+                      <>
+                        <FlexDiv dir='column' width='50%' gap='20px'>
+                          <FlexDiv
+                            dir='column'
+                            width='50%'
+                            margin={"15px 0 15px 0"}
+                          >
+                            <FlexDiv gap='20px'>
+                              <StyledImage
+                                height='110px'
+                                width='x'
+                                onError={imageOnErrorHandler}
+                                src={IMAGES[game.id as keyof Iimages].logo}
+                                alt={"Emblem"}
+                              />
+                              <StyledImage
+                                height='110px'
+                                width='x'
+                                onError={imageOnErrorHandler}
+                                alt={opponent.opponent}
+                                src={IMAGES[opponent.id as keyof Iimages].logo}
+                              />
+                            </FlexDiv>
+                          </FlexDiv>
                         </FlexDiv>
-                      </FlexDiv>
-                    </FlexDiv>
-                    <FlexDiv width='95%' margin='10px 0 0 0'>
-                      <StyledHeadingh3
-                        margin='0'
-                        textTransform='uppercase'
-                        color={colors.TextBlue}
-                        fontSize='20px'
-                      >
-                        {game.team} - {opponent.opponent}
-                      </StyledHeadingh3>
-                    </FlexDiv>
-                    <StyledP fontSize='13px' margin='0' color={colors.TextBlue}>
-                      Omgång {opponent.round}
-                      {"    "}
-                      {opponent.arena} {date}
-                    </StyledP>
-                  </>
-                ) : (
-                  <>
-                    <FlexDiv dir='column' width='50%' gap='20px'>
-                      <FlexDiv
-                        dir='column'
-                        width='50%'
-                        margin={"15px 0 15px 0"}
-                      >
-                        <FlexDiv gap='20px'>
-                          <StyledImage
-                            height='110px'
-                            width='x'
-                            onError={imageOnErrorHandler}
-                            alt={opponent.opponent}
-                            src={IMAGES[opponent.id as keyof Iimages].logo}
-                          />
-                          <StyledImage
-                            height='110px'
-                            width='x'
-                            onError={imageOnErrorHandler}
-                            src={IMAGES[game.id as keyof Iimages].logo}
-                            alt={"Emblem"}
-                          />
+                        <FlexDiv width='95%' margin='10px 0 0 0'>
+                          <StyledHeadingh3
+                            margin='0'
+                            textTransform='uppercase'
+                            color={colors.TextBlue}
+                            fontSize='20px'
+                          >
+                            {game.team} - {opponent.opponent}
+                          </StyledHeadingh3>
                         </FlexDiv>
-                      </FlexDiv>
-                    </FlexDiv>
-                    <FlexDiv width='95%' margin='10px 0 0 0'>
-                      <StyledHeadingh3
-                        margin='0'
-                        textTransform='uppercase'
-                        color={colors.TextBlue}
-                        fontSize='20px'
-                      >
-                        {opponent.opponent} - {game.team}
-                      </StyledHeadingh3>
-                    </FlexDiv>
-                    <StyledP fontSize='13px' margin='0' color={colors.TextBlue}>
-                      Omgång {opponent.round}
-                      {"    "}
-                      {opponent.arena} {date}
-                    </StyledP>
-                  </>
-                )}
-              </FlexDiv>
+                        <StyledP
+                          fontSize='13px'
+                          margin='0'
+                          color={colors.TextBlue}
+                        >
+                          Omgång {opponent.round}
+                          {"    "}
+                          {opponent.arena} {date}
+                        </StyledP>
+                      </>
+                    ) : (
+                      <>
+                        <FlexDiv dir='column' width='50%' gap='20px'>
+                          <FlexDiv
+                            dir='column'
+                            width='50%'
+                            margin={"15px 0 15px 0"}
+                          >
+                            <FlexDiv gap='20px'>
+                              <StyledImage
+                                height='110px'
+                                width='x'
+                                onError={imageOnErrorHandler}
+                                alt={opponent.opponent}
+                                src={IMAGES[opponent.id as keyof Iimages].logo}
+                              />
+                              <StyledImage
+                                height='110px'
+                                width='x'
+                                onError={imageOnErrorHandler}
+                                src={IMAGES[game.id as keyof Iimages].logo}
+                                alt={"Emblem"}
+                              />
+                            </FlexDiv>
+                          </FlexDiv>
+                        </FlexDiv>
+                        <FlexDiv width='95%' margin='10px 0 0 0'>
+                          <StyledHeadingh3
+                            margin='0'
+                            textTransform='uppercase'
+                            color={colors.TextBlue}
+                            fontSize='20px'
+                          >
+                            {opponent.opponent} - {game.team}
+                          </StyledHeadingh3>
+                        </FlexDiv>
+                        <StyledP
+                          fontSize='13px'
+                          margin='0'
+                          color={colors.TextBlue}
+                        >
+                          Omgång {opponent.round}
+                          {"    "}
+                          {opponent.arena} {date}
+                        </StyledP>
+                      </>
+                    )}
+                  </FlexDiv>
+                </>
+              )}
             </FlexDiv>
           </FlexDiv>
         </FlexDiv>
