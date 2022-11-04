@@ -32,3 +32,9 @@ export interface IGame {
   link: string;
   home: boolean;
 }
+export interface IResults {
+  placement: number;
+  id: number;
+  team: string;
+  score: number;
+}

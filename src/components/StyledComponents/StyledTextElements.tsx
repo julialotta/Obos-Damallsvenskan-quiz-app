@@ -31,6 +31,8 @@ export const StyledHeadingh5 = styled.h5`
   margin: ${(props: IStylingProps) => props.margin || "5px"};
   font-family: "GothamBookRegular";
   font-weight: bold;
+  text-align: ${(props: IStylingProps) => props.textAlign || "center"};
+  font-size: ${(props: IStylingProps) => props.fontSize || "default"};
 `;
 
 export const StyledP = styled.p`

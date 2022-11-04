@@ -1,6 +1,11 @@
 import { StyledButton } from "../StyledComponents/StyledButton";
 import { FlexDiv, ImageDiv } from "../StyledComponents/Wrappers";
-import { StyledP, StyledLink } from "../StyledComponents/StyledTextElements";
+import {
+  StyledP,
+  StyledLink,
+  StyledHeadingh5,
+  StyledHeadingh3,
+} from "../StyledComponents/StyledTextElements";
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 import { StyledImage } from "../StyledComponents/StyledImage";
@@ -10,13 +15,29 @@ import { Loader } from "../StyledComponents/Loader";
 import Modal from "react-modal";
 import { modalStylesCookies } from "../StyledComponents/Styling/modalStylesCookies";
 import { getUser, saveUser } from "../../services/StorageService";
+import { Results } from "../../data/result";
+import { imageOnErrorHandler } from "../../services/Helpers";
+import { Iimages } from "../../models/IImages";
+import { IResults } from "../../models/ITeams";
 
 Modal.setAppElement("#root");
 
 export const StartPage = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [modalIsOpen, setIsOpen] = useState(true);
 
+  const [modalIsOpen, setIsOpen] = useState(true);
+  const [results, setResult] = useState<IResults[]>([]);
+
+  useEffect(() => {
+    let r = Results;
+    r.sort(function (a, b) {
+      return b.score - a.score;
+    });
+    for (let i = 0; i < r.length; i++) {
+      r[i].placement = i + 1;
+    }
+    setResult(r);
+  }, []);
   useEffect(() => {
     let user: [] = getUser();
     if (user.length !== 0) {
@@ -84,36 +105,91 @@ export const StartPage = () => {
               "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
             }
           >
-            <FlexDiv dir='column' width='75%' gap='22px'>
-              <StyledImage
-                height='230px'
-                width='x'
-                src={GeneralIMAGES.general.obosLogoRibbon}
-                alt='DA logo'
-                shadow='#00000057 3pt 3pt 3pt'
-              />
-
-              <StyledP color='white' font='GothamBook'>
-                Varje omgång får ni supportrar chans att via ett quiz visa vilka
-                supportrar som kan mest om fotboll.
-              </StyledP>
-
-              <StyledLink to={"/valj-klubb"}>
-                <StyledButton
-                  margin='5px'
-                  padding='22px'
-                  font=''
-                  width='181px'
-                  color={colors.ButtonBlue}
-                  hoverColor={colors.ButtonBlue}
-                  background={colors.White}
-                  hoverBackground={colors.White}
-                  border='#707070 1pt solid'
-                  shadow='#00000038 0px 3px 5px'
+            <FlexDiv
+              dir='column'
+              width='100%'
+              justify='start'
+              height='100%'
+              margin='-25px 0 0 0'
+            >
+              <FlexDiv gap='5px'>
+                <StyledImage
+                  height='150px'
+                  width='x'
+                  src={GeneralIMAGES.general.obosLogoRibbon}
+                  alt='DA logo'
+                  shadow='#00000057 3pt 3pt 3pt'
+                />
+                <FlexDiv
+                  borderLeft='1px solid white'
+                  width='1px'
+                  height='70px'
+                />
+                <FlexDiv dir='column' align='start'>
+                  <div>
+                    <StyledHeadingh3 fontSize='20px'>
+                      SUPPORTERLIGAN
+                    </StyledHeadingh3>
+                  </div>
+                  <div>
+                    <StyledP margin='0'>POÄNGSTÄLLNING</StyledP>
+                  </div>
+                </FlexDiv>
+              </FlexDiv>
+              <FlexDiv dir='row' width='100%' justify='center' align='start'>
+                <FlexDiv
+                  dir='column'
+                  width='5%'
+                  //gap='2px'
+                  margin='33px 0 0 0'
                 >
-                  Starta matchen
-                </StyledButton>
-              </StyledLink>
+                  {results?.map((r) => {
+                    return (
+                      <FlexDiv justify='left' gap='10px'>
+                        <StyledHeadingh5 fontSize='20px'>
+                          {r.placement}
+                        </StyledHeadingh5>
+                      </FlexDiv>
+                    );
+                  })}
+                </FlexDiv>
+                <FlexDiv
+                  dir='column'
+                  width='70%'
+                  justify='left'
+                  //gap='2px'
+                  margin='33px 0 0 0'
+                >
+                  {results?.map((r) => {
+                    return (
+                      <FlexDiv justify='left' gap='10px'>
+                        <StyledImage
+                          margin='0 0 0 20px'
+                          height='x'
+                          width='20px'
+                          src={IMAGES[r.id as keyof Iimages].logo}
+                          shadow={"#15314029 0px 3px 6px"}
+                          onError={imageOnErrorHandler}
+                        />
+                        <StyledHeadingh5 fontSize='20px'>
+                          {r.team}
+                        </StyledHeadingh5>
+                      </FlexDiv>
+                    );
+                  })}
+                </FlexDiv>
+                <FlexDiv dir='column' width='10%' justify='left' gap='2px'>
+                  <StyledHeadingh3 fontSize='14px'>POÄNG</StyledHeadingh3>
+                  {results?.map((r) => {
+                    return (
+                      <StyledHeadingh5 fontSize='20px'>
+                        {r.score}
+                      </StyledHeadingh5>
+                    );
+                  })}
+                </FlexDiv>
+              </FlexDiv>
+
               <StyledImage
                 height='x'
                 margin='60px 0 0 0'

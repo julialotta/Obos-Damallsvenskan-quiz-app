@@ -1,6 +1,7 @@
 export interface IStylingProps {
   dir?: string;
   align?: string;
+  textAlign?: string;
   justify?: string;
   wrap?: string;
   position?: string;
@@ -8,6 +9,7 @@ export interface IStylingProps {
   color?: string;
   height?: string;
   width?: string;
+  borderLeft?: string;
   margin?: string;
   padding?: string;
   font?: string;
