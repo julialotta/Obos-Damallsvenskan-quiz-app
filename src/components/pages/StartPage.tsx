@@ -137,12 +137,7 @@ export const StartPage = () => {
                 </FlexDiv>
               </FlexDiv>
               <FlexDiv dir='row' width='100%' justify='center' align='start'>
-                <FlexDiv
-                  dir='column'
-                  width='5%'
-                  //gap='2px'
-                  margin='33px 0 0 0'
-                >
+                <FlexDiv dir='column' width='5%' gap='2px' margin='27px 0 0 0'>
                   {results?.map((r) => {
                     return (
                       <FlexDiv justify='left' gap='10px'>
@@ -157,8 +152,8 @@ export const StartPage = () => {
                   dir='column'
                   width='70%'
                   justify='left'
-                  //gap='2px'
-                  margin='33px 0 0 0'
+                  gap='2px'
+                  margin='27px 0 0 0'
                 >
                   {results?.map((r) => {
                     return (

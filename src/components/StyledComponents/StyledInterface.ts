@@ -6,10 +6,10 @@ export interface IStylingProps {
   wrap?: string;
   position?: string;
   background?: string;
+  borderLeft?: string;
   color?: string;
   height?: string;
   width?: string;
-  borderLeft?: string;
   margin?: string;
   padding?: string;
   font?: string;

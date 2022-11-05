@@ -7,7 +7,6 @@ export const FlexDiv = styled.div`
   position: ${(props: IStylingProps) => props.position || ""};
   flex-direction: ${(props: IStylingProps) => props.dir || "row"};
   align-items: ${(props: IStylingProps) => props.align || "center"};
-  text-align: ${(props: IStylingProps) => props.textAlign || "center"};
   justify-content: ${(props: IStylingProps) => props.justify || "center"};
   flex-wrap: ${(props: IStylingProps) => props.wrap || "nowrap"};
   background-color: ${(props: IStylingProps) => props.background || "none"};
