@@ -20,3 +20,5 @@ let PORT: string | number = process.env.PORT || 8000;
 app.listen(PORT, () =>
   console.log("\x1b[33m%s\x1b[0m", `http://localhost:${PORT}/`)
 );
+
+module.exports = app;
