@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
+import "dotenv/config";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -22,16 +23,4 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 // const analytics = getAnalytics(app);
 
-async function writeData(round: string, gameId: string, points: number) {
-  await addDoc(collection(db, round, gameId, "scores"), {
-    points,
-  });
-}
-async function writeCompetitionData(name: string, email: string, team: string) {
-  await addDoc(collection(db, "competition"), {
-    name,
-    email,
-    team,
-  });
-}
-export { writeData, writeCompetitionData, db };
+export { db };

@@ -15,6 +15,7 @@ export interface IStylingProps {
   gap?: string;
   borderRad?: string;
   border?: string;
+  borderLeft?: string;
   hover?: string;
   hoverColor?: string;
   hoverBackground?: string;

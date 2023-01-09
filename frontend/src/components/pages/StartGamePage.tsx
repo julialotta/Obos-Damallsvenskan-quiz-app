@@ -6,14 +6,12 @@ import { colors } from "../StyledComponents/Styling/Mixins";
 import { Curve } from "../partials/curve";
 import { TeamsAndGames } from "../../data/teams";
 import { useEffect, useState } from "react";
-import { ITeams, IOpponent } from "../../models/ITeams";
-import { imageOnErrorHandler } from "../../services/Helpers";
+import { ITeams } from "../../models/ITeams";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 import { FaShieldAlt } from "react-icons/fa";
 import {
   StyledHeadingh3,
   StyledLink,
-  StyledP,
 } from "../StyledComponents/StyledTextElements";
 import { saveGame } from "../../services/StorageService";
 import { IMAGES } from "../../assets/images";
@@ -22,127 +20,34 @@ import { Loader } from "../StyledComponents/Loader";
 
 export const StartGamePage = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [date, setDate] = useState("");
-  const [noOpponent, setNoOpponent] = useState(false);
   const [game, setGame] = useState<ITeams>({
     id: 0,
     team: "",
     link: "",
-    games: [],
   });
-  const [opponent, setOpponent] = useState<IOpponent>({
-    id: 0,
-    opponent: "",
-    arena: "",
-    datestamp: new Date(),
-    round: 0,
-    home: false,
-  });
+
   const params = useParams();
 
   useEffect(() => {
-    let gamesList: IOpponent[] = [];
-
     // finding chosen team
     for (let i = 0; i < TeamsAndGames.length; i++) {
       if (TeamsAndGames[i].id.toString() === params.id) {
         setGame(TeamsAndGames[i]);
-      }
-    }
-
-    //all home games to new temporary list
-    for (let i = 0; i < game.games.length; i++) {
-      if (
-        !gamesList.includes({
-          id: game.games[i].opponentid,
-          opponent: game.games[i].opponent,
-          arena: game.games[i].arena,
-          datestamp: game.games[i].datestamp,
-          round: game.games[i].round,
-          home: true,
-        })
-      ) {
-        gamesList.push({
-          id: game.games[i].opponentid,
-          opponent: game.games[i].opponent,
-          arena: game.games[i].arena,
-          datestamp: game.games[i].datestamp,
-          round: game.games[i].round,
-          home: true,
-        });
-      }
-    }
-
-    //checking away games and adding to temporary list
-    for (let i = 0; i < TeamsAndGames.length; i++) {
-      for (let y = 0; y < TeamsAndGames[i].games.length; y++) {
-        if (TeamsAndGames[i].games[y].opponent === game.team) {
-          if (
-            !gamesList.includes({
-              id: TeamsAndGames[i].id,
-              opponent: TeamsAndGames[i].team,
-              arena: TeamsAndGames[i].games[y].arena,
-              datestamp: TeamsAndGames[i].games[y].datestamp,
-              round: TeamsAndGames[i].games[y].round,
-              home: false,
-            })
-          ) {
-            gamesList.push({
-              id: TeamsAndGames[i].id,
-              opponent: TeamsAndGames[i].team,
-              arena: TeamsAndGames[i].games[y].arena,
-              datestamp: TeamsAndGames[i].games[y].datestamp,
-              round: TeamsAndGames[i].games[y].round,
-              home: false,
-            });
-          }
-        }
+        setIsLoading(false);
       }
     }
 
     //sorting temp. list in time order
     //checking and setting game w next date in the future
-
-    function getNextGame() {
-      gamesList.sort(function (a, b) {
-        return a.datestamp.valueOf() - b.datestamp.valueOf();
-      });
-      let now = Date.now();
-      let d = new Date(now);
-      for (let i = 0; i < gamesList.length; i++) {
-        if (gamesList[i].datestamp >= d) {
-          setOpponent(gamesList[i]);
-          return;
-        } else {
-          setNoOpponent(true);
-        }
-      }
-    }
-    getNextGame();
   }, [game, params.id]);
 
   useEffect(() => {
     saveGame({
       id: game.id,
       team: game.team,
-      round: opponent.round,
       link: game.link,
-      opponent: opponent.opponent,
-      opponentid: opponent.id,
-      arena: opponent.arena,
-      date: date,
-      home: opponent.home,
     });
-  }, [opponent, game, date]);
-
-  useEffect(() => {
-    let d = opponent.datestamp;
-    let day = d.getDate();
-    let month = d.getMonth() + 1;
-    let time = d.toLocaleTimeString();
-    setDate(day + "/" + month + " " + time.slice(0, -3));
-    setIsLoading(false);
-  }, [opponent]);
+  }, [game]);
 
   return (
     <>
@@ -233,119 +138,6 @@ export const StartGamePage = () => {
                   </StyledHeadingh3>
                 </StyledButton>
               </StyledLink>
-              {noOpponent ? (
-                <>
-                  <FlexDiv width='80%'>
-                    <StyledHeadingh3
-                      margin='0'
-                      textTransform='uppercase'
-                      color={colors.TextBlue}
-                      fontSize='20px'
-                    >
-                      Omgången är slut, men du kan fortfarande quizza och samla
-                      poäng till {game.team}
-                    </StyledHeadingh3>
-                  </FlexDiv>
-                </>
-              ) : (
-                <>
-                  <FlexDiv dir='column' width='100%'>
-                    {opponent.home ? (
-                      <>
-                        <FlexDiv dir='column' width='50%' gap='20px'>
-                          <FlexDiv
-                            dir='column'
-                            width='50%'
-                            margin={"15px 0 15px 0"}
-                          >
-                            <FlexDiv gap='20px'>
-                              <StyledImage
-                                height='110px'
-                                width='x'
-                                onError={imageOnErrorHandler}
-                                src={IMAGES[game.id as keyof Iimages].logo}
-                                alt={"Emblem"}
-                              />
-                              <StyledImage
-                                height='110px'
-                                width='x'
-                                onError={imageOnErrorHandler}
-                                alt={opponent.opponent}
-                                src={IMAGES[opponent.id as keyof Iimages].logo}
-                              />
-                            </FlexDiv>
-                          </FlexDiv>
-                        </FlexDiv>
-                        <FlexDiv width='95%' margin='10px 0 0 0'>
-                          <StyledHeadingh3
-                            margin='0'
-                            textTransform='uppercase'
-                            color={colors.TextBlue}
-                            fontSize='20px'
-                          >
-                            {game.team} - {opponent.opponent}
-                          </StyledHeadingh3>
-                        </FlexDiv>
-                        <StyledP
-                          fontSize='13px'
-                          margin='0'
-                          color={colors.TextBlue}
-                        >
-                          Omgång {opponent.round}
-                          {"    "}
-                          {opponent.arena} {date}
-                        </StyledP>
-                      </>
-                    ) : (
-                      <>
-                        <FlexDiv dir='column' width='50%' gap='20px'>
-                          <FlexDiv
-                            dir='column'
-                            width='50%'
-                            margin={"15px 0 15px 0"}
-                          >
-                            <FlexDiv gap='20px'>
-                              <StyledImage
-                                height='110px'
-                                width='x'
-                                onError={imageOnErrorHandler}
-                                alt={opponent.opponent}
-                                src={IMAGES[opponent.id as keyof Iimages].logo}
-                              />
-                              <StyledImage
-                                height='110px'
-                                width='x'
-                                onError={imageOnErrorHandler}
-                                src={IMAGES[game.id as keyof Iimages].logo}
-                                alt={"Emblem"}
-                              />
-                            </FlexDiv>
-                          </FlexDiv>
-                        </FlexDiv>
-                        <FlexDiv width='95%' margin='10px 0 0 0'>
-                          <StyledHeadingh3
-                            margin='0'
-                            textTransform='uppercase'
-                            color={colors.TextBlue}
-                            fontSize='20px'
-                          >
-                            {opponent.opponent} - {game.team}
-                          </StyledHeadingh3>
-                        </FlexDiv>
-                        <StyledP
-                          fontSize='13px'
-                          margin='0'
-                          color={colors.TextBlue}
-                        >
-                          Omgång {opponent.round}
-                          {"    "}
-                          {opponent.arena} {date}
-                        </StyledP>
-                      </>
-                    )}
-                  </FlexDiv>
-                </>
-              )}
             </FlexDiv>
           </FlexDiv>
         </FlexDiv>

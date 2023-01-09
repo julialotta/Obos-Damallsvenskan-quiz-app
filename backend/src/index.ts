@@ -1,19 +1,21 @@
 require("./db");
+require("dotenv").config();
+
 import express, { Application, Request, Response } from "express";
-import "dotenv/config";
-import duolingoRoute from "./routes/duolingodays.routes";
 import gameRoute from "./routes/game.routes";
-import portfolioRoute from "./routes/portfolio.routes";
+import cors from "cors";
 
 const app: Application = express();
+app.use(cors({ origin: true }));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
+let TEST: string | number = process.env.TEST || 8000;
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello thre toto");
+  res.send(TEST);
 });
 
-app.use("/duolingo", duolingoRoute);
 app.use("/game", gameRoute);
-app.use("/portfolio", portfolioRoute);
 
 let PORT: string | number = process.env.PORT || 8000;
 

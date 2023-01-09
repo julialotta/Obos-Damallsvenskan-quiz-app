@@ -1,96 +1,70 @@
-import { StyledImage } from "../StyledComponents/StyledImage";
-import { FlexDiv } from "../StyledComponents/Wrappers";
-import { StyledButton } from "../StyledComponents/StyledButton";
+import { FlexDiv, ImageDiv } from "../StyledComponents/Wrappers";
 import {
-  StyledHeadingh3,
-  StyledHeadingh5,
   StyledP,
+  StyledHeadingh5,
+  StyledHeadingh3,
+  StyledLink,
 } from "../StyledComponents/StyledTextElements";
-import { IoMdFootball } from "react-icons/io";
-import { colors } from "../StyledComponents/Styling/Mixins";
-import { Curve } from "../partials/curve";
-import { imageOnErrorHandler } from "../../services/Helpers";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
-import { getGame, getQuiz } from "../../services/StorageService";
+import { StyledImage } from "../StyledComponents/StyledImage";
+import { GeneralIMAGES, IMAGES } from "../../assets/images";
 import { useEffect, useState } from "react";
-import { IGame } from "../../models/ITeams";
-import { Link } from "react-router-dom";
-import { FaShieldAlt } from "react-icons/fa";
-import { IData, IResult } from "../../models/IQuestions";
-import { IMAGES } from "../../assets/images";
-import { Iimages } from "../../models/IImages";
 import { Loader } from "../StyledComponents/Loader";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../services/db";
+import { imageOnErrorHandler } from "../../services/Helpers";
+import { Iimages } from "../../models/IImages";
+import { fetchScores } from "../../services/handleGamesFetch.service";
+import { IGames, IResult } from "../../models/ITeams";
+import { TeamsAndGames } from "../../data/teams";
+import { StyledButton } from "../StyledComponents/StyledButton";
 
 export const ChartPage = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [result, setResult] = useState<IResult[]>([]);
-  const [homeTeamScore, setHomeTeamScore] = useState<number>(-1);
-  const [awayTeamScore, setAwayTeamScore] = useState<number>(-1);
-  const [game, setGame] = useState<IGame>({
-    id: 0,
-    team: "",
-    round: 0,
-    link: "",
-    opponent: "",
-    opponentid: 0,
-    arena: "",
-    date: "",
-    home: false,
+  const [results, setResult] = useState<IResult[]>([]);
+
+  let score: IResult[] = [];
+
+  useEffect(() => {
+    async function getScore() {
+      if (results.length !== 0) return;
+      let resultFromDB = await fetchScores();
+      if (score.length !== 0) return;
+      for (let i = 0; i < resultFromDB.length; i++) {
+        let p: IGames[] = resultFromDB.filter(
+          (id) => id.id === resultFromDB[i].id
+        );
+        let team = TeamsAndGames.find(
+          (element) => element.id === resultFromDB[i].id
+        );
+
+        let points: number = 0;
+
+        if (p !== undefined) {
+          for (let y = 0; y < p.length; y++) {
+            points = points + p[y].points;
+          }
+        }
+
+        const object: IResult = {
+          team: team!.team,
+          points,
+          id: resultFromDB[i].id,
+        };
+
+        if (!score.find((element) => element.id === object.id)) {
+          score.push(object);
+        }
+      }
+
+      score.sort(function (a, b) {
+        return b.points - a.points;
+      });
+      if (score.length !== 0) {
+        setResult(score);
+        setIsLoading(false);
+      }
+    }
+    getScore();
   });
-
-  useEffect(() => {
-    setGame(getGame<IGame>());
-    setResult(getQuiz);
-  }, []);
-
-  const fetchHomeData = async () => {
-    let list: IData[] = [];
-    let total: number = 0;
-    const querySnapshot = await getDocs(
-      collection(db, game.round + "/" + game.id, "/scores/")
-    );
-    querySnapshot.forEach((doc) => {
-      list.push({ id: doc.id, data: doc.data() });
-    });
-    for (let i = 0; i < list.length; i++) {
-      total = total + list[i].data.points;
-    }
-    if (list.length > 0) {
-      setHomeTeamScore(total / list.length);
-    } else {
-      setHomeTeamScore(0);
-    }
-  };
-  fetchHomeData().catch(console.error);
-
-  const fetchAwayData = async () => {
-    let total: number = 0;
-    let list: IData[] = [];
-
-    const querySnapshot = await getDocs(
-      collection(db, game.round + "/" + game.opponentid, "/scores/")
-    );
-    querySnapshot.forEach((doc) => {
-      list.push({ id: doc.id, data: doc.data() });
-    });
-    for (let i = 0; i < list.length; i++) {
-      total = total + list[i].data.points;
-    }
-    if (list.length > 0) {
-      setAwayTeamScore(total / list.length);
-    } else {
-      setAwayTeamScore(0);
-    }
-  };
-  fetchAwayData().catch(console.error);
-
-  useEffect(() => {
-    if (game !== undefined && homeTeamScore >= 0 && awayTeamScore >= 0) {
-      setIsLoading(false);
-    }
-  }, [game, homeTeamScore, awayTeamScore]);
 
   return (
     <>
@@ -103,167 +77,101 @@ export const ChartPage = () => {
         <FlexDiv
           linear={"linear-gradient(to bottom right, #172542, #2e3b55)"}
           width={"100%"}
-          dir={"column"}
-          minHeight='100vh'
-          justify='start'
-          position={"relative"}
+          height='100%'
         >
-          <FlexDiv
-            dir={"column"}
-            justify={"start"}
-            background={colors.White}
-            position={"relative"}
+          <ImageDiv
+            dir='column'
+            image={GeneralIMAGES.general.bluePatternBackground}
             width={"400px"}
             minHeight='100vh'
+            position={"relative"}
             shadow={
               "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
             }
           >
             <FlexDiv
               dir='column'
-              position='relative'
-              height='300px'
-              background={colors.BackgroundBlue}
-              z='0'
+              width='100%'
+              justify='start'
+              height='100%'
+              margin='-25px 0 0 0'
             >
-              <FlexDiv
-                position='relative'
-                z='100'
-                height='250px'
-                background={colors.BackgroundBlue}
-              >
-                <FlexDiv top={"40px"} left={"-160px"} position='absolute'>
-                  <Link to='/'>
-                    <FaShieldAlt color='white' size={"30px"} />
-                  </Link>
+              <FlexDiv gap='5px'>
+                <StyledImage
+                  height='150px'
+                  width='x'
+                  src={GeneralIMAGES.general.obosLogoRibbon}
+                  alt='DA logo'
+                  shadow='#00000057 3pt 3pt 3pt'
+                />
+                <FlexDiv
+                  borderLeft='1px solid white'
+                  width='1px'
+                  height='70px'
+                />
+                <FlexDiv dir='column' align='start'>
+                  <div>
+                    <StyledHeadingh3 fontSize='20px'>
+                      SUPPORTERLIGAN
+                    </StyledHeadingh3>
+                  </div>
+                  <div>
+                    <StyledP margin='0'>POÄNGSTÄLLNING</StyledP>
+                  </div>
                 </FlexDiv>
               </FlexDiv>
-              <StyledImage
-                width='100%'
-                height='100%'
-                src={IMAGES[game.id as keyof Iimages].background}
-                alt='Blue Pattern'
-              />
-            </FlexDiv>
-            <Curve />
-            <FlexDiv
-              dir='column'
-              position='relative'
-              background={colors.White}
-              bottom='55px'
-            >
-              <FlexDiv dir='column' width='60%' margin='-70px 0 0 0'>
-                <FlexDiv gap='12px' margin='0 0 30px 0'>
-                  {result.map((x: IResult, i) => {
+              <FlexDiv dir='row' width='100%' justify='center' align='start'>
+                <FlexDiv dir='column' width='5%' gap='2px' margin='27px 0 0 0'>
+                  {results?.map((r, i) => {
                     return (
-                      <IoMdFootball
-                        key={i}
-                        color={
-                          x.isCorrect ? colors.CorrectGreen : colors.WronglyRed
-                        }
-                        size={"25px"}
-                      />
+                      <FlexDiv justify='left' gap='10px' key={r.id}>
+                        <StyledHeadingh5 fontSize='20px'>
+                          {i + 1}
+                        </StyledHeadingh5>
+                      </FlexDiv>
                     );
                   })}
                 </FlexDiv>
-                <StyledHeadingh3 fontSize='20px' color={colors.ButtonBlue}>
-                  Ställningen
-                </StyledHeadingh3>
-
-                <FlexDiv dir='column' align='center' justify='start' z='100'>
-                  <FlexDiv
-                    dir='row'
-                    z='100'
-                    align='end'
-                    margin='0'
-                    gap={"30px"}
-                  >
-                    <StyledButton
-                      transform='0'
-                      background={colors.ButtonBlue}
-                      height={homeTeamScore * 1.2 + 30 + "px"}
-                      width='80px'
-                      hoverColor='none'
-                      borderRad='2px'
-                      hoverBackground='none'
-                      hover='default'
-                    >
-                      <FlexDiv dir='column'>
-                        <StyledHeadingh3
-                          color={colors.White}
-                          fontSize='20px'
-                          margin='0'
-                        >
-                          {~~homeTeamScore}
-                        </StyledHeadingh3>
-                        <StyledP>poäng</StyledP>
-                      </FlexDiv>
-                    </StyledButton>
-                    <StyledButton
-                      transform='0'
-                      borderRad='2px'
-                      background={colors.ButtonBlue}
-                      height={awayTeamScore * 1.2 + 30 + "px"}
-                      width='80px'
-                      hoverColor='none'
-                      hoverBackground='none'
-                      hover='default'
-                    >
-                      <FlexDiv dir='column'>
-                        <StyledHeadingh3
-                          color={colors.White}
-                          fontSize='20px'
-                          margin='0'
-                        >
-                          {~~awayTeamScore}
-                        </StyledHeadingh3>
-                        <StyledP>poäng</StyledP>
-                      </FlexDiv>
-                    </StyledButton>
-                  </FlexDiv>
+                <FlexDiv
+                  dir='column'
+                  width='70%'
+                  justify='left'
+                  gap='2px'
+                  margin='27px 0 0 0'
+                >
+                  <>
+                    {results?.map((r) => {
+                      return (
+                        <FlexDiv justify='left' gap='10px' key={r.id}>
+                          <StyledImage
+                            margin='0 0 0 20px'
+                            height='x'
+                            width='20px'
+                            src={IMAGES[r.id as keyof Iimages].logo}
+                            shadow={"#15314029 0px 3px 6px"}
+                            onError={imageOnErrorHandler}
+                          />
+                          <StyledHeadingh5 fontSize='20px'>
+                            {r.team}
+                          </StyledHeadingh5>
+                        </FlexDiv>
+                      );
+                    })}
+                  </>
                 </FlexDiv>
-
-                <FlexDiv gap='35px' margin='0 0 30px 0'>
-                  <StyledImage
-                    height='100px'
-                    width='x'
-                    src={IMAGES[game.id as keyof Iimages].logo}
-                    onError={imageOnErrorHandler}
-                  />
-
-                  <StyledImage
-                    width='x'
-                    height='100px'
-                    src={IMAGES[game.opponentid as keyof Iimages].logo}
-                    onError={imageOnErrorHandler}
-                  />
+                <FlexDiv dir='column' width='10%' justify='left' gap='2px'>
+                  <StyledHeadingh3 fontSize='14px'>POÄNG</StyledHeadingh3>
+                  {results?.map((r) => {
+                    return (
+                      <StyledHeadingh5 fontSize='20px' key={r.id}>
+                        {r.points}
+                      </StyledHeadingh5>
+                    );
+                  })}
                 </FlexDiv>
-                <StyledP
-                  fontSize='13px'
-                  textTransform='uppercase'
-                  margin='0'
-                  color={colors.TextBlue}
-                >
-                  {game.team} - {game.opponent}
-                </StyledP>
-                <StyledP
-                  fontSize='13px'
-                  textTransform='uppercase'
-                  margin='-5px 0'
-                  color={colors.TextBlue}
-                >
-                  {game.arena}
-                </StyledP>
-                <StyledP fontSize='13px' margin='0' color={colors.TextBlue}>
-                  {game.date}
-                </StyledP>
-                <StyledHeadingh5
-                  color={colors.TextBlue}
-                  margin={"45px 0 10px 0"}
-                >
-                  Gör allt för {game.team}!
-                </StyledHeadingh5>
-                <a href={game.link} target='_blank' rel='noopener noreferrer'>
+              </FlexDiv>
+              <FlexDiv dir='column' gap='20px' margin='40px 0 0 0'>
+                <StyledLink to='/'>
                   <StyledButton
                     margin='0px'
                     padding='22px'
@@ -271,12 +179,20 @@ export const ChartPage = () => {
                     height={"50px"}
                     shadow='#00000038 0px 3px 5px'
                   >
-                    Köp biljetter
+                    Tillbaka
                   </StyledButton>
-                </a>
+                </StyledLink>
+
+                <StyledImage
+                  height='x'
+                  width='240px'
+                  src={GeneralIMAGES.general.sponsorLogo}
+                  alt='Partner logos'
+                  shadow='#00000057 3pt 3pt 3pt'
+                />
               </FlexDiv>
             </FlexDiv>
-          </FlexDiv>
+          </ImageDiv>
         </FlexDiv>
       )}
     </>

@@ -22,6 +22,7 @@ export const FlexDiv = styled.div`
   right: ${(props: IStylingProps) => props.right || "x"};
   box-shadow: ${(props: IStylingProps) => props.shadow || 0};
   min-height: ${(props: IStylingProps) => props.minHeight || 0};
+  border-left: ${(props: IStylingProps) => props.borderLeft || "none"};
   :hover {
     cursor: ${(props: IStylingProps) => props.hover || "default"};
   }

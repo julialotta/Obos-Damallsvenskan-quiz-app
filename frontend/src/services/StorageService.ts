@@ -1,19 +1,19 @@
-import { IGame } from "../models/ITeams";
+import { ITeams } from "../models/ITeams";
 
 const SESSIONSTORAGE_KEY_QUIZ = "quiz";
 const SESSIONSTORAGE_KEY_GAME = "game";
 const LOCALSTORAGE_BROWSER = "browser";
 
-export const getGame = <IGame>() => {
+export const getGame = <ITeams>() => {
   let valueFromLS = sessionStorage.getItem(SESSIONSTORAGE_KEY_GAME) || "{}";
-  return JSON.parse(valueFromLS) as IGame;
+  return JSON.parse(valueFromLS) as ITeams;
 };
 export const getQuiz = <T>(): T[] => {
   let valueFromLS = sessionStorage.getItem(SESSIONSTORAGE_KEY_QUIZ) || "[]";
   return JSON.parse(valueFromLS) as T[];
 };
 
-export const saveGame = (data: IGame): void => {
+export const saveGame = (data: ITeams): void => {
   sessionStorage.setItem(SESSIONSTORAGE_KEY_GAME, JSON.stringify(data));
 };
 

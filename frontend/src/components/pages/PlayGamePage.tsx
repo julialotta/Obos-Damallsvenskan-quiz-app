@@ -7,7 +7,7 @@ import { QuizByTeam } from "../../data/quiz";
 import { colors } from "../StyledComponents/Styling/Mixins";
 import { Curve } from "../partials/curve";
 import { imageOnErrorHandler } from "../../services/Helpers";
-import { IGame } from "../../models/ITeams";
+import { ITeams } from "../../models/ITeams";
 import { Link, useNavigate } from "react-router-dom";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 import { FaShieldAlt } from "react-icons/fa";
@@ -23,7 +23,7 @@ import { IMAGES } from "../../assets/images";
 import { Iimages } from "../../models/IImages";
 import { Loader } from "../StyledComponents/Loader";
 import { Timerwrapper } from "../StyledComponents/Timer";
-import { writeData } from "../../services/db";
+import { postScore } from "../../services/handleGamesFetch.service";
 
 export const PlayGamePage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -31,21 +31,15 @@ export const PlayGamePage = () => {
   const [currentQuestion, setCurrentQuestion] = useState(1);
   const [haveAnswered, setHaveAnswered] = useState(false);
   const [result, setResult] = useState<IResult[]>([]);
-  const [game, setGame] = useState<IGame>({
+  const [game, setGame] = useState<ITeams>({
     id: 0,
     team: "",
     link: "",
-    opponent: "",
-    opponentid: 0,
-    round: 0,
-    arena: "",
-    date: "",
-    home: false,
   });
   const [classIsActive, setClassIsActive] = useState(true);
   const navigate = useNavigate();
 
-  const twoSecondDelay = () => {
+  const twoSecondDelay = async () => {
     let points: number = 0;
     for (let i = 0; i < result.length; i++) {
       points = points + result[i].time;
@@ -56,8 +50,9 @@ export const PlayGamePage = () => {
 
     if (currentQuestion >= 5 || result.length > 4) {
       setIsLoading(true);
-
-      writeData(game.round.toString(), game.id.toString(), points);
+      console.log("före post");
+      await postScore({ id: game.id, points });
+      console.log("efter post");
       navigate("/resultat");
     } else {
       setCurrentQuestion(currentQuestion + 1);
@@ -78,12 +73,12 @@ export const PlayGamePage = () => {
       setTimeout(twoSecondDelay, 2500);
     }, 20000);
     return () => clearTimeout(timer);
-  }, [currentQuestion]);
+  }, [currentQuestion, result]);
 
   useEffect(() => {
     saveQuiz(result);
-    setGame(getGame<IGame>());
-  }, []);
+    setGame(getGame<ITeams>());
+  }, [result]);
 
   useEffect(() => {
     if (game.team !== "") {
@@ -369,7 +364,7 @@ export const PlayGamePage = () => {
                     margin='0'
                     textTransform='uppercase'
                   >
-                    {game.team} - {game.opponent} {game.date}
+                    {game.team}
                   </StyledP>
                 </FlexDiv>
               </FlexDiv>
