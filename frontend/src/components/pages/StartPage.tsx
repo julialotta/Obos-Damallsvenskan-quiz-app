@@ -44,7 +44,8 @@ export const StartPage = () => {
         <FlexDiv
           linear={"linear-gradient(to bottom right, #172542, #2e3b55)"}
           width={"100%"}
-          height='100%'
+          height='100vh'
+          align='start'
         >
           <Modal
             isOpen={modalIsOpen}
@@ -78,13 +79,14 @@ export const StartPage = () => {
             dir='column'
             image={GeneralIMAGES.general.bluePatternBackground}
             width={"400px"}
-            minHeight='100vh'
+            height={"100%"}
+            maxHeight='787px'
             position={"relative"}
             shadow={
               "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
             }
           >
-            <FlexDiv dir='column' width='75%' gap='22px'>
+            <FlexDiv dir='column' width='75%' gap='22px' maxHeight='inherit'>
               <StyledImage
                 height='230px'
                 width='x'

@@ -83,7 +83,7 @@ export const ChartPage = () => {
             dir='column'
             image={GeneralIMAGES.general.bluePatternBackground}
             width={"400px"}
-            minHeight='100vh'
+            height='787px'
             position={"relative"}
             shadow={
               "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
@@ -93,10 +93,9 @@ export const ChartPage = () => {
               dir='column'
               width='100%'
               justify='start'
-              height='100%'
-              margin='-25px 0 0 0'
+              border='green solid 2px'
             >
-              <FlexDiv gap='5px'>
+              <FlexDiv gap='5px' border='red solid 4px'>
                 <StyledImage
                   height='150px'
                   width='x'
@@ -104,23 +103,22 @@ export const ChartPage = () => {
                   alt='DA logo'
                   shadow='#00000057 3pt 3pt 3pt'
                 />
-                <FlexDiv
-                  borderLeft='1px solid white'
-                  width='1px'
-                  height='70px'
-                />
+
                 <FlexDiv dir='column' align='start'>
-                  <div>
-                    <StyledHeadingh3 fontSize='20px'>
-                      SUPPORTERLIGAN
-                    </StyledHeadingh3>
-                  </div>
-                  <div>
-                    <StyledP margin='0'>POÄNGSTÄLLNING</StyledP>
-                  </div>
+                  <StyledHeadingh3 fontSize='20px' margin='0'>
+                    SUPPORTERLIGAN
+                  </StyledHeadingh3>
+                  <StyledP margin='0'>POÄNGSTÄLLNING</StyledP>
                 </FlexDiv>
               </FlexDiv>
-              <FlexDiv dir='row' width='100%' justify='center' align='start'>
+              <FlexDiv
+                dir='row'
+                width='100%'
+                height='600px'
+                justify='center'
+                align='start'
+                border='yellow 2px solid'
+              >
                 <FlexDiv dir='column' width='5%' gap='2px' margin='27px 0 0 0'>
                   {results?.map((r, i) => {
                     return (
@@ -170,7 +168,7 @@ export const ChartPage = () => {
                   })}
                 </FlexDiv>
               </FlexDiv>
-              <FlexDiv dir='column' gap='20px' margin='40px 0 0 0'>
+              <FlexDiv dir='column' gap='20px'>
                 <StyledLink to='/'>
                   <StyledButton
                     margin='0px'

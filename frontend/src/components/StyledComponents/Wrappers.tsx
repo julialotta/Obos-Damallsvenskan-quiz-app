@@ -22,7 +22,9 @@ export const FlexDiv = styled.div`
   right: ${(props: IStylingProps) => props.right || "x"};
   box-shadow: ${(props: IStylingProps) => props.shadow || 0};
   min-height: ${(props: IStylingProps) => props.minHeight || 0};
+  max-height: ${(props: IStylingProps) => props.maxHeight || "none"};
   border-left: ${(props: IStylingProps) => props.borderLeft || "none"};
+  border: ${(props: IStylingProps) => props.border || "none"};
   :hover {
     cursor: ${(props: IStylingProps) => props.hover || "default"};
   }
@@ -36,8 +38,9 @@ export const ImageDiv = styled(FlexDiv)`
   background-repeat: no-repeat;
   //background-position: 68% 65%;
   position: ${(props: IStylingProps) => props.position || ""};
-  min-width: ${(props: IStylingProps) => props.minWidth || "x"};
-  max-width: ${(props: IStylingProps) => props.maxWidth || "x"};
+  min-width: ${(props: IStylingProps) => props.minWidth || "none"};
+  max-width: ${(props: IStylingProps) => props.maxWidth || "none"};
+  max-height: ${(props: IStylingProps) => props.maxHeight || "none"};
 `;
 
 export const AppWrapper = styled.div`
