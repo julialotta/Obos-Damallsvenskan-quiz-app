@@ -89,13 +89,8 @@ export const ChartPage = () => {
               "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
             }
           >
-            <FlexDiv
-              dir='column'
-              width='100%'
-              justify='start'
-              border='green solid 2px'
-            >
-              <FlexDiv gap='5px' border='red solid 4px'>
+            <FlexDiv dir='column' width='100%' justify='start'>
+              <FlexDiv gap='5px' height='340px'>
                 <StyledImage
                   height='150px'
                   width='x'
@@ -111,15 +106,11 @@ export const ChartPage = () => {
                   <StyledP margin='0'>POÄNGSTÄLLNING</StyledP>
                 </FlexDiv>
               </FlexDiv>
-              <FlexDiv
-                dir='row'
-                width='100%'
-                height='600px'
-                justify='center'
-                align='start'
-                border='yellow 2px solid'
-              >
-                <FlexDiv dir='column' width='5%' gap='2px' margin='27px 0 0 0'>
+              <FlexDiv height='25px' position='relative' left='148px'>
+                <StyledHeadingh3 fontSize='14px'>POÄNG</StyledHeadingh3>
+              </FlexDiv>
+              <FlexDiv dir='row' width='100%' height='100%' justify='center'>
+                <FlexDiv dir='column' width='5%' gap='5px'>
                   {results?.map((r, i) => {
                     return (
                       <FlexDiv justify='left' gap='10px' key={r.id}>
@@ -130,13 +121,7 @@ export const ChartPage = () => {
                     );
                   })}
                 </FlexDiv>
-                <FlexDiv
-                  dir='column'
-                  width='70%'
-                  justify='left'
-                  gap='2px'
-                  margin='27px 0 0 0'
-                >
+                <FlexDiv dir='column' width='70%' justify='left' gap='5px'>
                   <>
                     {results?.map((r) => {
                       return (
@@ -144,7 +129,7 @@ export const ChartPage = () => {
                           <StyledImage
                             margin='0 0 0 20px'
                             height='x'
-                            width='20px'
+                            width='15px'
                             src={IMAGES[r.id as keyof Iimages].logo}
                             shadow={"#15314029 0px 3px 6px"}
                             onError={imageOnErrorHandler}
@@ -157,13 +142,20 @@ export const ChartPage = () => {
                     })}
                   </>
                 </FlexDiv>
-                <FlexDiv dir='column' width='10%' justify='left' gap='2px'>
-                  <StyledHeadingh3 fontSize='14px'>POÄNG</StyledHeadingh3>
+                <FlexDiv
+                  dir='column'
+                  width='10%'
+                  justify='left'
+                  gap='5px'
+                  margin='0'
+                >
                   {results?.map((r) => {
                     return (
-                      <StyledHeadingh5 fontSize='20px' key={r.id}>
-                        {r.points}
-                      </StyledHeadingh5>
+                      <FlexDiv justify='left' gap='10px' key={r.id}>
+                        <StyledHeadingh5 fontSize='20px'>
+                          {r.points}
+                        </StyledHeadingh5>
+                      </FlexDiv>
                     );
                   })}
                 </FlexDiv>
