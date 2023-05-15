@@ -145,6 +145,7 @@ export const ResultsPage = () => {
                 <FlexDiv
                   height='100%'
                   dir='column'
+                  position='absolute'
                   justify='start'
                   width='100%'
                   margin='100px 0 0 0 '
