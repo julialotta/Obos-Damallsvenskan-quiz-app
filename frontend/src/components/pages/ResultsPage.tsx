@@ -39,6 +39,7 @@ export const ResultsPage = () => {
   useEffect(() => {
     setHomeTeamScore(20);
   }, []);
+
   useEffect(() => {
     setGame(getGame<ITeams>());
     setResult(getQuiz);
@@ -51,51 +52,6 @@ export const ResultsPage = () => {
     }
     setPoints(points.toString());
   }, [result]);
-
-  //! change to axios fetch
-  //? visa de andra lagens poängställning?
-  /*  const fetchHomeData = async () => {
-    let list: IData[] = [];
-    let total: number = 0;
-    const querySnapshot = await getDocs(
-      collection(db, game.round + "/" + game.id, "/scores/")
-    );
-    querySnapshot.forEach((doc) => {
-      list.push({ id: doc.id, data: doc.data() });
-    });
-    for (let i = 0; i < list.length; i++) {
-      total = total + list[i].data.points;
-    }
-    if (list.length > 0) {
-      setHomeTeamScore(total);
-    } else {
-      setHomeTeamScore(0);
-    }
-  };
-
-  fetchHomeData().catch(console.error);
-
-  const fetchAwayData = async () => {
-    let total: number = 0;
-    let list: IData[] = [];
-
-    const querySnapshot = await getDocs(
-      collection(db, game.round + "/" + game.opponentid, "/scores/")
-    );
-    querySnapshot.forEach((doc) => {
-      list.push({ id: doc.id, data: doc.data() });
-    });
-    for (let i = 0; i < list.length; i++) {
-      total = total + list[i].data.points;
-    }
-    if (list.length > 0) {
-      setAwayTeamScore(total);
-    } else {
-      setAwayTeamScore(0);
-    }
-  };
-  fetchAwayData().catch(console.error);
- */
 
   useEffect(() => {
     if (game !== undefined && homeTeamScore >= 0) {
@@ -198,82 +154,7 @@ export const ResultsPage = () => {
                     onError={imageOnErrorHandler}
                   />
                 </FlexDiv>
-                {/*   {noOpponent ? (
-                  <>
-                  </>
-                ) : (
-                  <>
-                    <StyledHeadingh3 fontSize='20px' color={colors.TextBlue}>
-                      Ställningen
-                    </StyledHeadingh3>
 
-                    <FlexDiv dir='column' align='center' justify='start'>
-                      <>
-                        <FlexDiv dir='row' align='end' margin='0' gap={"0"}>
-                          <FlexDiv dir='column' margin='20px 0 0 0'>
-                            <StyledButton
-                              transform='0'
-                              background={colors.ResultBlue}
-                              height={homeTeamScore / 110 + 37 + "px"}
-                              width='80px'
-                              hoverColor='none'
-                              borderRad='2px'
-                              hoverBackground='none'
-                              hover='default'
-                              margin='0 0 30px 0'
-                            >
-                              <FlexDiv dir='column'>
-                                <StyledHeadingh3
-                                  color={colors.White}
-                                  fontSize='20px'
-                                  margin='3px 0 0 0'
-                                >
-                                  {~~homeTeamScore}
-                                </StyledHeadingh3>
-                                <StyledP margin='-7px 0 0 0' fontSize='10px'>
-                                  poäng
-                                </StyledP>
-                              </FlexDiv>
-                            </StyledButton>
-                            <StyledImage
-                              margin='0 0 30px 0'
-                              height='100px'
-                              width='x'
-                              src={IMAGES[game.id as keyof Iimages].logo}
-                              onError={imageOnErrorHandler}
-                            />
-                          </FlexDiv>
-                          <FlexDiv dir='column' margin='20px 0 0 0'>
-                            <StyledButton
-                              transform='0'
-                              borderRad='2px'
-                              background={colors.ResultBlue}
-                              height={awayTeamScore / 110 + 37 + "px"}
-                              width='80px'
-                              hoverColor='none'
-                              hoverBackground='none'
-                              hover='default'
-                              margin='0 0 30px 0'
-                            >
-                              <FlexDiv dir='column'>
-                                <StyledHeadingh3
-                                  color={colors.White}
-                                  fontSize='20px'
-                                  margin='3px 0 0 0'
-                                >
-                                  {~~awayTeamScore}
-                                </StyledHeadingh3>
-                                <StyledP margin='-7px 0 0 0' fontSize='10px'>
-                                  poäng
-                                </StyledP>
-                              </FlexDiv>
-                            </StyledButton>
-                          </FlexDiv>
-                        </FlexDiv>
-                      </>
-                    </FlexDiv>
-                  </>
-                )} */}
                 <StyledHeadingh5
                   color={colors.TextBlue}
                   margin={"25px 0 10px 0"}

@@ -28,13 +28,8 @@ export const get_allScores = async (req: Request, res: Response) => {
     let list: DocumentData[] = [];
 
     const querySnapshot = await getDocs(q);
-    console.log("====================================");
-    console.log("querysnapshot", querySnapshot);
-    console.log("====================================");
+
     querySnapshot.forEach((doc) => {
-      console.log("====================================");
-      console.log("kör for each");
-      console.log("====================================");
       list.push(doc.data());
     });
     res.send(list);

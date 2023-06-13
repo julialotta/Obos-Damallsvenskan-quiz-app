@@ -10,9 +10,8 @@ app.use(cors({ origin: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-let TEST: string | number = process.env.TEST || 8000;
 app.get("/", (req: Request, res: Response) => {
-  res.send(TEST);
+  res.send("Hello");
 });
 
 app.use("/game", gameRoute);

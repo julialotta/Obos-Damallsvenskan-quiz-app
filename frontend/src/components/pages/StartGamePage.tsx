@@ -30,15 +30,12 @@ export const StartGamePage = () => {
 
   useEffect(() => {
     // finding chosen team
-    for (let i = 0; i < TeamsAndGames.length; i++) {
-      if (TeamsAndGames[i].id.toString() === params.id) {
-        setGame(TeamsAndGames[i]);
-        setIsLoading(false);
-      }
-    }
+    const team = TeamsAndGames.find((item) => item.id.toString() === params.id);
 
-    //sorting temp. list in time order
-    //checking and setting game w next date in the future
+    if (team) {
+      setGame(team);
+      setIsLoading(false);
+    }
   }, [game, params.id]);
 
   useEffect(() => {
