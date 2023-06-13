@@ -76,15 +76,15 @@ export const ChooseTeamPage = () => {
                 wrap='wrap'
                 height='max-content'
               >
-                {TeamsAndGames?.map((x) => {
+                {TeamsAndGames?.map((item) => {
                   return (
-                    <Link to={`/starta-matchen/${x.id}`} key={x.id}>
+                    <Link to={`/starta-matchen/${item.id}`} key={item.id}>
                       <FlexDiv width='60px' hover='pointer'>
                         <StyledImage
                           height='55px'
                           width='x'
                           transform='scale(1.1)'
-                          src={IMAGES[x.id as keyof Iimages].logo}
+                          src={IMAGES[item.id as keyof Iimages].logo}
                           shadow={"#15314029 0px 3px 6px"}
                           onError={imageOnErrorHandler}
                         ></StyledImage>

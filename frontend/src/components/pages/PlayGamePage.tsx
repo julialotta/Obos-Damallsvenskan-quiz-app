@@ -121,7 +121,7 @@ export const PlayGamePage = () => {
       });
 
       saveQuiz(result);
-    } else if (x.isCorrect === false) {
+    } else if (!x.isCorrect) {
       result.push({
         answer: x.answer,
         isCorrect: x.isCorrect,
@@ -151,13 +151,13 @@ export const PlayGamePage = () => {
 
     return (
       <>
-        {footballs.map((x: IFootballs, i: number) => {
+        {footballs.map((item: IFootballs, i: number) => {
           return (
             <StyledP key={i}>
               <IoMdFootball
                 color={
-                  x.isAnswer
-                    ? x.isCorrect
+                  item.isAnswer
+                    ? item.isCorrect
                       ? colors.CorrectGreen
                       : colors.WronglyRed
                     : colors.Darkgrey

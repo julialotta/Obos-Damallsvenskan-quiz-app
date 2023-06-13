@@ -64,7 +64,7 @@ export const ChartPage = () => {
       }
     }
     getScore();
-  });
+  }, []);
 
   return (
     <>
