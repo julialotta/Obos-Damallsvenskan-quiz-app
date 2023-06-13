@@ -24,8 +24,3 @@ export interface IFootballs {
   isCorrect: boolean;
   isAnswer: boolean;
 }
-
-export interface IData {
-  id: string;
-  data: any;
-}

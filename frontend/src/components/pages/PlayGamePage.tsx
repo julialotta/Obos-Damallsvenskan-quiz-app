@@ -11,12 +11,7 @@ import { ITeams } from "../../models/ITeams";
 import { Link, useNavigate } from "react-router-dom";
 import { GlobalStyle } from "../StyledComponents/Styling/fonts";
 import { FaShieldAlt } from "react-icons/fa";
-import {
-  IAnswers,
-  IFootballs,
-  IGameQuestions,
-  IResult,
-} from "../../models/IQuestions";
+import { IAnswers, IGameQuestions, IResult } from "../../models/IQuestions";
 import { IoMdFootball } from "react-icons/io";
 import { getGame, saveQuiz } from "../../services/StorageService";
 import { IMAGES } from "../../assets/images";
@@ -24,6 +19,7 @@ import { Iimages } from "../../models/IImages";
 import { Loader } from "../StyledComponents/Loader";
 import { Timerwrapper } from "../StyledComponents/Timer";
 import { postScore } from "../../services/handleGamesFetch.service";
+import { Footballs } from "../Footballs";
 
 export const PlayGamePage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -130,45 +126,6 @@ export const PlayGamePage = () => {
       saveQuiz(result);
     }
     setTimeout(twoSecondDelay, 2000);
-  };
-
-  const Footballs = () => {
-    let footballs: IFootballs[] = [];
-    if (footballs.length < 5) {
-      for (let i = 0; i < result.length; i++) {
-        footballs.push({
-          answer: result[i].answer,
-          isCorrect: result[i].isCorrect,
-          isAnswer: true,
-        });
-      }
-    }
-    for (let i = 0; i < 5; i++) {
-      if (footballs.length < 5) {
-        footballs.push({ answer: "x", isCorrect: false, isAnswer: false });
-      }
-    }
-
-    return (
-      <>
-        {footballs.map((item: IFootballs, i: number) => {
-          return (
-            <StyledP key={i}>
-              <IoMdFootball
-                color={
-                  item.isAnswer
-                    ? item.isCorrect
-                      ? colors.CorrectGreen
-                      : colors.WronglyRed
-                    : colors.Darkgrey
-                }
-                size={"22px"}
-              />
-            </StyledP>
-          );
-        })}
-      </>
-    );
   };
 
   const Question = () => {
@@ -356,7 +313,7 @@ export const PlayGamePage = () => {
                     );
                   })}
                   <FlexDiv margin='30px 0 15px 0' gap={"12px"}>
-                    <Footballs />
+                    <Footballs result={result} />
                   </FlexDiv>
                   <StyledP
                     fontSize='12px'
